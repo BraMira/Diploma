@@ -1,0 +1,14 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {slovene}
+\beamer@sectionintoc {1}{Uvod}{6}{0}{1}
+\beamer@subsectionintoc {1}{1}{Problem}{6}{0}{1}
+\beamer@subsectionintoc {1}{2}{Uporaba}{18}{0}{1}
+\beamer@sectionintoc {2}{Realne matrike}{19}{0}{2}
+\beamer@subsectionintoc {2}{1}{Uvod}{19}{0}{2}
+\beamer@subsectionintoc {2}{2}{Iskanje izotropnih vektorjev}{26}{0}{2}
+\beamer@sectionintoc {3}{Kompleksne matrike}{52}{0}{3}
+\beamer@subsectionintoc {3}{1}{Uvod}{52}{0}{3}
+\beamer@subsectionintoc {3}{2}{Iskanje izotropnih vektorjev}{53}{0}{3}
+\beamer@subsubsectionintoc {3}{2}{1}{Meurant 1.}{53}{0}{3}
+\beamer@subsubsectionintoc {3}{2}{2}{Meurant 2.}{54}{0}{3}
+\beamer@sectionintoc {4}{Literatura}{55}{0}{4}

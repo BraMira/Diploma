@@ -1,0 +1,451 @@
+% Bor Plestenjak 2007
+% Ta dokument je pripravljen kot zgled za kratko predstavitev,
+% Poleg tega dokumenta za prevajanje potrebujete
+% se sliko, ki je na datoteki prepletanja.pdf
+
+\documentclass[9pt]{beamer}
+\usetheme{Madrid} % namesto te lahko izberemo drugo temo, ki najbolje ustreza na�i predstavitvi
+%\useoutertheme[compress]{miniframes}
+
+\usepackage[slovene]{babel}
+\usepackage[cp1250]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+\usepackage{algorithm}
+\setbeamercovered{transparent} % dolo�imo, da se bo neodkriti tekst vseeno rahlo videl
+
+\newtheorem{izrek}{Izrek}
+
+\def\RR{{\mathbb R}}
+\def\CC{{\mathbb C}}
+
+\title[NUMERI�NO RE�EVANJE HIPERBOLI�NEGA QEP]
+{NUMERI�NO RE�EVANJE HIPERBOLI�NEGA KVADRATNEGA
+PROBLEMA LASTNIH VREDNOSTI}
+
+\author{Bor Plestenjak}
+%\institute{FMF}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% naslovna stran
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\section{Uvod}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Lastne vrednosti in lastni vektorji}
+
+\begin{block}{Kvadratni problem lastnih vrednosti (QEP)}
+I��emo  $\lambda\in\CC$ (\alert{lastno vrednost}) in neni�elni $x\in\CC^n$ (\alert{lastni vektor}) da je
+$$
+  Q(\lambda)x=(\lambda^2 M+\lambda C+K)x=0
+$$
+za dane $M$, $C$, $K\in\RR^{n\times n}$.
+\end{block}\pause
+
+\begin{itemize}
+
+\item Neni�elni $y\in\CC^n$, kjer je $y^*Q(\lambda)=0$, je
+\alert{levi lastni vektor}.\pause
+
+\item $Q$ je \alert{regularen}, �e karakt.~pol.~$p(\lambda):=\det Q(\lambda)$ ni identi�no enak ni�.\pause
+
+\item Ni�le $p$, ki je stopnje kve�jemu $2n$, so kon�ne lastne vrednosti $Q$, ki jih
+po potrebi dopolnimo z $\lambda=\infty$, da jih je skupaj $2n$.\pause
+\item Neskon�ne lastne vrednosti $Q$ ustrezajo ni�elnim
+lastnim vrednostim kvadratnega problema lastnih vrednosti
+$\lambda^2 Q(1/\lambda)=\lambda^2 K+\lambda C+M$.\pause
+\item Neskon�ne lastne vrednosti se pojavijo le kadar je $M$ singularna.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Zgled}
+
+�e vzamemo
+$$M=\left[\begin{matrix}0 & 6 & 0  \cr 0 & 6 & 0  \cr 0 & 0 & 1\end{matrix}\right],\quad
+  C=\left[\begin{matrix}1 & -6 & 0 \cr 2 & -7 & 0 \cr 0 & 0 & 0\end{matrix}\right],\quad
+  K=\left[\begin{matrix}1 & 0 & 0  \cr 0 & 1 & 0  \cr 0 & 0 & 1\end{matrix}\right],\quad
+$$
+je
+$\det Q(\lambda)=-6\lambda ^5+11 \lambda ^4-12 \lambda^3+
+ 12 \lambda ^2-6\lambda +1$
+in problem je regularen.\vspace{1em} \pause 
+
+Lastni pari so
+$$
+  \begin{array}{c|cccccc}
+   k & 1 & 2 & 3 & 4 & 5 & 6 \cr
+    \hline  \lambda_k & {1/3} & {1/2} & 1 & i & -i & \infty \cr
+     x_k & \left[\begin{matrix}1 \cr 1 \cr 0\end{matrix}\right] &
+           \left[\begin{matrix}1 \cr 1 \cr 0\end{matrix}\right] &
+           \left[\begin{matrix}0 \cr 1 \cr 0\end{matrix}\right] &
+           \left[\begin{matrix}0 \cr 0 \cr 1\end{matrix}\right] &
+           \left[\begin{matrix}0 \cr 0 \cr 1\end{matrix}\right] &
+           \left[\begin{matrix}1 \cr 0 \cr 0\end{matrix}\right]
+  \end{array}.
+$$\pause
+\begin{itemize}
+\item Pet lastnih vrednosti je kon�nih, ena pa neskon�na.\pause
+\item Lastni vektorji o�itno ne morejo biti linearno neodvisni.\pause
+\item Razli�nima lastnima vrednostima lahko pripada isti lastni vektor.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Linearizacija}
+
+QEP $Q(\lambda)x=(\lambda^2 M+\lambda C+K)x=0$
+lahko prevedemo na \alert{posplo�eni
+problem lastnih vrednosti} velikosti $2n$. Pogost primer je 
+\begin{equation}\left[\begin{matrix}0 & N\cr -K & -C\end{matrix}\right]
+                        \left[\begin{matrix}x \cr \lambda x\end{matrix}\right]=\lambda
+   \left[\begin{matrix}N & 0\cr 0 & M\end{matrix}\right]
+   \left[\begin{matrix}x \cr \lambda x\end{matrix}\right],\label{linear}
+\end{equation}
+kjer je $N$ poljubna nesingularna matrika.\vspace{1em}\pause
+
+�e je $\det M\ne 0$ in vzamemo $N=I$, (\ref{linear})
+prevedemo na \alert{stand.~lastni problem} 
+\begin{equation}
+  \left[\begin{matrix}0 & I \cr -M^{-1}K & -M^{-1}C\end{matrix}\right]
+  \left[\begin{matrix}x \cr \lambda x\end{matrix}\right]=\lambda
+   \left[\begin{matrix}x \cr \lambda x\end{matrix}\right].
+  \label{linear2}
+\end{equation}\pause
+
+�e pri simetri�nem QEP, kjer so
+matrike $M$, $C$ in $K$ simetri�ne, izberemo $N=-K$, potem sta v
+(\ref{linear}) matriki simetri�ni, pri (\ref{linear2}) pa simetrije
+ni ve�.\vspace{1em}
+
+Tudi �e standardni oz.~posplo�eni problem lastnih vrednosti re�imo 
+z obratno stabilnim algoritmom,  to �e \alert{ne} zagotavlja
+stabilnega re�evanja QEP. 
+
+\end{frame}
+
+\section{Hiperboli�ni problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Hiperboli�ni QEP}
+
+QEP je \alert{hiperboli�en},  �e so matrike $M$, $C$ in $K$ simetri�ne,
+$M$ je pozitivno definitna in za vsak neni�elni vektor $x$ velja
+$$
+(x^TCx)^2>4(x^TMx)(x^TKx).\pause
+$$
+
+Hiperboli�ni QEP ima $2n$ realnih
+lastnih parov, vse lastne vrednosti so
+polenostavne. Med $n$ najve�jimi
+(\alert{primarnimi}) in $n$ najmanj�imi
+(\alert{sekundarnimi}) lastnimi vrednostmi je \alert{strog razmik}.
+Primarnim (sekundarnim) lastnim vr.~pripada $n$ linearno neodvisnih lastnih
+vektorjev.\pause
+
+\begin{block}{Posplo�itev Rayleighovega kvocienta}
+Za  $x\ne 0$ ima kvadratna ena�ba $x^TQ(\lambda)x=0$
+dve enostavni realni re�itvi
+\begin{equation}
+  \rho_{\pm}(x)={-c(x)\pm\sqrt{c(x)^2-4m(x)k(x)}\over 2 m(x)},
+  \label{rhopm}
+\end{equation}
+kjer je $m(x)=x^TMx$, $c(x)=x^TCx$ in $k(x)=x^TKx$.
+�e je $x$ lastni vektor, je vsaj ena
+re�itev (\ref{rhopm}) lastna vrednost.
+\end{block}\vspace{0.5em}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Minimax izrek}
+
+Ker so lastne vrednosti realne, jih lahko uredimo po velikosti, da velja
+$$\lambda_{2n}\le \cdots\le \lambda_{n+1}
+  <\lambda_n\le \cdots \le \lambda_1.$$
+Primarne lastne vrednosti so $\lambda_1,\ldots,\lambda_n$,
+sekundarne pa $\lambda_{n+1},\ldots,\lambda_{2n}$.
+
+\begin{izrek}[Duffin] Za $i=1,\ldots,n$ velja
+  $$\lambda_i=\max_{S\subset\RR^n\atop \dim(S)=i}
+              \min_{x\in S\atop x\ne 0}\rho_{+}(x)
+             =\min_{R\subset\RR^n\atop \dim(R)=n-i+1}
+              \max_{x\in R\atop x\ne 0}\rho_{+}(x),$$
+  $$\lambda_{n+i}=\max_{S\subset\RR^n\atop \dim(S)=i}
+                  \min_{x\in S\atop x\ne 0}\rho_{-}(x)
+                 =\min_{R\subset\RR^n\atop \dim(R)=n-i+1}
+                  \max_{x\in R\atop x\ne 0}\rho_{-}(x).$$
+  \label{minimax}
+\end{izrek}
+
+\begin{izrek}[Markus]
+  Simetri�ni kvadratni problem lastnih vrednosti $Q$ je
+  hiperboli�en natanko tedaj, ko obstaja tako realno �tevilo $\gamma$,
+  da je $Q(\gamma)$ negativno definitna matrika.
+  \label{thmmarkus}
+\end{izrek}
+
+Za $\gamma$ iz Markusovega izreka velja $\lambda_{n+1}<\gamma<\lambda_{n}$.
+\end{frame}
+
+
+\section{Inercija}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Inercija}
+
+Za simetri�no matriko $A$ lahko za izra�un lastnih vrednosti
+uporabimo bisekcijo.\vspace{1em}
+
+Podoben postopek lahko razvijemo za tridiagonalni hiperboli�ni
+QEP, kjer po Markusovem izreku 
+obstaja tak $\gamma$, da je $Q(\gamma)$ negativno definitna
+matrika.
+
+\begin{izrek}
+  Naj bo $Q$ hiperboli�ni QEP in
+  naj bo $\det Q(\lambda_0)\ne 0$.
+  \begin{enumerate}
+     \item �e je $\lambda_0\le \gamma$, potem je
+           �tevilo negativnih lastnih vrednosti matrike $Q(\lambda_0)$
+           enako �tevilu lastnih vrednosti $Q$, ki so manj�e od $\lambda_0$.
+     \item �e je $\lambda_0\ge \gamma$, potem je �tevilo negativnih
+           lastnih vrednosti matrike $Q(\lambda_0)$ enako
+           �tevilu lastnih vrednosti $Q$, ki so ve�je od $\lambda_0$.
+  \end{enumerate}
+  \label{inerc}
+\end{izrek}\pause
+
+
+
+\begin{center}
+{\small
+\begin{tabular}{*{17}{@{}c@{}}}
+\rule{3ex}{0pt} & \rule{4ex}{0pt} & \rule{3ex}{0pt} & \rule{4ex}{0pt}
+& \rule{8ex}{0pt} & \rule{4ex}{0pt} & \rule{3ex}{0pt}
+& \rule{4ex}{0pt} & \rule{7ex}{0pt}  & \rule{4ex}{0pt}
+& \rule{3ex}{0pt} & \rule{4ex}{0pt}  & \rule{8ex}{0pt}
+& \rule{4ex}{0pt} & \rule{3ex}{0pt}  & \rule{4ex}{0pt}
+& \rule{3ex}{0pt}  \cr
+$0$ & & $1$ && $\cdots$ && $n-1$ && $n$ && $n-1$ && $\cdots$ &&
+$1$ && $0$ \cr
+& | && | && | && | && | && | && | && | \\[-0.7em]
+\hline \cr
+& $\lambda_{2n}$ && $\lambda_{2n-1}$ & $\cdots$ & $\lambda_{n+2}$
+&& $\lambda_{n+1}$ &$\gamma$ & $\lambda_{n}$ && $\lambda_{n-1}$ &
+$\cdots$ & $\lambda_2$ && $\lambda_1$
+\end{tabular}
+}
+\end{center}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Iskanje lastnih vrednosti hiperboli�nega QEP z bisekcijo}
+
+Iz danih simetri�nih tridiagonalnih matrik
+$M$, $C$ in $K$ in za�etnega intervala $[a,b]$ izra�una lastno
+vrednost $\lambda_k$ tridiagonalnega hiperboli�nega QEP.
+
+\hbox{}\qquad {\bf dokler} $|b-a|>\epsilon$\newline
+\hbox{}\qquad\qquad $c=(a+b)/2$\newline
+\hbox{}\qquad\qquad {\bf �e} $\nu(c)\ge k$\newline
+\hbox{}\qquad\qquad\qquad $a=c$\newline
+\hbox{}\qquad\qquad {\bf sicer}\newline
+\hbox{}\qquad\qquad\qquad $b=c$\newline\pause
+
+Algoritem lahko uporabimo tudi za
+sekundarne lastne vrednosti.\vspace{1em}
+
+�e matrike $M$, $C$ in $K$ niso tridiagonalne, se �asovna
+zahtevnost  pove�a.\vspace{1em}
+
+Bisekcija je sicer zelo robustna metoda, a konvergira po�asi.
+\end{frame}
+
+\section{Laguerrova metoda}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Laguerrova metoda}
+
+Laguerrova iteracija za $p(\lambda)=\det Q(\lambda)$ je
+$$
+  L_{\pm}(x)=x+{2n\over \left(\displaystyle{-p'(x)\over p(x)}\pm
+  \sqrt{(2n-1)\left((2n-1)\left(
+    \displaystyle{-p'(x)\over p(x)}\right)^2
+    -2n\displaystyle{p''(x)\over p(x)}\right)}\right)}.
+$$
+Iz za�etnega pribli�ka $x$ dobimo dva pribli�ka
+$L_{-}(x)$ in $L_{+}(x)$.\vspace{1em}\pause
+
+�e ima polinom same realne ni�le, vemo:
+\begin{itemize}
+\item �e si predstavljamo, da sta v neskon�nosti
+pozitivni in negativni krak realne osi  povezana, potem 
+$L_{-}(x)$ le�i
+med $x$ in najbli�jo manj�o ni�lo,
+$L_{+}(x)$ pa med $x$ in najbli�jo ve�jo ni�lo.\pause
+\item Iz $x\in(\lambda_{i+1},\lambda_i)$  sledi
+$\lambda_{i+1}<L_{-}(x)<x<L_{+}(x)<\lambda_i$.\pause
+\item Konvergenca pri enostavni ni�li je \alert{kubi�na}, v bli�ini
+      ve�kratne pa linearna.\pause
+\item Pribli�ki
+      $x_{r+1}=L_{+}(x_r)$ monotono konvergirajo proti najmanj�i ni�li
+      polinoma, ki je ve�ja ali enaka $x_0$. Podobno 
+      $x_{r+1}=L_{-}(x_r)$ monotono konvergira proti najve�ji ni�li
+      manj�i ali enaki $x_0$. 
+\end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Izra�un vrednosti $p(\lambda)$, $p'(\lambda)$ in $p''(\lambda)$}
+
+Za Laguerrovo metodo potrebujemo ekonomi�en in stabilen izra�un
+vrednosti $p(\lambda)$, $p'(\lambda)$ in $p''(\lambda)$, kjer je
+$p(\lambda)=\det Q(\lambda)$. Naj bo
+$$Q(\lambda)=\left[\begin{matrix}a_1 & b_1 &&& 0 \cr
+  b_1 & a_2 & b_2 & & \cr
+  & \ddots & \ddots & \ddots & \cr
+  && b_{n-2} & a_{n-1} & b_{n-1} \cr
+  0 &&& b_{n-1} & a_{n}\end{matrix}\right],$$
+kjer je $a_i=a_i(\lambda)$ in $b_i=b_i(\lambda)$ in naj bo $p_k(\lambda)$
+determinanta vodilne $k\times k$ podmatrike $Q(\lambda)$ za $k=1,\ldots,n$.
+Velja:\\[0.5em]
+
+\noindent $p_0=1$, $p_1=a_1$,\\
+$p_{r+1}=a_{r+1}p_r-b_r^2p_{r-1}.$\\[0.5em]\pause
+
+\noindent $p'_0=0$, $p_1'=a_1'$, \\
+$p'_{r+1}=a'_{r+1}p_r+a_{r+1}p_r'-2b_rb_r'p_{r-1}-b_r^2p_{r-1}'.$\\[0.5em]\pause
+
+\noindent $p''_0=0, p_1''=a_1'',$\\
+$p_{r+1}''=a_{r+1}''p_r+2a_{r+1}'p_r'+a_{r+1}p_r''-2(b_r')^2p_{r-1}
+-2b_rb_r''p_{r-1}-4b_rb_r'p_{r-1}'-b_r^2p_{r-1}''.$\\
+
+\end{frame}
+
+\section{Deli-in-vladaj}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Deli in vladaj}
+\begin{itemize}
+
+\item Izberemo $m\approx n/2$ in postavimo $b_m$ na $0$. Dobimo
+$$Q_0(\lambda)
+  =\left[\begin{matrix}Q_1(\lambda) & 0 \cr 0 & Q_2(\lambda)\end{matrix}\right].\pause$$
+  
+\item Matriki $Q_0(\lambda)$ in $Q(\lambda)$ se malo razlikujeta,  zato  pri�akujemo, da se tudi lastne
+vrednosti $Q_0$ in $Q$ malo
+razlikujejo.\vspace{1em}\pause
+
+\item Lastne vrednosti $Q_0$ dobimo tako, da rekurzivno re�imo 
+manj�a hiperboli�na QEP $Q_1$ in $Q_2$, potem pa 
+zdru�ene lastne vrednosti uporabimo kot za�etne pribli�ke za
+originalni problem $Q$.\vspace{1em}\pause
+
+\item Za dokon�en izra�un lastnih vrednosti uporabimo Laguerrovo metodo.
+\end{itemize}
+ 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Monotone lastne krivulje}
+
+Definirajmo QEP $Q(t)$ z matriko
+$Q(t,\lambda)=tQ(\lambda)+(1-t)Q_0(\lambda)$.
+
+\begin{izrek}
+   Ozna�imo lastne vrednosti QEP
+   $Q(t)$ z $\lambda_{2n}(t)\le \cdots \le \lambda_1(t)$.
+   Vsaka lastna krivulja $\lambda_i(t)$ je na
+   intervalu $[0,1]$ ali strogo monotona ali pa enaka konstanti.
+   \label{monotono}
+\end{izrek}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Prepletanje lastnih vrednosti}
+
+\begin{izrek}
+  �e so $\widetilde{\lambda}_{2n}\le \cdots \le \widetilde{\lambda}_1$
+  lastne vrednosti
+  $Q_0$ in $\lambda_{2n}\le\cdots\le \lambda_1$ lastne vrednosti
+  $Q$,
+  velja:
+  \begin{enumerate}
+    \item [a)] $\lambda_{2n}\le \widetilde{\lambda}_{2n}$ in
+               $\widetilde{\lambda}_1\le \lambda_1$,
+    \item [b)] $\lambda_{i+1}\le \widetilde{\lambda}_{i}\le \lambda_{i-1}$ za
+               $i=2,\ldots,n-1$ in $i=n+2,\ldots,2n-1$,
+    \item[c)]  $\widetilde{\lambda}_{n+1}\le \lambda_{n+1}
+              <\lambda_n\le \widetilde{\lambda}_{n}$.
+    \end{enumerate}
+\label{preplet}
+\end{izrek}\vspace{1em}\pause
+
+\begin{enumerate}
+\item Ker velja $\lambda_{i+1}\le \widetilde{\lambda}_{i}\le \lambda_{i-1}$
+lahko vzamemo $\widetilde{\lambda}_i$ kot za�etni pribli�ek za
+$\lambda_i$.\vspace{1em} \pause
+\item Iz vrednosti $\nu(Q(\widetilde{\lambda}_i))$  razberemo
+ali je $\lambda_i\ge\widetilde{\lambda}_i$ ali
+$\widetilde{\lambda}_i\ge\lambda_i$ in se potem odlo�imo za uporabo
+zaporedja $L_{+}$ ali $L_{-}$.\vspace{1em} \pause
+\item Laguerrova metoda potem \alert{monotono skonvergira}
+proti lastni vrednosti $\lambda_i$.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Algoritem}
+
+Iz danih simetri�nih tridiagonalnih matrik $M$, $C$ in $K$
+    reda $n$ izra�una lastne vrednosti
+    $\lambda_{2n}\le\cdots\le \lambda_1$ tridiagonalnega hiperboli�nega
+    QEP $Q$.
+
+\begin{description}
+  \item[Korak 1.] �e je $n=1$, re�i $\lambda^2M+\lambda C+K=0$ in kon�aj.
+  \item[Korak 2.] Razdeli matrike na $M_1$, $C_1$, $K_1$ in
+   $M_2$, $C_2$, $K_2$.
+\item[Korak 3.] Rekurzivno re�i QEP
+    $\lambda^2 M_i+\lambda C_i+K_i$ za $i=1,2$. \label{tockatri}
+\item[Korak 4.] Zdru�i re�itve iz koraka 3 in jih uredi v
+    $\widetilde{\lambda}_{2n}\le \cdots \le \widetilde{\lambda}_1$.
+\item[Korak 5.] %Lastne vrednosti iz koraka 4 uporabi kot za�etne pribli�ke za Laguerrovo
+%metodo:
+
+\hbox{}$i=1,\ldots,2n$\newline
+\hbox{}\quad $x_0=\widetilde{\lambda}_i$\newline
+\hbox{}\quad {\bf za} $k=0,1,\ldots$ {\bf ponavljaj}\newline
+\hbox{}\quad \qquad {\bf �e} ($i\le n$ in
+   $\nu(\widetilde{\lambda}_i)\ge i$) 
+ali ($i \ge  n+1$ in $\nu(\widetilde{\lambda}_i)\le 2n-i$)\newline 
+\hbox{}\quad \qquad\qquad $x_{k+1}=L_{+}(x_{k})$\newline
+\hbox{}\quad \qquad {\bf sicer}\newline
+\hbox{}\quad \qquad\qquad $x_{k+1}=L_{-}(x_{k})$\newline
+%\hbox{}\quad \qquad {\bf konec �e}\\
+\hbox{}\quad {\bf dokler ni} $|x_{k}-x_{k-1}|\le \epsilon$\newline
+\hbox{}\quad $\lambda_i=x_k$\newline
+\end{description}
+
+
+\end{frame}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

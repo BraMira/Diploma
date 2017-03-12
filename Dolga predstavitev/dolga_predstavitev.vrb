@@ -1,0 +1,18 @@
+\frametitle{Primer: CPU \texttt{invfovCPU}}
+\begin{verbatim}
+bCPU =
+
+  -0.0271 - 0.0299i
+  -0.0024 - 0.0610i
+   0.0395 - 0.0704i
+   0.0876 - 0.0530i
+   0.1197 + 0.0032i
+
+no_eigCPU =
+
+     5
+
+napaka =
+
+   6.8450e-17
+\end{verbatim}

@@ -1,0 +1,178 @@
+\documentclass[12pt,a4paper]{amsart}
+\usepackage[slovene]{babel}
+%\usepackage[cp1250]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{url}
+%\usepackage[normalem]{ulem}
+\usepackage[dvipsnames,usenames]{color}
+\textwidth 15cm
+\textheight 24cm
+\oddsidemargin.5cm
+\evensidemargin.5cm
+\topmargin-5mm
+\addtolength{\footskip}{10pt}
+\pagestyle{plain}
+
+\overfullrule=15pt % oznaci predogo vrstico
+
+\theoremstyle{definition}
+\newtheorem{definicija}{Definicija}[section]
+\newtheorem{primer}[definicija]{Primer}
+\newtheorem{opomba}[definicija]{Opomba}
+
+
+\theoremstyle{plain}
+\newtheorem{lema}[definicija]{Lema}
+\newtheorem{izrek}[definicija]{Izrek}
+\newtheorem{trditev}[definicija]{Trditev}
+\newtheorem{posledica}[definicija]{Posledica}
+
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+
+
+% vstavi svoje definicije ...
+
+
+
+
+\begin{document}
+
+
+\thispagestyle{empty}
+\noindent{\large
+UNIVERZA V LJUBLJANI\\[1mm]
+FAKULTETA ZA MATEMATIKO IN FIZIKO\\[5mm]
+%\textcolor{Red}
+{Finančna matematika} -- 1.~stopnja}
+\vfill
+
+\begin{center}{\large
+Mirjam Pergar\\[2mm]
+{\bf Računanje izotropnih vektorjev}\\[10mm]
+Delo diplomskega seminarja\\[1cm]
+Mentor: izred. prof. dr. Bor Plestenjak}
+\end{center}
+\vfill
+
+\noindent{\large
+Ljubljana, 2016} %letnica diplome
+\pagebreak
+
+\thispagestyle{empty}
+\tableofcontents
+\pagebreak
+
+\thispagestyle{empty}
+\begin{center}
+{\bf Računanje izotropnih vektorjev}\\[3mm]
+{\sc Povzetek}
+\end{center}
+% tekst povzetka v slovenscini
+
+\vfill
+\begin{center}
+{\bf The computation of isotropic vectors}\\[3mm]
+{\sc Abstract}
+\end{center}
+% tekst povzetka v anglescini
+
+\vfill\noindent
+{\bf Math. Subj. Class. (2010):}   \\[1mm]
+{\bf Ključne besede:}   \\[1mm]
+{\bf Keywords:}
+\pagebreak
+
+
+% tu se zacne tekst seminarja
+\section{Uvod}
+
+\textcolor{Red}{\begin{definicija}
+Funkcija $f\colon [a,b]\to\R$ je {\em zvezna},če... 
+\end{definicija}
+%
+Osnovne rezultate o zveznih funkcijah najdemo v \cite{glob}. Navedimo le naslednji izrek.
+%
+\begin{izrek}
+Zvezna funkcija na zaprtem intervalu je enakomerno zvezna.
+\end{izrek}
+%
+\proof
+Izberimo $\varepsilon>0$. Če $f$ ni enakomerno zvezna, potem za vsak $\delta>0$ obstajata $x,y$, ki zadoščata
+\begin{equation}\label{eq:razlika}
+|x-y|<\delta\quad \text{in}\quad |f(x)-f(y)| \ge \varepsilon.
+\end{equation}
+\endproof
+%
+Oglejmo si še enkrat neenačbi \eqref{eq:razlika}.}
+
+\begin{proof}
+Here is my proof
+\end{proof}
+
+\subsection{\textcolor{Red}{Naslov morebitnega podrazdelka}}
+
+\textcolor{Red}{\begin{lema}
+Naj bo $f$ zvezna in ...
+\end{lema}
+}
+\section{Realne matrike}
+\section{Kompleksne matrike}
+\section{Algoritmi}
+\section{Zaključek}
+\vfill
+
+\textcolor{Red}{Primeri navajanja literature so razširjeni; najprej je opisano pravilo za vsak tip vira, nato so podani primeri. Posebej opozarjam, da spletni viri uporabljajo paket url, ki je vključen v preambuli. Polje ``ogled'' pri spletnih virih je obvezno; če je kak podatek neznan, ustrezno ``polje'' seveda izpustimo.}
+
+\vfill
+
+% seznam uporabljene literature
+% \cite{meurant} za referenco
+\begin{thebibliography}{99}
+
+\bibitem{meurant}
+G. Meurant, \emph{The computation of isotropic vectors}, Numer. Alg. {\bf 60} (2012) 193--204.
+
+\bibitem{carden}
+R. Carden, \emph{A simple algorithm for the inverse field of values problem}, Inverse Probl. {\bf 25} (2009) 1--9
+
+\bibitem{trije}
+C. Chorianopoulos, P. Psarrakos in F. Uhlig, \emph{A method for the inverse numerical range problem}, Electron. J. Linear Algebra {\bf 20} (2010) 198--206
+
+\bibitem{referenca-clanek}
+\textcolor{Red}{I.~Priimek, \emph{Naslov članka}, okrajšano ime revije {\bf letnik revije} (leto izida) strani od--do.}
+
+\bibitem{navodilaOMF}
+\textcolor{Red}{C.~Velkovrh, \emph{Nekaj navodil avtorjem za pripravo rokopisa}, Obzornik mat.\ fiz.\ {\bf 21} (1974) 62--64.}
+
+\bibitem{vec-avtorjev}
+\textcolor{Red}{P.~Angelini, F.~Frati in M.~Kaufmann, \emph{Straight-line rectangular drawings of clustered graphs}, Discrete Comput.\ Geom.\ {\bf 45} (2011) 88--140.}
+
+\bibitem{referenca-knjiga}
+\textcolor{Red}{I.~Priimek, \emph{Naslov knjige}, morebitni naslov zbirke  {\bf zaporedna "stevilka}, zalo"zba, kraj, leto izdaje.}
+
+\bibitem{glob}
+\textcolor{Red}{J.~Globevnik in M.~Brojan, \emph{Analiza I}, DMFA - zalo"zni"stvo, Ljubljana, 2010.}
+
+\bibitem{lang}
+\textcolor{Red}{S.~Lang, \emph{Fundamentals of differential geometry}, Graduate Texts in Mathematics {\bf 191}, Springer-Verlag, New York, 1999. }
+
+\bibitem{referenca-spletni-vir}
+\textcolor{Red}{I.~Priimek, \emph{Naslov spletnega vira}, verzija "stevilka/datum, [ogled datum], dostopno na \url{spletni.naslov}.}
+
+\bibitem{glob-splet}
+\textcolor{Red}{J.~Globevnik in M.~Brojan, \emph{Analiza 1}, verzija 15.~9.~2010, [ogled 12.~5.~2011], dostopno na \url{http://www.fmf.uni-lj.si/~globevnik/skripta.pdf}.}
+
+\bibitem{wiki}
+\textcolor{Red}{\emph{Matrix (mathematics)}, [ogled 12.~5.~2011], dostopno na \url{http://en.wikipedia.org/wiki/Matrix_(mathematics)}.}
+
+\end{thebibliography}
+
+\end{document}
+
