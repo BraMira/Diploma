@@ -10,3 +10,9 @@ Repozitorij za mojo diplomo Računanje izotropnih vektorjev.
 - [ ] Ali moram dodati k izrekom vire?
 - [ ] Besedilo preurediti, da ni verbatim.
 - [ ] Probaj sama narisati slike.
+
+##Matlab točke:
+- [x] začni algoritem pisat
+- [ ] definiraj dve novi funkciji za X_theta in za Lemo 3.1.
+- [ ] preveri vsa vprašanja
+- [ ] pošlji profesorju
