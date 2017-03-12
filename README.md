@@ -1,0 +1,2 @@
+# Diploma
+Repozitorij moje diplome
