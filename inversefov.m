@@ -41,27 +41,30 @@ else
     boundarypt = @eig_boundarypt;
 end
 
-opts.disp=0;
-opts.tol=tol/1000;
+opts.disp=0;%Diagnostic information display level.
+opts.tol=tol/1000; %Convergence: Ritz estimate residual <= tol*norm(A)
 err1=1000;
 err0=1;
 [ n m]=size(A);
 jj=1;
 eeval=0; %Number of eigenvalue evaluations performed
-Vbox=zeros(n,4);
-rvbox=zeros(1,4);
+Vbox=zeros(n,4); %mtr nx4 nièel
+rvbox=zeros(1,4); %vektor 4ih nièel
 
 %Determine four points on the boundary of numerical range
 for i=1:2
-    th=((i-1)*pi/2)-pi; %kako tece theta %od -pi=0? do -pi/2?
-    AA=exp(-1i*th)*(A); %e na i*theta *A %
+    th=((i-1)*pi/2)-pi; %kako tece theta th(i=1)=-pi, th(i=2)=-pi/2
+    AA=exp(-1i*th)*(A); %e na i*theta *A i=1 : e^pi*A, i=2: e^pi/2 *A%
     HA=(AA+AA')/2; %H_theta
-    if use_eigs==0
-        [va sa]=eig(HA);eeval=eeval+1; %va=l.vekt, sa=l.vrednosti
+    if use_eigs==0 %(uporabimo 'eig')
+        [va sa]=eig(HA);%va=l.vekt, sa=l.vrednosti v MTR
+        eeval=eeval+1; %naredili smo en izraèun l.vred
         sa=diag(sa); %zloži l.vred v en stolpec
-    else
-        [v1 s1]=eigs(HA,1,'LR',opts);eeval=eeval+1;
-        [v2 s2]=eigs(HA,1,'SR',opts);eeval=eeval+1;
+    else %drugaèe smo uporabili eigs
+        [v1 s1]=eigs(HA,1,'LR',opts);%vrne 1 lvre z najveèjim realim delom
+        eeval=eeval+1;
+        [v2 s2]=eigs(HA,1,'SR',opts);%vrne 1l.vred z najmanjšim realnim delom
+        eeval=eeval+1;
         va=[v1 v2];
         sa=[s1 s2];
     end
