@@ -1,0 +1,30 @@
+function [b1,b2] = xtheta(x,y,H,K)
+%
+alfa = imag(x'*H*x + 1i*x'*K*x);
+beta = imag(y'*H*y + 1i*y'*K*y);
+gama = imag(x'*H*y + y'*H*x + 1i*(x'*K*y + y'*K*x));
+
+%rešimo enaèbo beta*t^2 + gama*t + alfa = 0
+t1 = (-gama + sqrt(gama^2 -4*beta*alfa))/(2*beta);
+t2 = (-gama - sqrt(gama^2 -4*beta*alfa))/(2*beta);
+
+%preverimo, èe sta rešitvi realni
+if imag(t1)==0,
+    theta1 = atan(t1);%t = tan(theta) (predpostavili smo, da cos(theta)~=0
+    b1 = cos(theta1)*x + sin(theta1)*y;
+else
+    b1 = 0;
+end
+
+if imag(t2)==0,
+    theta2 = atan(t2);
+    b2 = cos(theta2)*x + sin(theta2)*y;
+else
+    b2 = 0;
+end
+
+%%potrebno preveriti èe je theta med 0 in pi?
+
+
+end
+
