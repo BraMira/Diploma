@@ -29,4 +29,3 @@ t1 = (-al(th) + sqrt(al(th)^2 -4*alfa1*alfa2))/(2*alfa2);
 b = bb(t1,th)/norm(bb(t1,th));
 
 end
-

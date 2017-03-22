@@ -31,8 +31,8 @@ opts.maxit = 1000;
 opts.tol = 10^-4;
 korak = 0;
 
-[x, vred_k1] = eigs(K,1,'lr',opts); %najveèja l. vrednost in pripadajoè l. vektor x
-[y, vred_k2] = eigs(K,1,'sr',opts); %najmanjša l. vrednost in pripadajoè l. vektor y
+[x, vred_k1] = eigs(K,1,'lr',opts); %najveèja l. vrednost (realen del) in pripadajoè l. vektor x
+[y, vred_k2] = eigs(K,1,'sr',opts); %najmanjša l. vrednost (realen del) in pripadajoè l. vektor y
 korak = korak + 1;
 
 %èe so realni deli enaki niè, ne moremo uporabiti algoritma
@@ -89,9 +89,3 @@ else
     end
 end
 end
-    
-  
-    %% Kaj èe predznaka nista ok?
-    %%Za koliko l. vektorjev naj to raèunam?
-
-

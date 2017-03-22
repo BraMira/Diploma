@@ -22,9 +22,5 @@ if imag(t2)==0,
 else
     b2 = 0;
 end
-
 %%potrebno preveriti èe je theta med 0 in pi?
-
-
 end
-
