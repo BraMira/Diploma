@@ -115,7 +115,7 @@ $$b^\ast (A-\mu I)b=0.$$
 Če je $\mu$ lastna vrednost matrike $A$, torej velja $Av=\mu v$, kjer je $v$ pripadajoči lastni vektor matrike $A$, potem je rešitev pripadajoč lastni vektor matrike $A$. Če pa $\mu$ ni lastna vrednost matrike $A$, je $A-\mu I$ nesingularna in je potreben izračun izotropnega vektorja te matrike. Tudi če matrika $A$ ni realna imamo opravka s kompleksno matriko, ko je $\mu$ kompleksno število. Zato bomo od sedaj naprej vse vrednosti enačili z $0$.
 
 \begin{definicija}
-Zaloga vrednosti matrike $A \in \C^{n\times n}$ je zaprta, konveksna podmnožica kompleksne ravnine, definirana kot
+Zaloga vrednosti matrike $A \in \C^{n\times n}$ je zaprta, konveksna pod\-mno\-ži\-ca kompleksne ravnine, definirana kot
 $$W(A)=\{x^\ast Ax: x \in \C^n, x^\ast x=1\}.$$
 \end{definicija}
 Očitno je zaloga vrednost $W(A)$ množica vseh Rayleighovih kvocientov matrike $A$. Če hočemo, da ima \eqref{eq:zac} vsaj eno rešitev, mora biti izhodišče vsebovano v $W(A)$. $W(A)$ si lahko predstavljamo kot preslikavo, ki slika iz $n\times n$ kompleksnih matrik v podmnožico kompleksne ravnine. Označimo s $\sigma(A)$ množico vseh lastnih vrednosti matrike A, ki jo imenujemo spekter.\\ Lastnosti zaloge vrednosti (\cite{num}):
@@ -124,12 +124,27 @@ Očitno je zaloga vrednost $W(A)$ množica vseh Rayleighovih kvocientov matrike 
 \item $\sigma(A)\subseteq W(A).$
 \item Za vsako unitarno matriko $U$ je $W(U^\ast AU)=W(A).$
 \item $W(A+zI)=W(A)+z$ in $W(zA)=zW(A)$ za vsako kompleksno število $z$.
-\item Rob zaloge vrednosti $W(A), \partial W(A)$, je kosoma algebrska krivulja, in vsaka točka v kateri $\partial W(A)$ ni diferenciabilna je lastna vrednost matrike $A$.
+%\item Rob zaloge vrednosti $W(A), \partial W(A)$, je kosoma algebrska krivulja, in vsaka točka v kateri $\partial W(A)$ ni diferenciabilna je lastna vrednost matrike $A$.
 \item Če je $A$ normalna, potem $W(A)=\Co(\sigma(A))$, kjer s $\Co$ označimo zaprto konveksno ogrinjačo množice.
 \item $W(A)$ je daljica na realni osi, če in samo če je $A$ hermitska.
 \end{enumerate}
 \begin{proof}
-v nastajanju...
+\begin{enumerate}
+\item
+\begin{itemize}
+\item Konveksnost: 
+\item Kompaktnost (zaprta + omejena): Množica $W(A)$ je range zvezne funkcije $x -> x^\ast Ax$ na DOMAIN $\{x:x\in \C^n , x^\ast x=1\}$, površina Euklidske enotske krogle, ki je kompaktna množica. Ker je zvezna preslikava kompaktna množice kompaktna, sledi da je $W(A)$ kompaktna.
+\end{itemize}
+\item Predpostavimo, da je $\lambda \in \sigma(A)$. Potem obstaja neničeln $x\in \C ^n$, za katerega lahko vzamemo enotski vektor, za katerega velja $Ax=\lambda x$ in zato $\lambda = \lambda x^\ast x=x^\ast (\lambda x) = x^\ast Ax \in W(A)$.
+\item Ker unitarna transformacija pusti invarianco je površina Euklidske enotske krogle, so kompleksna števila, ki sestavljajo množici $W(U^\ast AU)$ in $W(A)$ enaka. Če je $x\in \C^n$ in $x^\ast x=1$ imamo $x^\ast (U^\ast AU)x=y^\ast Ay \in W(A)$, kjer je $y = Ux$, torej $y^\ast y=x^\ast U^\ast Ux=x^\ast x=1$. Torej je $W(U^\ast AU)\subseteq W(A)$. 
+\item 
+\begin{itemize}
+\item Seštevanje: imamo $W(A +zI)=\{x^\ast (A+zI)x: x^\ast x=1\} = \{x^\ast Ax + zx^\ast x: x^\ast x =1\} = \{x^\ast Ax + z: x^\ast x=1\} = \{x^\ast Ax: x^\ast x=1\} +z = W(A) +z$.
+\item Množenje: Imamo $W(zA) = \{x^\ast (zA)x: x^\ast x=1\} = \{zx^\ast Ax:x^\ast x =1\} = z\{x^\ast Ax:x^\ast x=1\} = zW(A)$.
+\end{itemize}
+\item Če je A normalna, potem je $A=U^\ast \Lambda U$, kjer je $\Lambda = diag(\lambda_1, \dots, \lambda_n)$ diagonalna in $U$ je unitarna. Po lastnosti (3), $W(A)=W(\Lambda)$ in ker $$x^\ast \Lambda x = \sum_{i=1}^{n} \bar{x}_i x_i\lambda_i = \sum_{i=1}^{n} |x_i|^2 \lambda_i$$ $F(\Lambda)$ je samo množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$ ($x^\ast x=1$ implicira $\sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). Ker so diagonalni elementi $\Lambda$ lastne vrednosti $A$, to pomeni daa je $W(A) =\Co(\sigma(A))$
+
+\end{enumerate}
 \end{proof}
 \begin{izrek}
 Naj imata $A$ in $b$ realne ali kompleksne elemente. Potem veljajo enakosti:
