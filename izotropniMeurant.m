@@ -43,7 +43,7 @@ while (pogoj<0),
     [b1, b2] = xtheta(x, y, H, K);
     
     %èe sta nenenièelna jih normiramo
-    if (sum((b1~=0))>= 1) && (sum((b2~=0)) >=1),
+    if (sum(abs(b1)<1e-10)<n) && (sum(abs(b2)<1e-10)<n),
         disp('prvi if')
         b1 = b1/norm(b1);
         b2 = b2/norm(b2);
@@ -51,8 +51,8 @@ while (pogoj<0),
         if (abs(imag(b1'*A*b1))<1e-10) && (abs(imag(b2'*A*b2))<1e-10),
             disp('drugi if')
             b = lema_31(b1,b2,A);
-            if (sum((b~=0))>=1),
-                disp('tretji if')
+            if (sum(abs(b)<1e-10)<n),
+                disp('tretji if, konèami pri K')
                 napaka = abs(b'*A*b);
                 return
             else
@@ -80,7 +80,7 @@ end
 korak = korak + 1;
 pogoj2 = real(vred_h1)*real(vred_h2);
 %èe imamo eno pozitivno in eno negatvno l. vrednost
-while (pogoj2<0)==1,
+while (pogoj2<0),
     disp('drugi while')
     %poišèemo b1 in b2 s kombiniranjem l. vrednosti
     %kombiniramo s pomoèje xtheta
@@ -88,7 +88,7 @@ while (pogoj2<0)==1,
     [b1, b2] = xtheta(xx, yy, H, K);
 
     %èe sta nenenièelna jih normiramo
-    if (sum((b1~=0))>=1) && (sum((b2~=0))>=1),
+    if (sum(abs(b1)<1e-10)<n) && (sum(abs(b2)<1e-10)<n),
         disp('prvi if')
         b1 = b1/norm(b1);
         b2 = b2/norm(b2);
@@ -96,8 +96,8 @@ while (pogoj2<0)==1,
         if (abs(imag(b1'*A*b1))<1e-10) && (abs(imag(b2'*A*b2))<1e-10),
             disp('drugi if')
             b = lema_31(b1,b2,A);
-            if (sum((b~=0))>=1),
-                disp('tretji if')
+            if (sum(abs(b)<1e-10)<n),
+                disp('tretji if, konèamo pri H')
                 napaka = abs(b'*A*b);
                 return
             else
@@ -123,7 +123,7 @@ if (pogoj==1) && (pogoj2==1),
     disp('H ima enako predznaèene lastne vrednosti')
     % uporabimo xthetha za l. vektorja iz H in K
     [b1, b2] = xtheta(x,xx,H,K);
-    if (sum((b1~=0))>=1) && (sum((b2~=0))>=1)
+    if (sum(abs(b1)<1e-10)<n) && (sum(abs(b2)<1e-10)<n)
         b = [b1, b2];
         napaka = [abs(b1'*A*b1),abs(b2'*A*b2)];
         return

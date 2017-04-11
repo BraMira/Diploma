@@ -35,6 +35,7 @@
 
 \newcommand{\Co}{\operatorname{Co}} %konveksna ogrinjača
 
+\newcommand{\LH}{\mathcal{L}}
 \newcommand{\R}{\mathbb R}
 \newcommand{\N}{\mathbb N}
 \newcommand{\Z}{\mathbb Z}
@@ -113,39 +114,6 @@ b^\ast Ab=\mu,
 kjer je $\mu$ dano kompleksno število. Očitno je, da je problem \eqref{eq:splosno} možno prevesti na problem \eqref{eq:zac} za drugo matriko, saj je \eqref{eq:splosno} ekvivalentno
 $$b^\ast (A-\mu I)b=0.$$
 Če je $\mu$ lastna vrednost matrike $A$, torej velja $Av=\mu v$, kjer je $v$ pripadajoči lastni vektor matrike $A$, potem je rešitev pripadajoč lastni vektor matrike $A$. Če pa $\mu$ ni lastna vrednost matrike $A$, je $A-\mu I$ nesingularna in je potreben izračun izotropnega vektorja te matrike. Tudi če matrika $A$ ni realna imamo opravka s kompleksno matriko, ko je $\mu$ kompleksno število. Zato bomo od sedaj naprej vse vrednosti enačili z $0$.
-
-\begin{definicija}
-Zaloga vrednosti matrike $A \in \C^{n\times n}$ je zaprta, konveksna pod\-mno\-ži\-ca kompleksne ravnine, definirana kot
-$$W(A)=\{x^\ast Ax: x \in \C^n, x^\ast x=1\}.$$
-\end{definicija}
-Očitno je zaloga vrednost $W(A)$ množica vseh Rayleighovih kvocientov matrike $A$. Če hočemo, da ima \eqref{eq:zac} vsaj eno rešitev, mora biti izhodišče vsebovano v $W(A)$. $W(A)$ si lahko predstavljamo kot preslikavo, ki slika iz $n\times n$ kompleksnih matrik v podmnožico kompleksne ravnine. Označimo s $\sigma(A)$ množico vseh lastnih vrednosti matrike A, ki jo imenujemo spekter.\\ Lastnosti zaloge vrednosti (\cite{num}):
-\begin{enumerate}
-\item $W(A)$ je konveksna, zaprta in omejena.
-\item $\sigma(A)\subseteq W(A).$
-\item Za vsako unitarno matriko $U$ je $W(U^\ast AU)=W(A).$
-\item $W(A+zI)=W(A)+z$ in $W(zA)=zW(A)$ za vsako kompleksno število $z$.
-%\item Rob zaloge vrednosti $W(A), \partial W(A)$, je kosoma algebrska krivulja, in vsaka točka v kateri $\partial W(A)$ ni diferenciabilna je lastna vrednost matrike $A$.
-\item Če je $A$ normalna, potem $W(A)=\Co(\sigma(A))$, kjer s $\Co$ označimo zaprto konveksno ogrinjačo množice.
-\item $W(A)$ je daljica na realni osi, če in samo če je $A$ hermitska.
-\end{enumerate}
-\begin{proof}
-\begin{enumerate}
-\item
-\begin{itemize}
-\item Konveksnost: 
-\item Kompaktnost (zaprta + omejena): Množica $W(A)$ je range zvezne funkcije $x -> x^\ast Ax$ na DOMAIN $\{x:x\in \C^n , x^\ast x=1\}$, površina Euklidske enotske krogle, ki je kompaktna množica. Ker je zvezna preslikava kompaktna množice kompaktna, sledi da je $W(A)$ kompaktna.
-\end{itemize}
-\item Predpostavimo, da je $\lambda \in \sigma(A)$. Potem obstaja neničeln $x\in \C ^n$, za katerega lahko vzamemo enotski vektor, za katerega velja $Ax=\lambda x$ in zato $\lambda = \lambda x^\ast x=x^\ast (\lambda x) = x^\ast Ax \in W(A)$.
-\item Ker unitarna transformacija pusti invarianco je površina Euklidske enotske krogle, so kompleksna števila, ki sestavljajo množici $W(U^\ast AU)$ in $W(A)$ enaka. Če je $x\in \C^n$ in $x^\ast x=1$ imamo $x^\ast (U^\ast AU)x=y^\ast Ay \in W(A)$, kjer je $y = Ux$, torej $y^\ast y=x^\ast U^\ast Ux=x^\ast x=1$. Torej je $W(U^\ast AU)\subseteq W(A)$. 
-\item 
-\begin{itemize}
-\item Seštevanje: imamo $W(A +zI)=\{x^\ast (A+zI)x: x^\ast x=1\} = \{x^\ast Ax + zx^\ast x: x^\ast x =1\} = \{x^\ast Ax + z: x^\ast x=1\} = \{x^\ast Ax: x^\ast x=1\} +z = W(A) +z$.
-\item Množenje: Imamo $W(zA) = \{x^\ast (zA)x: x^\ast x=1\} = \{zx^\ast Ax:x^\ast x =1\} = z\{x^\ast Ax:x^\ast x=1\} = zW(A)$.
-\end{itemize}
-\item Če je A normalna, potem je $A=U^\ast \Lambda U$, kjer je $\Lambda = diag(\lambda_1, \dots, \lambda_n)$ diagonalna in $U$ je unitarna. Po lastnosti (3), $W(A)=W(\Lambda)$ in ker $$x^\ast \Lambda x = \sum_{i=1}^{n} \bar{x}_i x_i\lambda_i = \sum_{i=1}^{n} |x_i|^2 \lambda_i$$ $F(\Lambda)$ je samo množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$ ($x^\ast x=1$ implicira $\sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). Ker so diagonalni elementi $\Lambda$ lastne vrednosti $A$, to pomeni daa je $W(A) =\Co(\sigma(A))$
-
-\end{enumerate}
-\end{proof}
 \begin{izrek}
 Naj imata $A$ in $b$ realne ali kompleksne elemente. Potem veljajo enakosti:
 $$b^\ast Ab=0\Leftrightarrow b^\ast (A+A^\ast)b=0 \ \textrm{in}\  b^\ast(A-A^\ast)b=0.$$
@@ -164,6 +132,121 @@ b^\ast Ab=0.
 Če velja le $b^\ast (A+A^\ast)b=0$, ugotovimo da je $\Re(b^\ast Ab)=0$. Podobno, če velja samo $b^\ast(A-A^\ast)b=0$, potem je $\Im(b^\ast Ab)=0$. Ta dejstva bomo uporabili pri računanju rešitev za kompleksne matrike. 
 Ko sta $b$ in $A$ realna, je problem mnogo enostavnejši, saj moramo upoštevati le simetričen del matrike $A$.
 Hermitski in poševno-hermitski del matrike $A$ bomo označili s $H=(A+A^\ast)/2$ in $\tilde{K}=(A-A^\ast)/2=\imath K$.
+
+\subsection{Zaloga vrednosti}
+%ZALOGA VREDNOSTI
+\begin{definicija}
+Zaloga vrednosti matrike $A \in \C^{n\times n}$ je pod\-mno\-ži\-ca kompleksne ravnine, definirana kot
+$$W(A)=\{x^\ast Ax: x \in \C^n, x^\ast x=1\}.$$
+\end{definicija}
+Očitno je zaloga vrednost $W(A)$ množica vseh Rayleighovih kvocientov matrike $A$. Podobno kot spekter je zaloga vrednosti množica iz katere lahko razberemo informacije o matriki in pogosto da več informacij kot spekter sam.
+Zaloga vrednosti vsebuje bistvene informacije o matriki $A$ kot transformaciji, zlasti o lastnih vrednostih in lastnih prostorih (eigenspace) matrike $A$.  Lastne vrednosti hermitskih in normalnih matrik imajo uporabne lastnosti, s katerimi si pomagamo pri izračunu zaloge vrednosti.
+Če vzamemo hermitski del matrike se zaloga vrednosti preslika na realno os, to je podobno kot če bi vzeli realni del kompleksnega števila.
+Če hočemo, da ima \eqref{eq:zac} vsaj eno rešitev, mora biti izhodišče vsebovano v $W(A)$. \\
+
+Nekatere lastnosti zaloge vrednosti:% (\cite{num}):
+\begin{enumerate}
+\item $W(A)$ je konveksna in kompaktna podmnožica $\C$.
+\item $\sigma(A)\subseteq W(A)$, kjer $\sigma(A)$ označuje množico vseh lastnih vrednosti matrike A imenovano spekter.
+\item Za vsako unitarno matriko $U$ je $W(U^\ast AU)=W(A).$
+\item Seštevanje s skalarjem: $W(A+zI)=W(A)+z$ za vsako kompleksno število $z$.
+\item Množenje s skalarjem: $W(zA)=zW(A)$ za vsako kompleksno število $z$.
+\item Subaditivnost: Za vsak $A, B \in \C^{n\times n}$ velja $W(A+B) \subseteq W(A) +W(B).$
+\item Projekcija: $W(H)= \Re( W(A))$, za vsak $A\in \C^{n\times n}$, kjer s $H$ označimo hermitsko matriko.
+%\item Rob zaloge vrednosti $W(A), \partial W(A)$, je kosoma algebrska krivulja, in vsaka točka v kateri $\partial W(A)$ ni diferenciabilna je lastna vrednost matrike $A$.
+\item Če je $A$ normalna, potem $W(A)=\Co(\sigma(A))$, kjer s $\Co$ označimo zaprto konveksno ogrinjačo množice.
+\item $W(A)$ je daljica na realni osi, če in samo če je $A$ hermitska.
+\end{enumerate}
+\begin{proof}
+\begin{enumerate}
+\item
+\begin{itemize}
+\item Konveksnost: bomo pokazali pozneje.
+\item Kompaktnost (zaprta + omejena): Množica $W(A)$ je zaloga vrednosti (v klasičnem smislu) zvezne funkcije $x \rightarrow x^\ast Ax$ na definicijskem območju $\{x:x\in \C^n , x^\ast x=1\}$ (površina Euklidske enotske krogle), ki je kompaktna množica. Ker je $W(A)$ slika kompaktne množice, pod zvezno funkcijo, sledi da je $W(A)$ kompaktna.
+\end{itemize}
+\item Predpostavimo, da je $\lambda \in \sigma(A)$. Potem obstaja neničeln vektor $x\in \C ^n$ (za katerga lahko predpostavimo, da je enotski), za katerega velja $Ax=\lambda x$ in zato je
+$$\lambda = \lambda x^\ast x=x^\ast (\lambda x) = x^\ast Ax \in W(A)$$.
+\item Ker unitarna transformacija naredi površino Euklidske enotske krogle invariantno, so kompleksna števila, ki sestavljajo množici $W(U^\ast AU)$ in $W(A)$ enaka. Če je $x\in \C^n$ in $x^\ast x=1$ imamo $$x^\ast (U^\ast AU)x=y^\ast Ay \in W(A),$$ kjer je $y = Ux$, torej $$y^\ast y=x^\ast U^\ast Ux=x^\ast x=1.$$ Torej je $W(U^\ast AU)\subseteq W(A)$. 
+
+\item Imamo 
+\begin{align*}
+W(A +zI)&=\{x^\ast (A+zI)x: x^\ast x=1\}\\
+& = \{x^\ast Ax + zx^\ast x: x^\ast x =1\}\\
+ &= \{x^\ast Ax + z: x^\ast x=1\} \\
+&= \{x^\ast Ax: x^\ast x=1\} +z \\
+&= W(A) +z.
+\end{align*}
+\item Imamo 
+\begin{align*}
+W(zA) &= \{x^\ast (zA)x: x^\ast x=1\}\\
+& = \{zx^\ast Ax:x^\ast x =1\}\\
+&= z\{x^\ast Ax:x^\ast x=1\}\\
+& = zW(A).
+\end{align*}
+
+\item 
+\begin{align*}
+W(A+B)&=\{x^\ast(A+B)x: x\in \C^n, x^\ast x=1\}\\
+& = \{x^\ast Ax +x^\ast Bx: x\in \C^n, x^\ast x=1\}\\
+& \subseteq \{x^\ast Ax: x\in \C^n, x^\ast x=1\}+\{yx^\ast By: y\in \C^n, y^\ast y=1\}\\
+& =W(A) + W(B).
+\end{align*}
+\item Računamo
+\begin{align*}
+x^\ast Hx &= x^\ast \frac{1}{2}(A+A^\ast)x \\
+ &=\frac{1}{2} (x^\ast Ax +x^\ast A^\ast x) \\
+ &=\frac{1}{2}(x^\ast Ax +(x^\ast Ax)^\ast) \\
+ &= \frac{1}{2}(x^\ast Ax +\overline{x^\ast Ax}) \\
+ &= \Re (x^\ast Ax).
+\end{align*}
+
+\item Če je A normalna, potem je $A=U^\ast \Lambda U$, kjer je $\Lambda = \text{diag}(\lambda_1, \dots, \lambda_n)$ diagonalna in $U$ je unitarna. Po lastnosti (3), $W(A)=W(\Lambda)$ in ker $$x^\ast \Lambda x = \sum_{i=1}^{n} \bar{x}_i x_i\lambda_i = \sum_{i=1}^{n} |x_i|^2 \lambda_i$$ $F(\Lambda)$ je samo množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$ ($x^\ast x=1$ implicira $\sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). Ker so diagonalni elementi $\Lambda$ lastne vrednosti $A$, to pomeni daa je $W(A) =\Co(\sigma(A))$
+
+\item Ker je hermitska matrika tudi normalna velja $$W(H) = \Co(\sigma(H)),$$ zaradi lastnosti (3). Vemo, da se zaloga vrednosti hermitske matrike projecira na realno os ter da je $\sigma(H)$ množica vseh realnih lastnih vrednosti matrike $H$. Konveksna ogrinjača $\sigma(H)$ je množica vseh daljic med lastnimi vrednostmi matrike$H$ in ker bo zaloga vrednosti samo na realni osi, je to daljica med najmanjšo in največjo realno lastno vrednostjo $H$.
+\end{enumerate}
+\end{proof}
+\subsubsection{Konveksnost}
+V tem poglavju bomo dokazali, da je zaloga vrednosti konveksna, kar je znano tudi kot Toeplitz-Hausdorfferjev izrek.
+\begin{lema}
+Naj bo $H\ in \C^{n\times n}$ hermitska matrika in $\mu \in W(H)$. Potem je množica $\LH _{H}(\mu)=\{x\in \C^n :x^\ast x=1, x^\ast Hx=\mu\}$ povezana s potmi (t.j. obstaja pot med poljubnima dvema točkama iz te množice)% oz. poljubni dve točki iz te množice lahko povežemo z zvezno krivulju, ki je v celoti vsebovana v množici)
+\end{lema}
+
+\begin{proof}
+Zaradi lastnosti (3) in (4) lahko brez škode za splošnost predpostavimo, da je $\mu=0$ in $H=\text{diag}\{d_1,d_2,\dots,d_n\}$ je realna diagonalna matrika.
+Potem je 
+$$W(H)=\Big\{ \sum_{j=1}^{n} d_j|x_j|^2 : x_1,x_2,\dots,x_n \in \C, \sum_{j=1}^{n} |x_j|^2=1\Big \}$$
+Naj bo sedaj $x=(x_j), y=(y_j)\in \LH_{H}(0)$ t.j. $x,y$ sta enotska vektorja za katera velja 
+$$\sum_{j=1}^{n} d_j|x_j|^2=\sum_{j=1}^{n} d_j|y_j|^2=0.$$
+ Pokazati želimo, da v $\LH_{H}(0)$ obstaja zvezna pot, ki povezuje $x$ in $y$. Ker je vsak vektor 
+$$\Big[r_1 e^{i\theta_1}\quad  r_2 e^{i\theta_2}\quad  \dots\quad r_n e^{i\theta_n}\Big]^T \in \LH_{H}(0)$$  
+$(r_j \geq 0, \theta_j\in [o, 2\pi); j=1,2,\dots,n)$ povezan z realnim vektorjem 
+$$[r_1 \quad r_2 \quad \dots \quad r_n]^T \in \LH_{H}(0)$$
+ z zvezno krivuljo
+$$\Big[r_1 e^{i\theta_1(1-t)}\quad  r_2 e^{i\theta_2(1-t)}\quad  \dots\quad  r_n e^{i\theta_n(1-t)}\Big]^T; \quad t\in[0,1],$$
+ki je v $\LH_{H}(0)$, sleda, da sta $x$ in $y$ realna in nenegativna. Potem zvezna krivulja
+$$u(t)=(u_j(t))=\Big(\sqrt{(1-t)x^2_j -ty^2_j}\Big) \in \LH_{H}(0)\cap \R^n ; \quad t\in [0,1]$$
+zadošča pogojema $u (0)=x$ in $u (1) =y$, s čimer je lema dokazana.
+\end{proof}
+
+Seveda, zgornja lema drži za vsako skalarno množenje hermitske matrike. Še več, za realno diagonalno matriko $H=\text{diag}\{d_1,d_2,\dots,d_n\}$, $d_1\geq d_2\geq \dots \geq d_n$, vrednost $\sum_{j=1}^{n} d_j|x_j|^2$ (kjer je $x_1,x_2,\dots, x_n \in \C, \sum_{j=1}^{n}|x_j|^2 =1$) doseže maksimum $d_1$, pri $|x_1|=0$ in $x_2=x_3=\dots=x_n=0$ in doseže minimum $d_n$, pri $|x_n|=1$ in $x_1=x_2=\dots=x_{n-1}=0$. 
+
+\begin{posledica}
+Naj bo $H\in \C^{n\times n}$ hermitska matrika in $\mu$ njena najmanjša ali največja lastna vrednost. Potem množica $\LH_{H}(\mu)=\{x\in \C^n :x^\ast x=1, x^\ast Hx=\mu \}$ vsebuje vse enotske vektorje matrike $H$, ki pripadajo $\mu$.
+\end{posledica}
+
+\begin{izrek}[Toeplitz-Hausdorfferjev izrek]
+Za vsak $A\in \C^{n\times n}$ je $W(A)$ konveksna.
+\end{izrek}
+
+\begin{proof}
+Dokazati moramo, da za poljubni točki $\mu, \nu \in W(A)$,  leži daljica s krajiščema $\mu$ in $\nu$ v $W(A)$. Zaradi lastnosti (4) lahko brez škode za splošnost predpostavimo, da sta $\mu=0$ in $\nu=1$. Naj bosta $x,y\in \C^n$ taka enotska vektorja, da velja $x^\ast Ax=0$ in$y^\ast Ay=1$. 
+Naj bo $H$ hermitski del matrike $A$ in $\tilde{K}$ poševno-hermitski del matrike $A$, kot smo jih definirali v prejšnjem podpoglavju. Množica $\LH_{\tilde{K}}(0) =\{x\in \C^n :x^\ast x=1, x^\ast \tilde{K}x=0\}$ je zaradi prejšnje leme povezana s potmi. Ker sta $x,y\in \LH_{\tilde{K}}(0)$, obstaja taka zvezna vektorska funkcija $z(t) :[0,1] \rightarrow \LH_{\tilde{K}}(0)$, da sta $z(0)=x$ in $z(1)=y$.  Sledi, da je funkcija 
+\begin{align*}
+z(t)^\ast A z(t) &= z(t)^\ast Hz(t) +z(t)^\ast \tilde{K} z(t) \\
+ &= z(t)^\ast Hz(t)
+\end{align*}
+realna in zvezna glede na spremenljivko $t$ in zadošča pogojema $z(0)^\ast Az(0)=x^\ast Ax=0$ in $z(1)^\ast Az(1)=y^\ast Ay=1$. Sledi, da je daljica s krajiščema $0$ in $1$ vsebovana v $W(A)$.
+\end{proof}
 
 \subsection{Uporaba}
 Zanimanje za izračun izotropnih vektorjev je povezano s pre\-u\-če\-va\-njem delne stagnacije GMRES algoritma za reševanje linearnih sistemov z realnimi matrikami. Zaloga vrednosti se uporablja za preučevanje konvergence nekaterih iterativnih metod za reševanje linearnih sistemov in ima mnogo aplikacij v numerični analizi, diferencialnih enačbah, teoriji sistemov itd.
@@ -245,7 +328,7 @@ Takšna konstrukcija pripelje do naslednjega izreka:
 Seveda lahko nadaljujemo z večanjem števila lastnih vrednosti. Če uporabimo štiri različne lastne vrednosti z različnimi predznaki, potem moramo na problem gledati v treh dimenzijah. Prostor, kjer je omejitvam zadoščeno, je tetraeder, torej moramo poiskati presek dane ravnine s tem tetraedrom. 
 V splošnem, če imamo $k$ različnih lastnih vrednosti z različnimi predznaki, definira naš problem naslednja enačba:
 \begin{equation}
-\sum_{i=1}^{k-1} (\lambda_i -\lambda_k)t_i +\lambda_k =0, \quad t_i\ge0, i=1, \dots,k-1, \sum_{i=1}^{k-1}t_i \le1.
+\sum_{i=1}^{k-1} (\lambda_i -\lambda_k)t_i +\lambda_k =0, \quad t_i\ge0, i=1, \dots,k-1, \quad \sum_{i=1}^{k-1}t_i \le1.
 \end{equation}
 Prva enačba opisuje hiperravnino v kateri moramo poiskati  presečišča te hiperravnine z volumnom telesa definiranega s pogoji.
 Če je $A$ realna matrika smo končali, saj smo pokazali, da lahko poračunamo toliko realnih rešitev kot hočemo. 
@@ -379,6 +462,8 @@ N. Ciblak, H. Lipkin, \emph{Orthonormal isotropic vector bases}, In: Proceedings
 \bibitem{num}
 Johnson, C. R., \emph{Numerical determination of the field of values of a general complex matrix}, SIAM J. Numer. Anal. {\bf15} (1978) 595--602.
 
+\bibitem{zaloga}
+P. Psarrakos, M. Tsatsomeros, \emph{Numerical range: (in) a matrix nutshell} Math. Notes from Washington State University,  Vol 45, No. 2 (2002)
 
 \end{thebibliography}
 
