@@ -1,12 +1,12 @@
 function [ b, napaka, korak] = izotropniMeurant(A, mu)
-%»e je moûno, ta funkcija izraËuna izotropne vektorje b, ki so reöitev enaËbe mu=b'Ab.
+%√àe je mo≈æno, ta funkcija izra√®una izotropne vektorje b, ki so re≈°itev ena√®be mu=b'Ab.
 %Input: A...kompleksna matrika
-%       mu ... kompleksno ötevilo v zalogi vrednosti A
+%       mu ... kompleksno ≈°tevilo v zalogi vrednosti A
 %       
 %
 %Output: b...izotropni vektor za mu
 %        napaka ... norm(b'Ab-mu)
-%        korak ... kolikokrat smo raËunali lastne vrednosti in lastne
+%        korak ... kolikokrat smo ra√®unali lastne vrednosti in lastne
 %        vektorje
 
 if nargin ==1,
@@ -15,7 +15,7 @@ if nargin ==1,
 end
 
 [n, m] = size(A);
-%preverimo, Ëe A kvadratna matrika
+%preverimo, √®e A kvadratna matrika
 if n~=m,
     disp('Matrika A ni kvadratna!')
     return
@@ -31,19 +31,19 @@ opts.maxit = 1000;
 opts.tol = 10^-4;
 korak = 0;
 
-[x, vred_k1] = eigs(K,1,'lr',opts); %najveËja l. vrednost (realen del) in pripadajoË l. vektor x
-[y, vred_k2] = eigs(K,1,'sr',opts); %najmanjöa l. vrednost (realen del) in pripadajoË l. vektor y
+[x, vred_k1] = eigs(K,1,'lr',opts); %najve√®ja l. vrednost (realen del) in pripadajo√® l. vektor x
+[y, vred_k2] = eigs(K,1,'sr',opts); %najmanj≈°a l. vrednost (realen del) in pripadajo√® l. vektor y
 korak = korak + 1;
 pogoj = real(vred_k1)*real(vred_k2);
-%Ëe imamo eno pozitivno in eno negatvno l. vrednost
+%√®e imamo eno pozitivno in eno negatvno l. vrednost
 while (pogoj<0),
     disp('prvi while')
-    %poiöËemo b1 in b2 s kombiniranjem l. vektorjev
-    %kombiniramo s pomoËje xtheta
+    %poi≈°√®emo b1 in b2 s kombiniranjem l. vektorjev
+    %kombiniramo s pomo√®je xtheta
     [b1, b2] = xtheta(x, y, H, K);
     
-    %Ëe sta neneniËelna jih normiramo
-    if (sum(abs(b1)<1e-10)<n) && (sum(abs(b2)<1e-10)<n),
+    %√®e sta neneni√®elna jih normiramo
+    if sum(abs(b1)<ones(n,1)*1e-10)==0 && sum(abs(b2)<ones(n,1)*1e-10)==0,
         disp('prvi if')
         b1 = b1/norm(b1);
         b2 = b2/norm(b2);
@@ -51,12 +51,12 @@ while (pogoj<0),
         if (abs(imag(b1'*A*b1))<1e-10) && (abs(imag(b2'*A*b2))<1e-10),
             disp('drugi if')
             b = lema_31(b1,b2,A);
-            if (sum(abs(b)<1e-10)<n),
-                disp('tretji if, konËami pri K')
+            if sum(abs(b)<ones(n,1)*1e-10)==0,
+                disp('tretji if, kon√®ami pri K')
                 napaka = abs(b'*A*b);
                 return
             else
-                disp('Vektorja b sta enaka 0. RaËunamo s H')
+                disp('Vektorja b sta enaka 0. Ra√®unamo s H')
                 pogoj = 1;
                 continue
             end
@@ -66,7 +66,7 @@ while (pogoj<0),
             continue
         end
     else
-        disp('Vektorja sta enaka 0, raËunamo H')
+        disp('Vektorja sta enaka 0, ra√®unamo H')
         pogoj = 1;
         continue
     end
@@ -75,20 +75,20 @@ end
 
 
 %ponovimo isti postopek za H in matriko iA
-[xx, vred_h1] = eigs(H,1,'lr'); %najveËja l. vrednost in pripadajoË l. vektor xx
-[yy, vred_h2] = eigs(H,1,'sr'); %najmanjöa l. vrednost in pripadajoË l. vektor yy
+[xx, vred_h1] = eigs(H,1,'lr'); %najve√®ja l. vrednost in pripadajo√® l. vektor xx
+[yy, vred_h2] = eigs(H,1,'sr'); %najmanj≈°a l. vrednost in pripadajo√® l. vektor yy
 korak = korak + 1;
 pogoj2 = real(vred_h1)*real(vred_h2);
-%Ëe imamo eno pozitivno in eno negatvno l. vrednost
+%√®e imamo eno pozitivno in eno negatvno l. vrednost
 while (pogoj2<0),
     disp('drugi while')
-    %poiöËemo b1 in b2 s kombiniranjem l. vrednosti
-    %kombiniramo s pomoËje xtheta
+    %poi≈°√®emo b1 in b2 s kombiniranjem l. vrednosti
+    %kombiniramo s pomo√®je xtheta
     %H = (1i*A +1i*A')/2;
     [b1, b2] = xtheta(xx, yy, H, K);
 
-    %Ëe sta neneniËelna jih normiramo
-    if (sum(abs(b1)<1e-10)<n) && (sum(abs(b2)<1e-10)<n),
+    %√®e sta neneni√®elna jih normiramo
+    if sum(abs(b1)<ones(n,1)*1e-10)==0 && sum(abs(b2)<ones(n,1)*1e-10)==0,
         disp('prvi if')
         b1 = b1/norm(b1);
         b2 = b2/norm(b2);
@@ -96,12 +96,12 @@ while (pogoj2<0),
         if (abs(imag(b1'*A*b1))<1e-10) && (abs(imag(b2'*A*b2))<1e-10),
             disp('drugi if')
             b = lema_31(b1,b2,A);
-            if (sum(abs(b)<1e-10)<n),
-                disp('tretji if, konËamo pri H')
+            if sum(abs(b)<ones(n,1)*1e-10)==0,
+                disp('tretji if, kon√®amo pri H')
                 napaka = abs(b'*A*b);
                 return
             else
-                disp('Vektorja b sta enaka 0. RaËunamo s kombinacijo K in H')
+                disp('Vektorja b sta enaka 0. Ra√®unamo s kombinacijo K in H')
                 pogoj2 = 1;
                 continue
             end
@@ -111,7 +111,7 @@ while (pogoj2<0),
             continue
         end
     else
-        disp('Vektorja sta enaka 0, raËunamo s kombinacijo K in H')
+        disp('Vektorja sta enaka 0, ra√®unamo s kombinacijo K in H')
         pogoj2 = 1;
         continue
     end
@@ -120,15 +120,15 @@ end
 
 disp('preverja pogoje?')
 if (pogoj==1) && (pogoj2==1),
-    disp('H ima enako predznaËene lastne vrednosti')
+    disp('H ima enako predzna√®ene lastne vrednosti')
     % uporabimo xthetha za l. vektorja iz H in K
     [b1, b2] = xtheta(x,xx,H,K);
-    if (sum(abs(b1)<1e-10)<n) && (sum(abs(b2)<1e-10)<n)
+    if sum(abs(b1)<ones(n,1)*1e-10)==0 && sum(abs(b2)<ones(n,1)*1e-10)==0,
         b = [b1, b2];
         napaka = [abs(b1'*A*b1),abs(b2'*A*b2)];
         return
     else
-        disp('Funkcija ne najde reöitve.')
+        disp('Funkcija ne najde re≈°itve.')
     end
 end
 
