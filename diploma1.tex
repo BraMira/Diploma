@@ -184,7 +184,7 @@ W(zA) &= \{x^\ast (zA)x: x^\ast x=1\}\\
 & = zW(A).
 \end{align*}
 
-\item 
+\item Imamo
 \begin{align*}
 W(A+B)&=\{x^\ast(A+B)x: x\in \C^n, x^\ast x=1\}\\
 & = \{x^\ast Ax +x^\ast Bx: x\in \C^n, x^\ast x=1\}\\
@@ -200,7 +200,7 @@ x^\ast Hx &= x^\ast \frac{1}{2}(A+A^\ast)x \\
  &= \Re (x^\ast Ax).
 \end{align*}
 
-\item Če je A normalna, potem je $A=U^\ast \Lambda U$, kjer je $\Lambda = \text{diag}(\lambda_1, \dots, \lambda_n)$ diagonalna in $U$ je unitarna. Po lastnosti (3), $W(A)=W(\Lambda)$ in ker $$x^\ast \Lambda x = \sum_{i=1}^{n} \bar{x}_i x_i\lambda_i = \sum_{i=1}^{n} |x_i|^2 \lambda_i$$ $F(\Lambda)$ je samo množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$ ($x^\ast x=1$ implicira $\sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). Ker so diagonalni elementi $\Lambda$ lastne vrednosti $A$, to pomeni daa je $W(A) =\Co(\sigma(A))$
+\item Če je A normalna, potem je $A=U^\ast \Lambda U$, kjer je $\Lambda = \text{diag}(\lambda_1, \dots, \lambda_n)$ diagonalna in $U$ je unitarna. Po lastnosti (3), $W(A)=W(\Lambda)$ in ker $$x^\ast \Lambda x = \sum_{i=1}^{n} \bar{x}_i x_i\lambda_i = \sum_{i=1}^{n} |x_i|^2 \lambda_i$$ $W(\Lambda)$ je samo množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$ ($x^\ast x=1$ implicira $\sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). Ker so diagonalni elementi $\Lambda$ lastne vrednosti $A$, to pomeni daa je $W(A) =\Co(\sigma(A))$
 
 \item Ker je hermitska matrika tudi normalna velja $$W(H) = \Co(\sigma(H)),$$ zaradi lastnosti (3). Vemo, da se zaloga vrednosti hermitske matrike projecira na realno os ter da je $\sigma(H)$ množica vseh realnih lastnih vrednosti matrike $H$. Konveksna ogrinjača $\sigma(H)$ je množica vseh daljic med lastnimi vrednostmi matrike$H$ in ker bo zaloga vrednosti samo na realni osi, je to daljica med najmanjšo in največjo realno lastno vrednostjo $H$.
 \end{enumerate}
@@ -345,12 +345,33 @@ Opomba: to vsebuje samo izračun kvadratne forme $x^\ast Ax$. Ne potrebujemo nob
 Druga konstrukcija algoritma v \cite{meurant} uporabi lastne vrednosti in lastne vektorje matrike $K=(A-A^\ast)/(2i)$, ki je hermitska. S konstrukcijo iz 2. razdelka lahko poiščemo tak vektor $b$, da je $\Im(b^\ast Ab)=0$. S kombiniranjem lastnih vektorjev matrike $K$ pripadajočim k pozitivnim in negativnim lastnim vrednostim, lahko (v nekaterih primerih) izračunamo taka vektorja $b_1$ in $b_2$, da $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$. 
 %POMEMBNA LEMA
 \begin{lema}\label{komp}
-Naj bosta $b_1$ in $b_2$ enotska vektorja z $\Im(b_i^\ast Ab_i)=0$, $i=1,2$, in $\alpha_1=\Re(b_1^\ast Ab_1)<0, \alpha_2=\Re(b_2^\ast Ab_2)>0$. Naj bo $b(t,\theta)=e^{-i\theta}b_1 + tb_2, t,\theta \in \R, \alpha(\theta)=e^{i\theta}b_1^\ast Ab_2 +e^{-i\theta}b_2^\ast Ab_1.$ Potem je 
-$$b(t,\theta)^\ast Ab(t,\theta)=\alpha_2 t^2 +\alpha(\theta)t+\alpha_1,$$ 
-$\alpha(\theta)\in\R$, ko $\theta=arg(b_2^\ast Ab_1 -b_1^T\bar{A}\bar{b_2}).$ Za $t_1 =(-\alpha(\theta) +\sqrt{\alpha(\theta)^2 -4\alpha_1\alpha_2})/(2\alpha_2)$, imamo 
+Naj bosta $b_1$ in $b_2$ enotska vektorja z $\Im(b_i^\ast Ab_i)=0$, $i=1,2$, in $\alpha_1=\Re(b_1^\ast Ab_1)<0, \alpha_2=\Re(b_2^\ast Ab_2)>0$. Naj bo 
+$$b(t,\theta)=e^{-i\theta}b_1 + tb_2, \quad t,\theta \in \R,$$ 
+$$\alpha(\theta)=e^{i\theta}b_1^\ast Ab_2 +e^{-i\theta}b_2^\ast Ab_1.$$
+Potem je 
+$$b(t,\theta)^\ast Ab(t,\theta)=\alpha_2 t^2 +\alpha(\theta)t+\alpha_1,\quad \alpha(\theta)\in\R,$$ ko 
+$$\theta=\text{arg}(b_2^\ast Ab_1 -b_1^T\bar{A}\bar{b_2}).$$ Za 
+$$t_1 = \frac{-\alpha(\theta) + \sqrt{\alpha(\theta)^2 - 4\alpha_1 \alpha_2}}{2\alpha_2},$$ imamo 
 $$b(t_1, \theta) \not=0,\quad  \frac{b(t_1,\theta)^\ast}{\norm{b(t_1,\theta)}}A\frac{b(t_1,\theta)}{\norm{b(t_1,\theta)}}=0.$$
 \end{lema}
-Lema \ref{komp} prikazuje kako se izračuna rešitev iz $b_1$ in $b_2$. Če imamo $b_1$ in $b_2$, taka da  $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$, smo končali.\\
+Lema \ref{komp} prikazuje kako se izračuna rešitev iz $b_1$ in $b_2$. Če imamo $b_1$ in $b_2$, taka da  $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$, smo končali.
+\begin{proof}
+Imamo enotska vektorja $b_1, b_2$ za katera velja $\Im(b_i^\ast Ab_i)=0$, $i=1,2$ in $\alpha_1=\Re(b_1^\ast Ab_1)<0, \alpha_2=\Re(b_2^\ast Ab_2)>0$. Radi bi pokazali $$\Re(b(t,\theta)^\ast Ab(t,\theta))=0 \quad t,\theta \in \R.$$
+\begin{align*}
+b(t,\theta)^\ast Ab(t,\theta) &=(e^{-i\theta}b_1 + tb_2)^\ast A (e^{-i\theta}b_1 + tb_2)\\
+& = (b_{1}^\ast(\overline{e^{-i\theta}})^T  +b_{2}^\ast t ) A (e^{-i\theta}b_1 + tb_2)\\
+& = (b_{1}^\ast(e^{\overline{-i\theta}})^T + b_{2}^\ast t) A (e^{-i\theta}b_1 + tb_2)\\
+& = (b_{1}^\ast(e^{i\theta})^T A+ b_{2}^\ast t A) (e^{-i\theta}b_1 + tb_2)\\
+& = b_1 ^\ast e^{i\theta} A e^{-i\theta}b_1 + b_1 ^\ast e^{i\theta} A tb_2 + b_2 ^\ast t A e^{-i\theta} b_1 + b_2 ^\ast t Atb_2\\
+& = b_1 ^\ast Ab_1 + e^{i\theta} b_1 ^\ast A b_2 t + e^{-i\theta}b_2 ^\ast Ab_1 t + t^2 b_2 ^\ast Ab_2\\
+\end{align*}
+Če gledamo samo realni del zadnje vrstice dobimo naslednjo kvadratno enačbo:
+$$\alpha _1 +  \alpha(\theta)t +  \alpha_2 t^2 =0.$$
+Ena rešitev te enačbe je 
+$$t_1 = \frac{-\alpha(\theta) + \sqrt{\alpha(\theta)^2 - 4\alpha_1 \alpha_2}}{2\alpha_2}.$$
+Preveriti je potrebno le še kdaj bo $$\alpha(\theta)=e^{i\theta}b_1^\ast Ab_2 +e^{-i\theta}b_2^\ast Ab_1 \in \R.$$
+To bo držalo, ko bo $$\theta = \text{arg}(b_2^\ast Ab_1 - \overline{b_1^\ast Ab_2}) = \text{arg}(b_2^\ast Ab_1 -b_1^T\bar{A}\bar{b_2}).$$
+\end{proof}
 \paragraph{Algoritem:}
 \begin{enumerate}[1.]
 \item S kombiniranjem lastnih vektorjev $K$, pripadajočim pozitivnim in negativinim lastnim vrednostim, izračunamo vektorja $b_1$ in $b_2$, taka da  $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$. Uporabimo lemo \ref{komp} in končamo.
