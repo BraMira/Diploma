@@ -1,5 +1,8 @@
-function [b1,b2] = xtheta(x,y,H,K)
+function [b1,b2] = xtheta(x,y,A)
 %
+H=(A+ A')/2;
+K=(A- A')/(2*1i);
+
 alfa = imag(x'*H*x + 1i*x'*K*x);
 beta = imag(y'*H*y + 1i*y'*K*y);
 gama = imag(x'*H*y + y'*H*x + 1i*(x'*K*y + y'*K*x));

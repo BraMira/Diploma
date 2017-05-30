@@ -18,6 +18,7 @@ elseif a1>0,
     if a2<0,
         alfa2 = a1;
         alfa1 = a2;
+        [b2, b1] = deal(b1, b2);
     else
         disp('b1 in b2 imata enako (pozitivno) predznaèena realna dela, ne moremo ju uporabiti!')
         b=0;
