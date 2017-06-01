@@ -32,7 +32,7 @@ end
 bb = @(t,th) exp(-1i*th)*b1 + t*b2; %b(t,theta)
 al = @(th) exp(1i*th)*b1'*A*b2 + exp(-1i*th)*b2'*A*b1; %alfa(theta)
 
-th = angle(b2'*A*b1 + b1.'*conj(A)*conj(b2));
+th = angle(b2'*A*b1 - b1.'*conj(A)*conj(b2));
 t1 = (-al(th) + sqrt(al(th)^2 -4*alfa1*alfa2))/(2*alfa2);
 
 b = bb(t1,th)/norm(bb(t1,th));
