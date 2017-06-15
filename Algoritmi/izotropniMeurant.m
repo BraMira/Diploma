@@ -8,7 +8,7 @@ function [b, napaka, korak] = izotropniMeurant(A, mu)
 %        napaka ... norm(b'Ab-mu)
 %        korak ... kolikokrat smo racunali lastne vrednosti in lastne
 %        vektorje
-
+warning off
 if nargin ==1,
     mu=0;
     %tol = 1e-14;
@@ -48,12 +48,10 @@ korak = korak + 1;
 
 %[X, Y] = vektor(x,y,vred_k1, vred_k2, A);
 X = [x,y];
-
-
-for k=1: size(X,2),
-    for j = 1:size(X,2),
-        if k~=j,
-        
+LV = [diag(vred_k1);diag(vred_k2)];
+for k=1: size(X,2)-1,
+    for j = (k+1):size(X,2),
+        if (LV(k,:)*LV(j,:) < 0),
             fi = (log(X(:,k)'*A*X(:,j)*inv(X(:,j)'*A*X(:,k))))/(2i); %#ok<*MINV>
             [b1, b2] = xtheta(X(:,k)*exp(fi*1i), X(:,j), A);
 
@@ -67,17 +65,8 @@ for k=1: size(X,2),
                     if sum(abs(b)<ones(n,1)*1e-10)==0,
                         napaka = abs(b'*A*b);
                         return
-                    else
-                        disp('Vektorja b sta enaka 0. Racunamo s H')
-                        continue
                     end
-                else
-                    disp('Ne moremo uporabiti leme za vektorje K')
-                    continue
                 end
-            else
-                disp('Vektorja sta enaka 0, racunamo H')
-                continue
             end
         end
     end
@@ -92,14 +81,12 @@ end
 
 korak = korak + 1;
 
-%[XX, YY] = vektor(xx,yy,vred_h1, vred_h2, 1i*A);
 XX = [xx,yy];
+LV1 = [diag(vred_h1);diag(vred_h2)];
 
-for k=1: size(XX,2),
-
-    for j = 1: size(XX,2),
-        if k~=j,
-            
+for k=1: size(XX,2)-1,
+    for j = (k+1): size(XX,2),
+        if (LV1(k,:)*LV1(j,:)< 0),
 
             fi = (log(XX(:,k)'*A*XX(:,j)*inv(XX(:,j)'*A*XX(:,k))))/(2i); %#ok<*MINV>
             [b1, b2] = xtheta(XX(:,k)*exp(fi*1i), XX(:,j), 1i*A);
@@ -113,57 +100,92 @@ for k=1: size(XX,2),
                     if sum(abs(b)<ones(n,1)*1e-10)==0,
                         napaka = abs(b'*(1i*A)*b);
                         return
-                    else
-                        disp('Vektorja b sta enaka 0. Racunamo s kombinacijo K in H')
-                        continue
                     end
-                else
-                    disp('Ne moremo uporabiti leme za vektorje H')
-                    continue
                 end
-            else
-                disp('Vektorja sta enaka 0, racunamo s kombinacijo K in H')
-                continue
             end
         end
     end
 end
 
-
-XXX = [x,y];
-YYY = [xx,yy];
-
-
 korak = korak +1;
 
-for k=1:size(XXX,2),
-    for j = 1: size(YYY,2),
-        fi = (log(XXX(:,k)'*A*YYY(:,j)*inv(YYY(:,j)'*A*XXX(:,k))))/(2i); %#ok<*MINV>
-        [b1, b2] = xtheta(XXX(:,k)*exp(fi*1i), YYY(:,j), A);
+for k=1:size(X,2),
+    for j = 1: size(XX,2),
+            fi = (log(X(:,k)'*A*XX(:,j)*inv(XX(:,j)'*A*X(:,k))))/(2i); %#ok<*MINV>
+            [b1, b2] = xtheta(X(:,k)*exp(fi*1i), XX(:,j), A);
 
-        if sum(abs(b1)<ones(n,1)*1e-10)==0 && sum(abs(b2)<ones(n,1)*1e-10)==0,
-            b1 = b1/norm(b1);
-            b2 = b2/norm(b2);
+            if sum(abs(b1)<ones(n,1)*1e-10)==0 && sum(abs(b2)<ones(n,1)*1e-10)==0,
+                b1 = b1/norm(b1);
+                b2 = b2/norm(b2);
 
-            if (abs(imag(b1'*A*b1))<1e-10) && (abs(imag(b2'*A*b2))<1e-10),
-                b = lema_31(b1,b2,A);
-                if sum(abs(b)<ones(n,1)*1e-10)==0,
-                    napaka = abs(b'*A*b);
-                    return
-                else
-                    disp('Vektorja b sta enaka 0')
-                    continue
+                if (abs(imag(b1'*A*b1))<1e-10) && (abs(imag(b2'*A*b2))<1e-10),
+                    b = lema_31(b1,b2,A);
+                    if sum(abs(b)<ones(n,1)*1e-10)==0,
+                        napaka = abs(b'*A*b);
+                        return
+                    end
                 end
-            else
-                disp('Ne moremo uporabiti leme')
-                continue
             end
-        else
-            disp('Vektorja sta enaka 0')
-            continue
-        end
     end
 end        
-disp('Algoritem ne najde rešitve, uporabi algoritem CPU')
+disp('Algoritem ne najde resitve, uporabi algoritem CPU')
+
+%izboljsava
+z1 = [real(x(:,1)'*A*x(:,1)), imag(x(:,1)'*A*x(:,1))];
+z2 = [real(y(:,1)'*A*y(:,1)), imag(y(:,1)'*A*y(:,1))];
+%y = a*x+c
+a = (z2(2)-z1(2))/(z2(1)-z1(1));
+c = z1(2) - z1(1)*a;
+nicla = - c/a;
+if nicla <0,
+    z3 = [real(xx(:,1)'*A*xx(:,1)), imag(xx(:,1)'*A*xx(:,1))];
+    a1 = (z3(2)-z1(2))/(z3(1)-z1(1));
+    c1 = z3(2) - z3(1)*a1;
+    nicla1 = - c1/a1;
+    a2 = (z3(2)-z2(2))/(z3(1)-z2(1));
+    c2 = z3(2) - z3(1)*a2;
+    nicla2 = - c2/a2;
+    if nicla1 >0 && nicla1 <= z3(1),
+%         bb = @(t,th) exp(-1i*th)*nicla + t*nicla1; %b(t,theta)
+%         al = @(th) exp(1i*th)*nicla'*A*nicla1 + exp(-1i*th)*nicla1'*A*nicla; %alfa(theta)
+% 
+%         th = angle(nicla1'*A*nicla - nicla.'*conj(A)*conj(nicla1));
+%         t1 = (-al(th) + sqrt(al(th)^2 -4*alfa1*alfa2))/(2*alfa2);
+% 
+%         b = bb(t1,th)/norm(bb(t1,th));
+        b = lema_31(
+        napaka = abs(b'*A*b);
+        return
+    elseif nicla2>0 && nicla2<=z3(1),
+        b = lema_31(nicla,nicla2,A);
+        napaka = abs(b'*A*b);
+        %return
+    else
+        disp('Uporabi algoritem Cardna')
+    end
+elseif nicla >0
+    z3 = [real(yy(:,1)'*A*yy(:,1)), imag(yy(:,1)'*A*yy(:,1))];
+    a1 = (z3(2)-z1(2))/(z3(1)-z1(1));
+    c1 = z3(2) - z3(1)*a1;
+    nicla1 = - c1/a1;
+    a2 = (z3(2)-z2(2))/(z3(1)-z2(1));
+    c2 = z3(2) - z3(1)*a2;
+    nicla2 = - c2/a2;
+    if nicla1 <0 && nicla1 >= z3(1),
+        b = lema_31(nicla/norm(nicla),nicla1/norm(nicla1),A);
+        napaka = abs(b'*A*b);
+        %return
+    elseif nicla2<0 && nicla2 >= z3(1),
+        b = lema_31(nicla/norm(nicla),nicla2/norm(nicla2),A);
+        napaka = abs(b'*A*b);
+        %return
+    else
+        disp('Uporabi algoritem Cardna')
+    end
+end
+    
+        
+
+
 
 end

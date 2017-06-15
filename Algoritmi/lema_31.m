@@ -10,7 +10,7 @@ if a1<0,
         alfa1 = a1;
         alfa2 = a2;
     else
-        disp('b1 in b2 imata enako (negativno) predznaèena realna dela')
+        %disp('b1 in b2 imata enako (negativno) predznaèena realna dela')
         b=0;
         return
     end
@@ -20,12 +20,12 @@ elseif a1>0,
         alfa1 = a2;
         [b2, b1] = deal(b1, b2);
     else
-        disp('b1 in b2 imata enako (pozitivno) predznaèena realna dela, ne moremo ju uporabiti!')
+        %disp('b1 in b2 imata enako (pozitivno) predznaèena realna dela, ne moremo ju uporabiti!')
         b=0;
         return
     end
 else
-    disp('ne moremo uporabiti leme')
+    %disp('ne moremo uporabiti leme')
     b = 0;
     return
 end
