@@ -14,8 +14,10 @@ opts.tol = 10^-4;
 [y, vred_h2] = eigs(H,1,'sa',opts); 
 
 if (vred_h1 * vred_h2) < 0,
-    b1 = sqrt(vred_h1 / (vred_h1 + abs(vred_h2)))*y + sqrt( abs(vred_h2) / (vred_h1 + abs(vred_h2)))*x;
-    b2 = -sqrt(vred_h1 / (vred_h1 + abs(vred_h2)))*y + sqrt( abs(vred_h2) / (vred_h1 + abs(vred_h2)))*x;
+    b1 = sqrt(vred_h1 / (vred_h1 + abs(vred_h2)))*y + 
+    sqrt( abs(vred_h2) / (vred_h1 + abs(vred_h2)))*x;
+    b2 = -sqrt(vred_h1 / (vred_h1 + abs(vred_h2)))*y + 
+    sqrt( abs(vred_h2) / (vred_h1 + abs(vred_h2)))*x;
     b = [b1 ,b2];
     napaka = [abs(b1'*H*b1),abs(b2'*H*b2)];
     korak = 1;
@@ -25,4 +27,3 @@ else
     korak = 0;
     disp('H je definitna')
 end
-

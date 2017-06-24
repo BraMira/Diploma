@@ -1,5 +1,6 @@
 function [b, napaka, korak] = izotropniMeurant(A, mu)
-%ce je mozno, ta funkcija izracuna izotropne vektorje b, ki so resitev enacbe mu=b'Ab.
+%ce je mozno, ta funkcija izracuna izotropne vektorje b, ki so resitev 
+%enacbe mu=b'Ab.
 %Vhod: A...realna ali kompleksna matrika
 %      mu ... kompleksno stevilo v zalogi vrednosti A
 %       
@@ -52,15 +53,18 @@ LV = [diag(vred_k1);diag(vred_k2)];
 for k=1: size(X,2)-1,
     for j = (k+1):size(X,2),
         if (LV(k,:)*LV(j,:) < 0),
-            fi = (log(X(:,k)'*A*X(:,j)*inv(X(:,j)'*A*X(:,k))))/(2i); %#ok<*MINV>
+            fi = (log(X(:,k)'*A*X(:,j)*inv(X(:,j)'*A*X(:,k))))/(2i); 
+            %#ok<*MINV>
             [b1, b2] = xtheta(X(:,k)*exp(fi*1i), X(:,j), A);
 
 
-            if sum(abs(b1)<ones(n,1)*1e-10)==0 && sum(abs(b2)<ones(n,1)*1e-10)==0,
+            if sum(abs(b1)<ones(n,1)*1e-10)==0 && 
+                sum(abs(b2)<ones(n,1)*1e-10)==0,
                 b1 = b1/norm(b1);
                 b2 = b2/norm(b2);
 
-                if (abs(imag(b1'*A*b1))<1e-10) && (abs(imag(b2'*A*b2))<1e-10),
+                if (abs(imag(b1'*A*b1))<1e-10) && 
+                    (abs(imag(b2'*A*b2))<1e-10),
                     b = lema_31(b1,b2,A);
                     if sum(abs(b)<ones(n,1)*1e-10)==0,
                         napaka = abs(b'*A*b);
@@ -87,15 +91,17 @@ LV1 = [diag(vred_h1);diag(vred_h2)];
 for k=1: size(XX,2)-1,
     for j = (k+1): size(XX,2),
         if (LV1(k,:)*LV1(j,:)< 0),
-
-            fi = (log(XX(:,k)'*A*XX(:,j)*inv(XX(:,j)'*A*XX(:,k))))/(2i); %#ok<*MINV>
+            fi = (log(XX(:,k)'*A*XX(:,j)*inv(XX(:,j)'*A*XX(:,k))))/(2i); 
+            %#ok<*MINV>
             [b1, b2] = xtheta(XX(:,k)*exp(fi*1i), XX(:,j), 1i*A);
 
-            if sum(abs(b1)<ones(n,1)*1e-10)==0 && sum(abs(b2)<ones(n,1)*1e-10)==0,
+            if sum(abs(b1)<ones(n,1)*1e-10)==0 && 
+                sum(abs(b2)<ones(n,1)*1e-10)==0,
                 b1 = b1/norm(b1);
                 b2 = b2/norm(b2);
 
-                if (abs(imag(b1'*(1i*A)*b1))<1e-10) && (abs(imag(b2'*(1i*A)*b2))<1e-10),
+                if (abs(imag(b1'*(1i*A)*b1))<1e-10) && 
+                    (abs(imag(b2'*(1i*A)*b2))<1e-10),
                     b = lema_31(b1,b2,(1i*A));
                     if sum(abs(b)<ones(n,1)*1e-10)==0,
                         napaka = abs(b'*(1i*A)*b);
@@ -111,14 +117,17 @@ korak = korak +1;
 
 for k=1:size(X,2),
     for j = 1: size(XX,2),
-            fi = (log(X(:,k)'*A*XX(:,j)*inv(XX(:,j)'*A*X(:,k))))/(2i); %#ok<*MINV>
+            fi = (log(X(:,k)'*A*XX(:,j)*inv(XX(:,j)'*A*X(:,k))))/(2i); 
+            %#ok<*MINV>
             [b1, b2] = xtheta(X(:,k)*exp(fi*1i), XX(:,j), A);
 
-            if sum(abs(b1)<ones(n,1)*1e-10)==0 && sum(abs(b2)<ones(n,1)*1e-10)==0,
+            if sum(abs(b1)<ones(n,1)*1e-10)==0 && 
+                sum(abs(b2)<ones(n,1)*1e-10)==0,
                 b1 = b1/norm(b1);
                 b2 = b2/norm(b2);
 
-                if (abs(imag(b1'*A*b1))<1e-10) && (abs(imag(b2'*A*b2))<1e-10),
+                if (abs(imag(b1'*A*b1))<1e-10) &&
+                    (abs(imag(b2'*A*b2))<1e-10),
                     b = lema_31(b1,b2,A);
                     if sum(abs(b)<ones(n,1)*1e-10)==0,
                         napaka = abs(b'*A*b);

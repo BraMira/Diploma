@@ -13,7 +13,8 @@ t2 = (-gama - sqrt(gama^2 -4*beta*alfa))/(2*beta);
 
 %preverimo, èe sta rešitvi realni
 if (abs(imag(t1))<1e-10),
-    theta1 = atan(real(t1));%t = tan(theta) (predpostavili smo, da cos(theta)~=0
+    theta1 = atan(real(t1));%t = tan(theta) 
+    %(predpostavili smo, da cos(theta)~=0
     b1 = cos(theta1)*x + sin(theta1)*y;
 else
     b1 = 0;

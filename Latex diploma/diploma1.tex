@@ -9,6 +9,7 @@
  \usepackage{graphicx}
 \usepackage[rightcaption]{sidecap}
 \usepackage[export]{adjustbox}
+\usepackage{subcaption}
 %\usepackage[normalem]{ulem}
 \usepackage[dvipsnames,usenames]{color}
 \textwidth 15cm
@@ -107,7 +108,7 @@ b^\ast Ab=0.
 \end{equation}
 Vektor $b$, za katerega velja \eqref{eq:zac} in $b^\ast b=1$  imenujemo \textbf{izotropni vektor}. 
 %V tem problemu, je neničeln vektor skaliran in rotiran v ortogonalni smeri. %\cite{lipkin}
-Bolj splošen je problem inverzne zaloge vrednosti, kjer iščemo enotski vektor $b$, za katerega velja:
+Bolj splošen je problem inverznega numeričnega zaklada, kjer iščemo enotski vektor $b$, za katerega velja:
 \begin{equation}\label{eq:splosno}
 b^\ast Ab=\mu,
 \end{equation}
@@ -133,18 +134,32 @@ b^\ast Ab=0.
 Ko sta $b$ in $A$ realna, je problem mnogo enostavnejši, saj moramo upoštevati le simetričen del matrike $A$.
 Hermitski in poševno-hermitski del matrike $A$ bomo označili s $H=(A+A^\ast)/2$ in $\tilde{K}=(A-A^\ast)/2=\imath K$.
 
-\subsection{Zaloga vrednosti}
-%ZALOGA VREDNOSTI
+\subsection{Numerični zaklad}
+%NUMERIČNI ZAKLAD
 \begin{definicija}
-Zaloga vrednosti matrike $A \in \C^{n\times n}$ je pod\-mno\-ži\-ca kompleksne ravnine, definirana kot
+Numerični zaklad matrike $A \in \C^{n\times n}$ je pod\-mno\-ži\-ca kompleksne ravnine, definirana kot
 $$W(A)=\{x^\ast Ax: x \in \C^n, x^\ast x=1\}.$$
 \end{definicija}
-Očitno je zaloga vrednost $W(A)$ množica vseh Rayleighovih kvocientov matrike $A$. Podobno kot spekter je zaloga vrednosti množica iz katere lahko razberemo informacije o matriki in pogosto da več informacij kot spekter sam.
-Zaloga vrednosti vsebuje bistvene informacije o matriki $A$ kot transformaciji, zlasti o lastnih vrednostih in lastnih prostorih (eigenspace) matrike $A$.  Lastne vrednosti hermitskih in normalnih matrik imajo uporabne lastnosti, s katerimi si pomagamo pri izračunu zaloge vrednosti.
-Če vzamemo hermitski del matrike se zaloga vrednosti preslika na realno os, to je podobno kot če bi vzeli realni del kompleksnega števila.
+Očitno je numerični zaklad $W(A)$ množica vseh Rayleighovih kvocientov matrike $A$. Podobno kot spekter je numerični zaklad množica iz katere lahko razberemo informacije o matriki in pogosto da več informacij kot spekter sam.
+%Numerični zaklad vsebuje bistvene informacije o matriki $A$ kot transformaciji, zlasti o lastnih vrednostih in lastnih prostorih (eigenspace) matrike $A$.
+Lastne vrednosti hermitskih in normalnih matrik imajo uporabne lastnosti, s katerimi si pomagamo pri izračunu numeričnega zaklada.
+Če vzamemo hermitski del matrike se numerični zaklad preslika na realno os in postane daljica, kar je podobno kot če bi vzeli realni del kompleksnega števila. To prikazuje Slika \ref{fig:zaklad}.\\
+\begin{figure} [h]
+\begin{tabular}{lll}
+\includegraphics[width=.225\textwidth]{real.jpg}
+&
+\includegraphics[width=.225\textwidth]{hermit.jpg}
+&
+\includegraphics[width=.225\textwidth]{kompleks.jpg}
+\end{tabular}
+\caption{Numerični zaklad realne, hermitske in kompleksne matrike, narisan z algoritmom opisanem v \cite{zaloga}, ki je dostopen v \cite{nr}.}
+\label{fig:zaklad}
+\end{figure}
+
+
 Če hočemo, da ima \eqref{eq:zac} vsaj eno rešitev, mora biti izhodišče vsebovano v $W(A)$. \\
 
-Nekatere lastnosti zaloge vrednosti:% (\cite{num}):
+Nekatere lastnosti numeričnega zaklada:% (\cite{num}):
 \begin{enumerate}
 \item $W(A)$ je konveksna in kompaktna podmnožica $\C$.
 \item $\sigma(A)\subseteq W(A)$, kjer $\sigma(A)$ označuje množico vseh lastnih vrednosti matrike A imenovano spekter.
@@ -202,13 +217,13 @@ x^\ast Hx &= x^\ast \frac{1}{2}(A+A^\ast)x \\
 
 \item Če je A normalna, potem je $A=U^\ast \Lambda U$, kjer je $\Lambda = \text{diag}(\lambda_1, \dots, \lambda_n)$ diagonalna in $U$ je unitarna. Po lastnosti (3), $W(A)=W(\Lambda)$ in ker $$x^\ast \Lambda x = \sum_{i=1}^{n} \bar{x}_i x_i\lambda_i = \sum_{i=1}^{n} |x_i|^2 \lambda_i$$ $W(\Lambda)$ je samo množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$ ($x^\ast x=1$ implicira $\sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). Ker so diagonalni elementi $\Lambda$ lastne vrednosti $A$, to pomeni daa je $W(A) =\Co(\sigma(A))$
 
-\item Ker je hermitska matrika tudi normalna velja $$W(H) = \Co(\sigma(H)),$$ zaradi lastnosti (3). Vemo, da se zaloga vrednosti hermitske matrike projecira na realno os ter da je $\sigma(H)$ množica vseh realnih lastnih vrednosti matrike $H$. Konveksna ogrinjača $\sigma(H)$ je množica vseh daljic med lastnimi vrednostmi matrike$H$ in ker bo zaloga vrednosti samo na realni osi, je to daljica med najmanjšo in največjo realno lastno vrednostjo $H$.
+\item Ker je hermitska matrika tudi normalna velja $$W(H) = \Co(\sigma(H)),$$ zaradi lastnosti (3). Vemo, da se numerični zaklad hermitske matrike projecira na realno os ter da je $\sigma(H)$ množica vseh realnih lastnih vrednosti matrike $H$. Konveksna ogrinjača $\sigma(H)$ je množica vseh daljic med lastnimi vrednostmi matrike$H$ in ker bo numerični zaklad samo na realni osi, je to daljica med najmanjšo in največjo realno lastno vrednostjo $H$.
 \end{enumerate}
 \end{proof}
 \subsubsection{Konveksnost}
-V tem poglavju bomo dokazali, da je zaloga vrednosti konveksna, kar je znano tudi kot Toeplitz-Hausdorfferjev izrek.
+V tem poglavju bomo dokazali, da je numerični zaklad konveksen, kar je znano tudi kot Toeplitz-Hausdorfferjev izrek.
 \begin{lema}
-Naj bo $H\ in \C^{n\times n}$ hermitska matrika in $\mu \in W(H)$. Potem je množica $\LH _{H}(\mu)=\{x\in \C^n :x^\ast x=1, x^\ast Hx=\mu\}$ povezana s potmi (t.j. obstaja pot med poljubnima dvema točkama iz te množice)% oz. poljubni dve točki iz te množice lahko povežemo z zvezno krivulju, ki je v celoti vsebovana v množici)
+Naj bo $H\in \C^{n\times n}$ hermitska matrika in $\mu \in W(H)$. Potem je množica $\LH _{H}(\mu)=\{x\in \C^n :x^\ast x=1, x^\ast Hx=\mu\}$ povezana s potmi (t.j. obstaja pot med poljubnima dvema točkama iz te množice)% oz. poljubni dve točki iz te množice lahko povežemo z zvezno krivulju, ki je v celoti vsebovana v množici)
 \end{lema}
 
 \begin{proof}
@@ -249,7 +264,7 @@ realna in zvezna glede na spremenljivko $t$ in zadošča pogojema $z(0)^\ast Az(
 \end{proof}
 
 \subsection{Uporaba}
-Zanimanje za izračun izotropnih vektorjev je povezano s pre\-u\-če\-va\-njem delne stagnacije GMRES algoritma za reševanje linearnih sistemov z realnimi matrikami. Zaloga vrednosti se uporablja za preučevanje konvergence nekaterih iterativnih metod za reševanje linearnih sistemov in ima mnogo aplikacij v numerični analizi, diferencialnih enačbah, teoriji sistemov itd.
+Zanimanje za izračun izotropnih vektorjev je povezano s pre\-u\-če\-va\-njem delne stagnacije GMRES algoritma za reševanje linearnih sistemov z realnimi matrikami. Numerični zaklad se uporablja za preučevanje konvergence nekaterih iterativnih metod za reševanje linearnih sistemov in ima mnogo aplikacij v numerični analizi, diferencialnih enačbah, teoriji sistemov itd.
 
 %2. poglavje
 
@@ -377,7 +392,7 @@ To bo držalo, ko bo $$\theta = \text{arg}(b_2^\ast Ab_1 - \overline{b_1^\ast Ab
 \item S kombiniranjem lastnih vektorjev $K$, pripadajočim pozitivnim in negativinim lastnim vrednostim, izračunamo vektorja $b_1$ in $b_2$, taka da  $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$. Uporabimo lemo \ref{komp} in končamo.
 \item Če ne najdemo $b_1$, $b_2$ potrebna za lemo \ref{komp}, izračunamo še lastne vektorje matrike $H$.  Ponovimo korak 1. za matriko $\imath A$.
 \item Če postopek ne deluje niti za $\imath A$, uporabimo kombinacijo lastnih vektorjev $K$ in $H$, kjer z $x$ označimo lastni vektor $K$ in z $y$ lastni vektor $H$.
-\item Upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y,$ $0\le\theta\le\pi$. $X_\theta ^\ast AX_\theta$ opiše elipso znotraj zaloge vrednosti.
+\item Upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y,$ $0\le\theta\le\pi$. $X_\theta ^\ast AX_\theta$ opiše elipso znotraj numeričnega zaklada.
 \item Za dan par $(x,y)$ iščemo presečišča elipse $X_\theta ^\ast AX_\theta$ z realno osjo. Z u\-po\-šte\-va\-njem, da je $A=H+iK$, računamo:
 \begin{align*}
 X_\theta^\ast AX_\theta &= \cos^2(\theta)(x^\ast Hx + ix^\ast Kx)\\ 
@@ -409,7 +424,7 @@ Naj bo $\varepsilon >0$ toleranca (npr. $\varepsilon=10^{-16}\norm{A}$ za dvojno
 \begin{enumerate}[1.]
 \item Poiščemo zunanjo aproksimacijo $W(A)$, tako da zračunamo najbolj levo in najbolj desno lastno vrednost $H_\theta =(e^{i\theta}A+e^{-i\theta}A^\ast)/2$ za $\theta =0, \pi/2$. %S tem dobimo zunanjo aproksimacijo zaloge vrednosti, ki seka $\partial W(A)$ v robnih točkah. %RAZLAGA Zunanja aproksimacija bo pravokotnik, katerega stranice so vzporedne z realno in imaginarno osjo. 
 Če $\mu$ ni v zunanji aproksimaciji, potem $\mu \not \in W(A)$ in ustavimo algoritem, drugače nadaljujemo.
-\item Če je višina ali širina zunanje aproksimacije manj kot $\varepsilon$, potem je $W(A)$ približno hermitska ali poševno-hermitska (ali kompleksen premik katere od teh) in je zaloga vrednosti približno točka. V obeh primerih ugotovimo ali je $\mu \in W(A)$. Če je, poiščemo pripadajoč izotropni vektor. 
+\item Če je višina ali širina zunanje aproksimacije manj kot $\varepsilon$, potem je $W(A)$ približno hermitska ali poševno-hermitska (ali kompleksen premik katere od teh) in je numerični zaklad približno točka. V obeh primerih ugotovimo ali je $\mu \in W(A)$. Če je, poiščemo pripadajoč izotropni vektor. 
 \item Če $\mu \not \in W(A)$, nadaljujemo s konstrukcijo notranje aproksimacije $W(A)$ z uporabo lastnih vektorjev najbolj leve in desne lastne vrednosti $H_{\theta}$.% RAZLAGA Notranja aproksimacija bo štirikotnik z oglišči v robnih točkah $\partial W(A)$.
 \item  Če $\mu$ leži v notranji aproksimaciji, lahko poiščemo izotropni vektor, ki generira $\mu$. Uporabimo postopek, ki je bil opisan v začetku tega razdelka. %OPISS
 Če $\mu$ ne leži v notranji aproksimaciji, določimo katera stranica notranje aproksimacije mu leži najbližje.
@@ -418,19 +433,19 @@ Naj bo $\varepsilon >0$ toleranca (npr. $\varepsilon=10^{-16}\norm{A}$ za dvojno
 \item Ponovno preverimo, če je $\mu$  v novi zunanji aproksimaciji. Če je, se vrnemo na 4. korak, drugače $\mu \not \in W(A)$. 
 \end{enumerate}
 Opomba: Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ blizu $\mu$ ali dokler zunanja aproksimacija ne vsebuje $\mu$. Carden trdi, da se v večini primerov postopek konča v koraku 4. po le nekaj ponavljanjih.\\
-Zunanja aproksimacija zaloge vrednosti, ki seka $\partial W(A)$ v robnih točkah, bo pravokotnik, katerega stranice so vzporedne z realno in imaginarno osjo,  notranja aproksimacija pa štirikotnik z oglišči v robnih točkah $\partial W(A)$.
+Zunanja aproksimacija numeričnega zaklada, ki seka $\partial W(A)$ v robnih točkah, bo pravokotnik, katerega stranice so vzporedne z realno in imaginarno osjo,  notranja aproksimacija pa štirikotnik z oglišči v robnih točkah $\partial W(A)$.
 %VKLJUČIM POPRAVEK?
-%Ta algoritem ne izkoristi dejstva, da je zaloga vrednosti $2\times2$ matrike elipsa. Ta lastnost nakazuje, da z točkami in pripadajočimi izotropnimi vektorji za notranjo aproksimacijo, lahko natančno določimo izotropne vektorje za točke zunaj notranje aproksimacije. Tako lahko korak 5. popravimo:
+%Ta algoritem ne izkoristi dejstva, da je numerični zaklad $2\times2$ matrike elipsa. Ta lastnost nakazuje, da z točkami in pripadajočimi izotropnimi vektorji za notranjo aproksimacijo, lahko natančno določimo izotropne vektorje za točke zunaj notranje aproksimacije. Tako lahko korak 5. popravimo:
 %\begin{enumerate}[5.]
 %\item Preverimo, če $\mu$ leži na elipsi
 %\end{enumerate}
  %Definiraj genarirajoč vektor in ritzove vrednosti
 \subsubsection{Chorianopoulos, Psarrakos in Uhlig.}
-V tem razdelku opišemo algoritem Chorianopoulosa, Psarrakosa in Uhliga (označimo s CPU) za inverzen problem zaloge vrednosti.
-Algoritem je hitrejši in daje natančne numerične rezultate tam, kjer se zgornja algoritma mnogokrat ustavita. Tak primer je ko $\mu$, $\mu \in W(A)$ ali $\mu \not\in W(A)$, leži zelo blizu roba zaloge vrednosti $\partial W(A)$. Ta algoritem uporabi za iskanje izotropnih vektorjev le nekaj najbolj osnovnih lastnosti zaloge vrednosti poleg konveksnosti, kot je $W(\alpha A +\beta I)=\alpha W(A) +\beta$.\\
+V tem razdelku opišemo algoritem Chorianopoulosa, Psarrakosa in Uhliga (označimo s CPU) za inverzen problem numeričnega zaklada.
+Algoritem je hitrejši in daje natančne numerične rezultate tam, kjer se zgornja algoritma mnogokrat ustavita. Tak primer je ko $\mu$, $\mu \in W(A)$ ali $\mu \not\in W(A)$, leži zelo blizu roba numeričnega zaklada $\partial W(A)$. Ta algoritem uporabi za iskanje izotropnih vektorjev le nekaj najbolj osnovnih lastnosti numeričnega zaklada poleg konveksnosti, kot je $W(\alpha A +\beta I)=\alpha W(A) +\beta$.\\
 \paragraph{Algoritem:}
 \begin{enumerate}[1.]
-\item Izračunamo do 4 robne točke zaloge vrednosti $p_i$ in njihove izotropne vektorje $b_i$, za $i=1,2,3,4$, tako da izračunamo ekstremne lastne vrednosti, ki pripadajo enotskim lastnim vektorjem $x_i$ %a je to isti x oz. b?
+\item Izračunamo do 4 robne točke numeričnega zaklada $p_i$ in njihove izotropne vektorje $b_i$, za $i=1,2,3,4$, tako da izračunamo ekstremne lastne vrednosti, ki pripadajo enotskim lastnim vektorjem $x_i$ %a je to isti x oz. b?
 matrike $H$ in $K$.
 \item Nastavimo $p_i =b^\ast _i Ab_i$. Dobimo 4 točke $p_i$, ki označujejo ekstremne vrednosti $W(A)$, tj. najmanjši in največji horizontalni in vetikalni razteg. Označimo jih z $rM$ in $rm$ za maksimalen in minimalen horizontalni razteg $W(A)$ in z $iM$ in $im$ za maksimalen in minimalen vertikalen razteg $W(A)$.  Če je $|p_i|<10^{-13}$,  za $i=1,2,3,4$, potem je naš izotropni vektor kar pripadajoč enotski vektor.
 \item Če med računanjem lastnih vektorjev in lastnih vrednosti ugotovimo, da je ena od matrik $H$ in $iK$ definitna, tj. da imajo njene lastne vrednosti vse enak predznak, potem vemo da $\mu \not\in W(A)$ in algoritem ustavimo.
@@ -455,10 +470,494 @@ za $q=\Im(x^\ast Ax)$, $p=\Im(y^\ast Ay)$ in $r=\Im(x^\ast  Ay + y^\ast Ax)$. Oz
 \item Končamo, ko najdemo definitno matriko $A(\theta)$ ali elipso, ki seka realno os na obeh straneh 0, nakar lahko uporabimo lemo \ref{komp}.
 \end{enumerate}
 \section{Numerična analiza}
-V tem poglavju bomo primerjali hitrosti algortimov Meuranta (drug algoritem), Cardna in CPU na različnih primerih problema iskanja izotropnih vektorjev. O\-zna\-či\-mo jih z \verb+AlgM+, \verb+AlgC+ in \verb+AlgCPU+. 
+V tem poglavju bomo na kratko opisali naš algoritem, ki je povzet po algoritmu Meurant 2., vendar pa ni identičen, in ga primerjali z algoritmoma Cardna in CPU na različnih primerih problema iskanja izotropnih vektorjev. 
+\subsection{Opis algoritma}
+Najprej na kratko opišimo kako naš algoritem, najden v poglavju 6., deluje. \\
+Prva stvar, ki jo algoritem naredi, je da problem \eqref{eq:splosno} preobrne v začetni problem \eqref{eq:zac}. Nato preveri, če je matrika $A$  realna in če je, pokliče funkcijo \verb+izotropniMeurantR+, ki vrne 2 izotropna vektorja, izračunana kot v poglavju 2. Nadalje algoritem uporabi isti postopek kot je opisan v Meurant 2., tako da poskusi rešiti problem z lastnimi vektorji matrike $K$, če to ne deluje poskusi z lastnimi vektorji matrike $H$ in na koncu še s kombinacijo lastnih vektorjev matrike $K$ in $H$. Edina razlika med našim algortimom in algortimom iz Meurant 2. nastane zaradi premalo informacij iz članka \cite{meurant} o tem kako najti vektorja $b_1$ in $b_2$, da lahko uporabimo lemo \ref{komp}. Naš algoritem najde $b_1$ in $b_2$ tako kot je opisano v koraku 4. in 5. algoritma, ko kombiniramo lastne vektorje matrike $K$ in $H$, kar naredi algoritem \verb+xtheta+. Torej upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y$, $0\le\theta\le\pi$, kjer $X_\theta ^\ast AX_\theta$ opiše elipso znotraj numeričnega zaklada. Za dan par $(x,y)$ iščemo presečišča elipse $X_\theta ^\ast AX_\theta$ z realno osjo, kjer sta $x$ in $y$ lastna vektorja matrike $K$ ali matrike $H$ in ti presečišči vzamemo kot kandidata za $b_1$ in $b_2$. Vendar naš algoritem ta korak še izboljša, saj maksimizira elipso $X_\theta ^\ast AX_\theta$, tako da $X_\theta$ definiramo kot $X_\theta (\varphi) =\cos(\theta)x e^{\varphi \imath}+\sin(\theta)y$, kjer je $$\varphi = \frac{1}{2\imath} \text{ln}(x^\ast Ay (y^\ast Ax)^{-1}).$$ Če maksimiziramo elipso je večja verjetnost, da bo 0 vsebovana v njej in s tem je večja verjetnost, da najdemo rešitev v manj korakih. Če najdemo primerna $b_1$ in $b_2$ da lahko uporabimo lemo \ref{komp}, ki je definirana v algoritmu \verb+lema31+, smo končali.
+\subsection{Primerjava}
+O\-zna\-či\-mo algoritme z \verb+AlgM+, \verb+AlgC+ in \verb+AlgCPU+. Numerične zaklade bomo narisali s funkcijo iz \cite{fovals}.
+
+\subsubsection{A in $\mu$ realna}
+
+Za prvi primer vzamimo naključno generirano $10\times 10$ matriko $A$ in $\mu = 1,0419$, ki je znotraj numeričnega zaklada, Slika \ref{fig:p1}.
+$$\verb+A = randn(10)+$$
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.5]{RR1.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\label{fig:p1}
+\end{figure}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A in $\mu$ realna in obstaja rešitev}
+\label{t1}
+\end{table}
+Za drugi primer vzamimo matriko
+\begin{equation*}
+A=\begin{bmatrix}
+2 &-1&0\\
+-1&2&-1\\
+0&-1&2
+\end{bmatrix}.
+\end{equation*}
+Matrika $A$ je definitna, zato algoritem ne najde rešitve.
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A in $\mu$ realna in ne obstaja}
+\label{t2}
+\end{table}
+
+\subsubsection{A realna, $\mu$ kompleksen}
+
+
+Naj bo $A$ naključno generirana realna $10\times 10$ matrika in $\mu = -1,4575 + 0,1514 \imath$ kompleksno število iz numeričnega zaklada, Slika \ref{fig:p3}.
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.5]{RC1.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\label{fig:p3}
+\end{figure}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A realen, $\mu$ kompleksen in rešitev najdemo v 1 koraku.}
+\label{t3}
+\end{table}
+
+Za drugi primer vzamemo naključno generirano $20\times 20$ matriko A in $\mu = 1 + \imath$, Slika \ref{fig:p4}.
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.5]{RC2.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\label{fig:p4}
+\end{figure}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A realen, $\mu$ kompleksen in rešitev najdemo v 2 koraku.}
+\label{t4}
+\end{table}
+
+Za tretji primer vzamemo naključno generirano $20\times 20$ matriko A in $\mu = 2 + 2\imath$, Slika \ref{fig:p5}.
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.5]{RC3.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\label{fig:p5}
+\end{figure}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A realen, $\mu$ kompleksen in rešitev najdemo v 3 koraku.}
+\label{t5}
+\end{table}
+
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.5]{RR1.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\label{fig:p1}
+\end{figure}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A in $\mu$ realna in obstaja rešitev}
+\label{t1}
+\end{table}
+
+
+\subsubsection{A in $\mu$ kompleksna}
+
+
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.5]{RR1.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\label{fig:p1}
+\end{figure}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A in $\mu$ realna in obstaja rešitev}
+\label{t1}
+\end{table}
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.5]{RR1.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\label{fig:p1}
+\end{figure}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A in $\mu$ realna in obstaja rešitev}
+\label{t1}
+\end{table}
+\begin{figure}[hbt]
+\centering
+\includegraphics[scale=0.5]{RR1.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\label{fig:p1}
+\end{figure}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A in $\mu$ realna in obstaja rešitev}
+\label{t1}
+\end{table}
+
 %\subsection{Pričakovanjana}
 %Za \verb+AlgM+ vemo, da če algoritem potrebuje le 1. korak, deluje hitrejše od ostalih dve algoritmov, saj porabi le eno računanje lastnih vektorjev in vrednosti. Če pa 1. korak ali 2. korak ne delujeta, je to potrata časa in druga dva algoritma delujeta hitreje.
 \section{Zaključek}
+
+\section{Priloge}
+\begin{verbatim}
+function [b, napaka, korak] = izotropniMeurant(A, mu)
+%ce je mozno, ta funkcija izracuna izotropne vektorje b, ki so
+%resitev enacbe mu=b'Ab.
+%Vhod: A...realna ali kompleksna matrika
+%      mu ... kompleksno stevilo v zalogi vrednosti A
+%       
+%
+%Izhod:  b...izotropni vektor za mu
+%        napaka ... norm(b'Ab-mu)
+%        korak ... kolikokrat smo racunali lastne vrednosti in lastne
+%        vektorje
+warning off
+
+if nargin ==1,
+    mu=0;
+    %tol = 1e-14;
+end
+
+[n, m] = size(A);
+%preverimo, ce A kvadratna matrika
+if n~=m,
+    disp('Matrika A ni kvadratna!')
+    return
+end
+
+%problem preobrnemo v b*(A-muI)b=0
+A = A-mu*eye(n);
+
+%A realna, algoritem za realne mtr.
+if isreal(A)==1,
+    [b, napaka, korak] = izotropniMeurantR(A);
+    return
+end
+
+H=(A+A')/2;
+K=(A-A')/(2*1i);
+opts.disp = 0; 
+opts.maxit = 1000; 
+opts.tol = 10^-4;
+
+napaka = Inf;
+korak = 0;
+b = 0;
+
+[x, vred_k1] = eigs(K,3,'lr',opts); 
+
+[y, vred_k2] = eigs(K,3,'sr',opts); 
+
+korak = korak + 1;
+
+X = [x,y];
+LV = [diag(vred_k1);diag(vred_k2)];
+for k=1: size(X,2)-1,
+    for j = (k+1):size(X,2),
+        if (LV(k,:)*LV(j,:) < 0),
+            fi = (log(X(:,k)'*A*X(:,j)*inv(X(:,j)'*A*X(:,k))))/(2i); 
+            %#ok<*MINV>
+            [b1, b2] = xtheta(X(:,k)*exp(fi*1i), X(:,j), A);
+
+
+            if sum(abs(b1)<ones(n,1)*1e-10)==0 && 
+                sum(abs(b2)<ones(n,1)*1e-10)==0,
+                b1 = b1/norm(b1);
+                b2 = b2/norm(b2);
+
+                if (abs(imag(b1'*A*b1))<1e-10) && 
+                    (abs(imag(b2'*A*b2))<1e-10),
+                    b = lema_31(b1,b2,A);
+                    if sum(abs(b)<ones(n,1)*1e-10)==0,
+                        napaka = abs(b'*A*b);
+                        return
+                    end
+                end
+            end
+        end
+    end
+
+end
+
+
+%ponovimo isti postopek za H in matriko iA
+[xx, vred_h1] = eigs(H,3,'lr'); 
+
+[yy, vred_h2] = eigs(H,3,'sr'); 
+
+korak = korak + 1;
+
+XX = [xx,yy];
+LV1 = [diag(vred_h1);diag(vred_h2)];
+
+for k=1: size(XX,2)-1,
+    for j = (k+1): size(XX,2),
+        if (LV1(k,:)*LV1(j,:)< 0),
+          fi=(log(XX(:,k)'*A*XX(:,j)*inv(XX(:,j)'*A*XX(:,k))))/(2i);
+            %#ok<*MINV>
+            [b1, b2] = xtheta(XX(:,k)*exp(fi*1i), XX(:,j), 1i*A);
+
+            if sum(abs(b1)<ones(n,1)*1e-10)==0 && 
+                sum(abs(b2)<ones(n,1)*1e-10)==0,
+                b1 = b1/norm(b1);
+                b2 = b2/norm(b2);
+
+                if (abs(imag(b1'*(1i*A)*b1))<1e-10) && 
+                    (abs(imag(b2'*(1i*A)*b2))<1e-10),
+                    b = lema_31(b1,b2,(1i*A));
+                    if sum(abs(b)<ones(n,1)*1e-10)==0,
+                        napaka = abs(b'*(1i*A)*b);
+                        return
+                    end
+                end
+            end
+        end
+    end
+end
+
+korak = korak +1;
+
+for k=1:size(X,2),
+    for j = 1: size(XX,2),
+            fi=(log(X(:,k)'*A*XX(:,j)*inv(XX(:,j)'*A*X(:,k))))/(2i);
+            %#ok<*MINV>
+            [b1, b2] = xtheta(X(:,k)*exp(fi*1i), XX(:,j), A);
+
+            if sum(abs(b1)<ones(n,1)*1e-10)==0 && 
+                sum(abs(b2)<ones(n,1)*1e-10)==0,
+                b1 = b1/norm(b1);
+                b2 = b2/norm(b2);
+
+                if (abs(imag(b1'*A*b1))<1e-10) &&
+                    (abs(imag(b2'*A*b2))<1e-10),
+                    b = lema_31(b1,b2,A);
+                    if sum(abs(b)<ones(n,1)*1e-10)==0,
+                        napaka = abs(b'*A*b);
+                        return
+                    end
+                end
+            end
+    end
+end        
+disp('Algoritem ne najde resitve, uporabi algoritem CPU')
+
+end
+
+function [b, napaka, korak] = izotropniMeurantR(A)
+%Resi problem iztotropnih vektorjev, če je matrika A realna in mi 
+%realen oz. 0
+
+%racunamo b'Hb=0
+H=(A+A')/2;
+
+opts.disp = 0; 
+opts.maxit = 1000; 
+opts.tol = 10^-4;
+
+[x, vred_h1] = eigs(H,1,'la',opts); 
+
+[y, vred_h2] = eigs(H,1,'sa',opts); 
+
+if (vred_h1 * vred_h2) < 0,
+    b1 = sqrt(vred_h1 / (vred_h1 + abs(vred_h2)))*y + 
+    sqrt( abs(vred_h2) / (vred_h1 + abs(vred_h2)))*x;
+    b2 = -sqrt(vred_h1 / (vred_h1 + abs(vred_h2)))*y + 
+    sqrt( abs(vred_h2) / (vred_h1 + abs(vred_h2)))*x;
+    b = [b1 ,b2];
+    napaka = [abs(b1'*H*b1),abs(b2'*H*b2)];
+    korak = 1;
+else
+    b = 0;
+    napaka = Inf;
+    korak = 0;
+    disp('H je definitna')
+end
+
+function [b1,b2] = xtheta(x,y,A)
+
+H=(A+ A')/2;
+K=(A- A')/(2*1i);
+
+alfa = imag(x'*H*x + 1i*x'*K*x);
+beta = imag(y'*H*y + 1i*y'*K*y);
+gama = imag(x'*H*y + y'*H*x + 1i*(x'*K*y + y'*K*x));
+
+%resimo enacbo beta*t^2 + gama*t + alfa = 0
+t1 = (-gama + sqrt(gama^2 -4*beta*alfa))/(2*beta);
+t2 = (-gama - sqrt(gama^2 -4*beta*alfa))/(2*beta);
+
+%preverimo, če sta resitvi realni
+if (abs(imag(t1))<1e-10),
+    theta1 = atan(real(t1));%t = tan(theta) 
+    %(predpostavili smo, da cos(theta)~=0
+    b1 = cos(theta1)*x + sin(theta1)*y;
+else
+    b1 = 0;
+end
+
+if (abs(imag(t2))<1e-10),
+    theta2 = atan(real(t2));
+    b2 = cos(theta2)*x + sin(theta2)*y;
+else
+    b2 = 0;
+end
+end
+
+function [b] = lema_31(b1,b2,A)
+%Vhod: enotska vektorja b1 in b2, za katera velja imag(bi'*A*bi)=0 za
+%i=1,2, za dano matriko A
+%Izhod: izotropni vektor b
+
+a1 = real(b1'*A*b1);
+a2 = real(b2'*A*b2);
+
+if a1<0,
+    if a2>0,
+        alfa1 = a1;
+        alfa2 = a2;
+    else
+        b=0;
+        return
+    end
+elseif a1>0,
+    if a2<0,
+        alfa2 = a1;
+        alfa1 = a2;
+        [b2, b1] = deal(b1, b2);
+    else
+        b=0;
+        return
+    end
+else
+    b = 0;
+    return
+end
+bb = @(t,th) exp(-1i*th)*b1 + t*b2;
+al = @(th) exp(1i*th)*b1'*A*b2 + exp(-1i*th)*b2'*A*b1; 
+
+th = angle(b2'*A*b1 - b1.'*conj(A)*conj(b2));
+t1 = (-al(th) + sqrt(al(th)^2 -4*alfa1*alfa2))/(2*alfa2);
+
+b = bb(t1,th)/norm(bb(t1,th));
+
+end
+\end{verbatim}
 
 
 
@@ -485,6 +984,12 @@ Johnson, C. R., \emph{Numerical determination of the field of values of a genera
 
 \bibitem{zaloga}
 P. Psarrakos, M. Tsatsomeros, \emph{Numerical range: (in) a matrix nutshell} Math. Notes from Washington State University,  Vol 45, No. 2 (2002)
+
+\bibitem{nr}
+P. Psarrakos, dostopno na: \url{http://www.math.wsu.edu/faculty/tsat/files/matlab/nr.m}
+
+\bibitem{fovals}
+Wilmer Henao. Dostopno na: \url{https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/4679/versions/1/previews/fovals.m/index.html?access_key=}
 
 \end{thebibliography}
 
