@@ -1,7 +1,8 @@
 function [b] = lema_31(b1,b2,A)
-%Input: enotska vektorja b1 in b2, za katera velja imag(bi'*A*bi)=0 za
+%Vhod: enotska vektorja b1 in b2, za katera velja imag(bi'*A*bi)=0 za
 %i=1,2, za dano matriko A
-%Output: izotropni vektor b
+%Izhod: izotropni vektor b
+
 a1 = real(b1'*A*b1);
 a2 = real(b2'*A*b2);
 

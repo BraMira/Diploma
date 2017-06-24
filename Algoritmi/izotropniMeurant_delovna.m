@@ -9,6 +9,7 @@ function [b, napaka, korak] = izotropniMeurant(A, mu)
 %        korak ... kolikokrat smo racunali lastne vrednosti in lastne
 %        vektorje
 warning off
+
 if nargin ==1,
     mu=0;
     %tol = 1e-14;
@@ -46,7 +47,6 @@ b = 0;
 
 korak = korak + 1;
 
-%[X, Y] = vektor(x,y,vred_k1, vred_k2, A);
 X = [x,y];
 LV = [diag(vred_k1);diag(vred_k2)];
 for k=1: size(X,2)-1,
@@ -129,71 +129,6 @@ for k=1:size(X,2),
     end
 end        
 disp('Algoritem ne najde resitve, uporabi algoritem CPU')
-
-
-%izboljsava
-% Vbox = [x(:,1), xx(:,1), y(:,1),yy(:,1)];
-% rvbox = [x(:,1)'*A*x(:,1), xx(:,1)'*A*xx(:,1), y(:,1)'*A*y(:,1), yy(:,1)'*A*yy(:,1)];
-% tol = 1e-14;
-% 
-% b = izboljsava(A,Vbox,rvbox,tol);
-% napaka = abs(b'*A*b);
-% korak = 4;
-% z1 = [real(x(:,1)'*A*x(:,1)), imag(x(:,1)'*A*x(:,1))];
-% z2 = [real(y(:,1)'*A*y(:,1)), imag(y(:,1)'*A*y(:,1))];
-% %y = a*x+c
-% a = (z2(2)-z1(2))/(z2(1)-z1(1));
-% c = z1(2) - z1(1)*a;
-% nicla = - c/a;
-% if nicla <0,
-%     z3 = [real(xx(:,1)'*A*xx(:,1)), imag(xx(:,1)'*A*xx(:,1))];
-%     a1 = (z3(2)-z1(2))/(z3(1)-z1(1));
-%     c1 = z3(2) - z3(1)*a1;
-%     nicla1 = - c1/a1;
-%     a2 = (z3(2)-z2(2))/(z3(1)-z2(1));
-%     c2 = z3(2) - z3(1)*a2;
-%     nicla2 = - c2/a2;
-%     if nicla1 >0 && nicla1 <= z3(1),
-% %         bb = @(t,th) exp(-1i*th)*nicla + t*nicla1; %b(t,theta)
-% %         al = @(th) exp(1i*th)*nicla'*A*nicla1 + exp(-1i*th)*nicla1'*A*nicla; %alfa(theta)
-% % 
-% %         th = angle(nicla1'*A*nicla - nicla.'*conj(A)*conj(nicla1));
-% %         t1 = (-al(th) + sqrt(al(th)^2 -4*alfa1*alfa2))/(2*alfa2);
-% % 
-% %         b = bb(t1,th)/norm(bb(t1,th));
-%         b = lema_31(
-%         napaka = abs(b'*A*b);
-%         return
-%     elseif nicla2>0 && nicla2<=z3(1),
-%         b = lema_31(nicla,nicla2,A);
-%         napaka = abs(b'*A*b);
-%         %return
-%     else
-%         disp('Uporabi algoritem Cardna')
-%     end
-% elseif nicla >0
-%     z3 = [real(yy(:,1)'*A*yy(:,1)), imag(yy(:,1)'*A*yy(:,1))];
-%     a1 = (z3(2)-z1(2))/(z3(1)-z1(1));
-%     c1 = z3(2) - z3(1)*a1;
-%     nicla1 = - c1/a1;
-%     a2 = (z3(2)-z2(2))/(z3(1)-z2(1));
-%     c2 = z3(2) - z3(1)*a2;
-%     nicla2 = - c2/a2;
-%     if nicla1 <0 && nicla1 >= z3(1),
-%         b = lema_31(nicla/norm(nicla),nicla1/norm(nicla1),A);
-%         napaka = abs(b'*A*b);
-%         %return
-%     elseif nicla2<0 && nicla2 >= z3(1),
-%         b = lema_31(nicla/norm(nicla),nicla2/norm(nicla2),A);
-%         napaka = abs(b'*A*b);
-%         %return
-%     else
-%         disp('Uporabi algoritem Cardna')
-%     end
-% end
-    
-        
-
 
 
 end
