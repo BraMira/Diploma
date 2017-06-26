@@ -10,6 +10,7 @@
 \usepackage[rightcaption]{sidecap}
 \usepackage[export]{adjustbox}
 \usepackage{subcaption}
+\usepackage{float}
 %\usepackage[normalem]{ulem}
 \usepackage[dvipsnames,usenames]{color}
 \textwidth 15cm
@@ -48,7 +49,7 @@
 % vstavi svoje definicije ...
 
 
-
+%\renewcommand\thesubfigure{\arabic{subfigure}}
 
 \begin{document}
 
@@ -469,27 +470,30 @@ za $q=\Im(x^\ast Ax)$, $p=\Im(y^\ast Ay)$ in $r=\Im(x^\ast  Ay + y^\ast Ax)$. Oz
 \item Če niti skupna množica ne gre, potem izračunamo še več lastnih vrednosti in lastnih vektorjev za $A(\theta)=\cos(\theta)H+\sin(\theta)iK$ za kote $\theta \not =0,\pi/2$ in delamo bisekcijo med točkami $rm$, $rM$, $im$, $iM$.
 \item Končamo, ko najdemo definitno matriko $A(\theta)$ ali elipso, ki seka realno os na obeh straneh 0, nakar lahko uporabimo lemo \ref{komp}.
 \end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerična analiza}
 V tem poglavju bomo na kratko opisali naš algoritem, ki je povzet po algoritmu Meurant 2., vendar pa ni identičen, in ga primerjali z algoritmoma Cardna in CPU na različnih primerih problema iskanja izotropnih vektorjev. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Opis algoritma}
 Najprej na kratko opišimo kako naš algoritem, najden v poglavju 6., deluje. \\
-Prva stvar, ki jo algoritem naredi, je da problem \eqref{eq:splosno} preobrne v začetni problem \eqref{eq:zac}. Nato preveri, če je matrika $A$  realna in če je, pokliče funkcijo \verb+izotropniMeurantR+, ki vrne 2 izotropna vektorja, izračunana kot v poglavju 2. Nadalje algoritem uporabi isti postopek kot je opisan v Meurant 2., tako da poskusi rešiti problem z lastnimi vektorji matrike $K$, če to ne deluje poskusi z lastnimi vektorji matrike $H$ in na koncu še s kombinacijo lastnih vektorjev matrike $K$ in $H$. Edina razlika med našim algortimom in algortimom iz Meurant 2. nastane zaradi premalo informacij iz članka \cite{meurant} o tem kako najti vektorja $b_1$ in $b_2$, da lahko uporabimo lemo \ref{komp}. Naš algoritem najde $b_1$ in $b_2$ tako kot je opisano v koraku 4. in 5. algoritma, ko kombiniramo lastne vektorje matrike $K$ in $H$, kar naredi algoritem \verb+xtheta+. Torej upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y$, $0\le\theta\le\pi$, kjer $X_\theta ^\ast AX_\theta$ opiše elipso znotraj numeričnega zaklada. Za dan par $(x,y)$ iščemo presečišča elipse $X_\theta ^\ast AX_\theta$ z realno osjo, kjer sta $x$ in $y$ lastna vektorja matrike $K$ ali matrike $H$ in ti presečišči vzamemo kot kandidata za $b_1$ in $b_2$. Vendar naš algoritem ta korak še izboljša, saj maksimizira elipso $X_\theta ^\ast AX_\theta$, tako da $X_\theta$ definiramo kot $X_\theta (\varphi) =\cos(\theta)x e^{\varphi \imath}+\sin(\theta)y$, kjer je $$\varphi = \frac{1}{2\imath} \text{ln}(x^\ast Ay (y^\ast Ax)^{-1}).$$ Če maksimiziramo elipso je večja verjetnost, da bo 0 vsebovana v njej in s tem je večja verjetnost, da najdemo rešitev v manj korakih. Če najdemo primerna $b_1$ in $b_2$ da lahko uporabimo lemo \ref{komp}, ki je definirana v algoritmu \verb+lema31+, smo končali.
+Prva stvar, ki jo algoritem naredi, je da problem \eqref{eq:splosno} preobrne v začetni problem \eqref{eq:zac}. Nato preveri, če je matrika $A$ realna in če je, pokliče funkcijo \verb+izotropniMeurantR+, ki vrne 2 izotropna vektorja, izračunana kot v poglavju 2. Nadalje algoritem uporabi isti postopek kot je opisan v Meurant 2., tako da poskusi rešiti problem z lastnimi vektorji matrike $K$, če to ne deluje poskusi z lastnimi vektorji matrike $H$ in na koncu še s kombinacijo lastnih vektorjev matrike $K$ in $H$. V članku \cite{meurant} ni napisano koliko lastnih vektorjev je potrebno oz. se jih splača izračunati, zato smo to določili sami in sicer naš algoritem računa z lastnimi vektorji, ki pripadajo 3 največjim in 3 najmanjšim lastnim vrednostim. Edina razlika med našim algortimom in algortimom iz Meurant 2. nastane zaradi premalo informacij iz članka \cite{meurant} o tem kako najti vektorja $b_1$ in $b_2$, da lahko uporabimo lemo \ref{komp}. Naš algoritem najde $b_1$ in $b_2$ tako kot je opisano v koraku 4. in 5. algoritma, ko kombiniramo lastne vektorje matrike $K$ in $H$, kar naredi algoritem \verb+xtheta+. Torej upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y$, $0\le\theta\le\pi$, kjer $X_\theta ^\ast AX_\theta$ opiše elipso znotraj numeričnega zaklada. Za dan par $(x,y)$ iščemo presečišča elipse $X_\theta ^\ast AX_\theta$ z realno osjo, kjer sta $x$ in $y$ lastna vektorja matrike $K$ ali matrike $H$ in ti presečišči vzamemo kot kandidata za $b_1$ in $b_2$. Vendar naš algoritem ta korak še izboljša, saj maksimizira elipso $X_\theta ^\ast AX_\theta$, tako da $X_\theta$ definiramo kot $$X_\theta (\varphi) =\cos(\theta)x e^{\varphi \imath}+\sin(\theta)y,$$ kjer je $$\varphi = \frac{1}{2\imath} \text{ln}(x^\ast Ay (y^\ast Ax)^{-1}).$$ Če maksimiziramo elipso je večja verjetnost, da bo vsebovala izhodišče in s tem je večja verjetnost, da najdemo rešitev v manj korakih. Če najdemo primerna $b_1$ in $b_2$ da lahko uporabimo lemo \ref{komp}, ki je definirana v algoritmu \verb+lema31+, smo končali.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Primerjava}
 O\-zna\-či\-mo algoritme z \verb+AlgM+, \verb+AlgC+ in \verb+AlgCPU+. Numerične zaklade bomo narisali s funkcijo iz \cite{fovals}.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A in $\mu$ realna}
 
-Za prvi primer vzamimo naključno generirano $10\times 10$ matriko $A$ in $\mu = 1,0419$, ki je znotraj numeričnega zaklada, Slika \ref{fig:p1}.
+Za prvi primer vzamimo naključno generirano $10\times 10$ realno matriko $A$ in $\mu = 1,0419$, ki je znotraj numeričnega zaklada, Slika \ref{fig:p1}.
 $$\verb+A = randn(10)+$$
 
-\begin{figure}[hbt]
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=0.5]{RR1.jpg}
-\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
+\includegraphics[scale=0.4]{RR1.jpg}
+\caption{Numerični zaklad premaknjene matrike A in z rdečo $\ast$ označeno izhodišče.}
 \label{fig:p1}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -515,7 +519,7 @@ A=\begin{bmatrix}
 \end{equation*}
 Matrika $A$ je definitna, zato algoritem ne najde rešitve.
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -531,20 +535,28 @@ Algoritem & Čas & Koraki & Napaka\\
 \caption{A in $\mu$ realna in ne obstaja}
 \label{t2}
 \end{table}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A realna, $\mu$ kompleksen}
 
 
-Naj bo $A$ naključno generirana realna $10\times 10$ matrika in $\mu = -1,4575 + 0,1514 \imath$ kompleksno število iz numeričnega zaklada, Slika \ref{fig:p3}.
+Naj bo $A$ naključno generirana realna $10\times 10$ matrika in $\mu = -1,4575 + 0,1514 \imath$ kompleksno število iz numeričnega zaklada, Slika \ref{fig:p31}.
 
-\begin{figure}[hbt]
-\centering
-\includegraphics[scale=0.5]{RC1.jpg}
-\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
-\label{fig:p3}
+\begin{figure}[H]
+\begin{subfigure}[t]{0.5\textwidth}
+\includegraphics[width=0.9\linewidth]{RC1.jpg}
+\caption{Z rdečo $\ast$ označimo izhodišče.}
+\label{fig:p31}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.5\textwidth}
+\includegraphics[width=0.9\linewidth]{RC1e.jpg}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike K.}
+\end{subfigure}
+\caption{Numerični zaklad premaknjene matrike A in kako grafično najdemo rešitev v 1 koraku.}
+
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -561,15 +573,29 @@ Algoritem & Čas & Koraki & Napaka\\
 \label{t3}
 \end{table}
 
-Za drugi primer vzamemo naključno generirano $20\times 20$ matriko A in $\mu = 1 + \imath$, Slika \ref{fig:p4}.
-\begin{figure}[hbt]
-\centering
-\includegraphics[scale=0.5]{RC2.jpg}
-\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
-\label{fig:p4}
+Za drugi primer vzamemo realno naključno generirano $20\times 20$ matriko A in $\mu = 1 + \imath$, Slika \ref{fig:p41}.
+\begin{figure}[H]
+\begin{subfigure}[t]{0.5\textwidth}
+\includegraphics[width=0.9\linewidth]{RC2.jpg}
+\caption{Z rdečo $\ast$ označimo izhodišče.}
+\label{fig:p41}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.5\textwidth}
+\includegraphics[width=0.9\linewidth]{RC2e1.jpg}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\label{fig:p42}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.5\textwidth}
+\includegraphics[width=0.9\linewidth]{RC2e2.jpg}
+\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$. Rišemo elipse za matriko $\imath A$.}
+\label{fig:p43}
+\end{subfigure}
+\caption{Numerični zaklad premaknjene matrike $A$ in kako grafično najdemo rešitev v 2 korakih.}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -582,19 +608,38 @@ Algoritem & Čas & Koraki & Napaka\\
 \verb+AlgCPU+ & & & \\
 \hline
 \end{tabular}
-\caption{A realen, $\mu$ kompleksen in rešitev najdemo v 2 koraku.}
+\caption{A realen, $\mu$ kompleksen in rešitev najdemo v 2 korakih.}
 \label{t4}
 \end{table}
 
-Za tretji primer vzamemo naključno generirano $20\times 20$ matriko A in $\mu = 2 + 2\imath$, Slika \ref{fig:p5}.
-\begin{figure}[hbt]
-\centering
-\includegraphics[scale=0.5]{RC3.jpg}
-\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
-\label{fig:p5}
+Za tretji primer vzamemo realno naključno generirano $20\times 20$ matriko A in $\mu = 2 + 2\imath$, Slika \ref{fig:p51}.
+\begin{figure}[H]
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{RC3.jpg}
+\caption{Z rdečo $\ast$ označimo izhodišče.}
+\label{fig:p51}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{RC3e1.jpg}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\label{fig:p52}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{RC3e2.jpg}
+\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$. Rišemo elipse za matriko $\imath A$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\label{fig:p53}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{RC3e3.jpg}
+\caption{Gledamo vse kombinacije lastnih vektorjev $K$ in $H$ na matriki $A$.}
+\label{fig:p53}
+\end{subfigure}
+\caption{Numerični zaklad premaknjene matrike $A$ in kako grafično najdemo rešitev v 3 korakih.}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -607,19 +652,38 @@ Algoritem & Čas & Koraki & Napaka\\
 \verb+AlgCPU+ & & & \\
 \hline
 \end{tabular}
-\caption{A realen, $\mu$ kompleksen in rešitev najdemo v 3 koraku.}
+\caption{A realen, $\mu$ kompleksen in rešitev najdemo v 3 korakih.}
 \label{t5}
 \end{table}
 
-
-\begin{figure}[hbt]
-\centering
-\includegraphics[scale=0.5]{RR1.jpg}
-\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
-\label{fig:p1}
+Poglejmo še en primer, kjer algoritem ne deluje za realno naključno generirano $50\times 50$ matriko A in $\mu = -8+4\imath$, ki je na robu numeričnega zaklada, Slika \ref{fig:p61}.
+\begin{figure}[H]
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{RC4.jpg}
+\caption{Z rdečo $\ast$ označimo izhodišče.}
+\label{fig:p61}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{RC4e1.jpg}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\label{fig:p62}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{RC4e2.jpg}
+\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$. Rišemo elipse za matriko $\imath A$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\label{fig:p63}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{RC4e3.jpg}
+\caption{Gledamo vse kombinacije lastnih vektorjev $K$ in $H$ na matriki $A$. Narisane so le tiste, ki imajo možnost vsebovat izhodišče.}
+\label{fig:p63}
+\end{subfigure}
+\caption{Numerični zaklad premaknjene matrike $A$ in kako grafično ne najdemo rešitve.}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -632,22 +696,19 @@ Algoritem & Čas & Koraki & Napaka\\
 \verb+AlgCPU+ & & & \\
 \hline
 \end{tabular}
-\caption{A in $\mu$ realna in obstaja rešitev}
-\label{t1}
+\caption{A realen, $\mu$ kompleksen in naš algoritem ne najde rešitve.}
+\label{t6}
 \end{table}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A in $\mu$ kompleksna}
+V tem poglavju bomo za matriko $A$ vzeli matriko,  ki je uporabljena tudi v \cite{meurant} in \cite{trije}, velikosti $200\times 200$, ki se konstruira iz Fiedlerjeve $F$ in Molerjeve $M$ matrike. Potem je $B=F + \imath M$ in A (v Matlab kodi):
+$$\verb~A=B+(-3+5i)*ones(200)-(200+500i)*eye(200)~$$
+
+Za prvi primer vzamimo $\mu = 5000+10000\imath$, Slika \ref{fig:p7}.
 
 
-\begin{figure}[hbt]
-\centering
-\includegraphics[scale=0.5]{RR1.jpg}
-\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
-\label{fig:p1}
-\end{figure}
-
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -660,17 +721,13 @@ Algoritem & Čas & Koraki & Napaka\\
 \verb+AlgCPU+ & & & \\
 \hline
 \end{tabular}
-\caption{A in $\mu$ realna in obstaja rešitev}
-\label{t1}
+\caption{A in $\mu$ kompleksna in algoritem najde rešitev v 1 koraku.}
+\label{t7}
 \end{table}
-\begin{figure}[hbt]
-\centering
-\includegraphics[scale=0.5]{RR1.jpg}
-\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
-\label{fig:p1}
-\end{figure}
 
-\begin{table}[h]
+Za drugi primer vzamemo $\mu = 12000+10000\imath$, ki je bližje robu, Slika \ref{fig:p7}.
+
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -683,17 +740,14 @@ Algoritem & Čas & Koraki & Napaka\\
 \verb+AlgCPU+ & & & \\
 \hline
 \end{tabular}
-\caption{A in $\mu$ realna in obstaja rešitev}
-\label{t1}
+\caption{A in $\mu$ kompleksna in algoritem najde rešiev v 2 korakih.}
+\label{t8}
 \end{table}
-\begin{figure}[hbt]
-\centering
-\includegraphics[scale=0.5]{RR1.jpg}
-\caption{Numerični zaklad premaknjene matrike A in z rdečo zvezdico označeno izhodišče}
-\label{fig:p1}
-\end{figure}
 
-\begin{table}[h]
+Za tretji primer vzamemo $\mu = 12500+10000\imath$, ki je še bližje robu kot v prejšnjem primeru, Slika \ref{fig:p7}.
+
+
+\begin{table}[H]
 \begin{tabular}{|l|l|c|r|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
@@ -706,27 +760,69 @@ Algoritem & Čas & Koraki & Napaka\\
 \verb+AlgCPU+ & & & \\
 \hline
 \end{tabular}
-\caption{A in $\mu$ realna in obstaja rešitev}
-\label{t1}
+\caption{A in $\mu$ kompleksna in algoritem najde rešitev v 3 korakih.}
+\label{t9}
 \end{table}
+
+Za zadnji primer vzamimo $\mu = 6000+16000\imath$, ki je blizu roba, ampak vseeno ni v numeričnem zakladu, Slika \ref{fig:p7}.
+
+
+\begin{table}[H]
+\begin{tabular}{|l|l|c|r|}
+\hline
+Algoritem & Čas & Koraki & Napaka\\
+\hline
+\hline
+\verb+AlgM+ & & & \\
+\hline
+\verb+AlgC+ & & & \\
+\hline
+\verb+AlgCPU+ & & & \\
+\hline
+\end{tabular}
+\caption{A in $\mu$ kompleksna in algoritem ne najde rešitve.}
+\label{t10}
+\end{table}
+
+\begin{figure}[H]
+\begin{subfigure}[t]{0.5\textwidth}
+\includegraphics[width=0.9\linewidth]{CC.jpg}
+\caption{Zelena $\ast = 5000+10000\imath$\\
+Vijolična $\ast = 12000+10000\imath$\\
+Modra $\ast = 12500+10000\imath$\\
+Rdeča $\ast = 6000+16000\imath$\\}
+
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.5\textwidth}
+\includegraphics[width=0.9\linewidth]{CCC.jpg}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike K. Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$.}
+\end{subfigure}
+\caption{Numerični zaklad matrike A z dodanimi lastnimi vektorji iz katere lahko za vsak primer hitro ugotovimo koliko korakov potrebujemo, da najdemo elipso, ki bo ali ne bo vsebovala $\mu$. }
+\label{fig:p7}
+\end{figure}
 
 %\subsection{Pričakovanjana}
 %Za \verb+AlgM+ vemo, da če algoritem potrebuje le 1. korak, deluje hitrejše od ostalih dve algoritmov, saj porabi le eno računanje lastnih vektorjev in vrednosti. Če pa 1. korak ali 2. korak ne delujeta, je to potrata časa in druga dva algoritma delujeta hitreje.
+
 \section{Zaključek}
 
+\newpage
 \section{Priloge}
 \begin{verbatim}
 function [b, napaka, korak] = izotropniMeurant(A, mu)
 %ce je mozno, ta funkcija izracuna izotropne vektorje b, ki so
 %resitev enacbe mu=b'Ab.
 %Vhod: A...realna ali kompleksna matrika
-%      mu ... kompleksno stevilo v zalogi vrednosti A
+%      mu ... kompleksno stevilo
 %       
 %
 %Izhod:  b...izotropni vektor za mu
 %        napaka ... norm(b'Ab-mu)
-%        korak ... kolikokrat smo racunali lastne vrednosti in lastne
-%        vektorje
+%        korak ... 0, če algoritem ne izračuna nobenih l. vekt.
+%                  1, če algoritem izračuna le lastne vektorje K
+%                  2, če algoritem izračna še lastne vektorje H
+%                  3, če algoritem uporabi lastne vektorje K in H
 warning off
 
 if nargin ==1,
