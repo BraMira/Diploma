@@ -148,7 +148,8 @@ $$W(A)=\{x^\ast Ax: x \in \C^n,\quad x^\ast x=1\}.$$
 Očitno je numerični zaklad $W(A)$ množica vseh Rayleighovih kvocientov matrike $A$. Podobno kot spekter (množica vseh lastnih vrednosti matrike) je numerični zaklad množica iz katere lahko razberemo informacije o matriki in pogosto da več informacij kot spekter sam.
 %Numerični zaklad vsebuje bistvene informacije o matriki $A$ kot transformaciji, zlasti o lastnih vrednostih in lastnih prostorih (eigenspace) matrike $A$.
 Lastne vrednosti hermitskih in normalnih matrik imajo uporabne lastnosti, s katerimi si pomagamo pri izračunu numeričnega zaklada.
-Če vzamemo hermitski del matrike se numerični zaklad preslika na realno os in ostane le daljica, kar je podobno kot če bi vzeli realni del kompleksnega števila. To prikazuje Slika \ref{fig:zaklad}.\\
+Če vzamemo hermitski del matrike se numerični zaklad preslika na realno os in ostane le daljica, kar je podobno kot če bi vzeli realni del kompleksnega števila. Poleg tega ima ta daljica za robova najmanjšo in največjo lastno vrednost matrike.
+To prikazuje Slika \ref{fig:zaklad}.\\
 \begin{figure} [h]
 \begin{tabular}{lll}
 \includegraphics[width=.225\textwidth]{real.jpg}
@@ -165,7 +166,7 @@ Lastne vrednosti hermitskih in normalnih matrik imajo uporabne lastnosti, s kate
 Če hočemo, da ima \eqref{eq:zac} vsaj eno rešitev, mora biti izhodišče vsebovano v $W(A)$. \\
 
 Nekatere lastnosti numeričnega zaklada:% (\cite{num}):
-\begin{enumerate}
+\begin{enumerate}{(i)}
 \item $W(A)$ je konveksna in kompaktna podmnožica $\C$.
 \item $\sigma(A)\subseteq W(A)$, kjer $\sigma(A)$ označuje spekter.
 \item Za vsako unitarno matriko $U$ je $W(U^\ast AU)=W(A).$
@@ -178,7 +179,7 @@ Nekatere lastnosti numeričnega zaklada:% (\cite{num}):
 \item $W(A)$ je daljica na realni osi, če in samo če je $A$ hermitska.
 \end{enumerate}
 \begin{proof}
-\begin{enumerate}
+\begin{enumerate}[(i)]
 \item
 \begin{itemize}
 \item Konveksnost: bomo pokazali v naslednjem poglavju.
@@ -258,10 +259,10 @@ zadošča pogojema $u (0)=x$ in $u (1) =y$, s čimer je lema dokazana.
 
 Seveda, zgornja lema drži za vsako skalarno množenje hermitske matrike. 
 Še več, za realno diagonalno matriko $H=\text{diag}\{d_1,d_2,\dots,d_n\}$, $d_1\geq d_2\geq \dots \geq d_n$, vrednost $\sum_{j=1}^{n} d_j|x_j|^2$ 
-(kjer je $x_1,x_2,\dots, x_n \in \C,\quad \sum_{j=1}^{n}|x_j|^2 =1$) doseže maksimum $d_1$, pri $|x_1|=0$ in $x_2=x_3=\dots=x_n=0$ in doseže minimum $d_n$, pri $|x_n|=1$ in $x_1=x_2=\dots=x_{n-1}=0$. 
+(kjer je $x_1,x_2,\dots, x_n \in \C,\quad \sum_{j=1}^{n}|x_j|^2 =1$) doseže maksimum $d_1$, pri $|x_1|=1$ in $x_2=x_3=\dots=x_n=0$ in doseže minimum $d_n$, pri $|x_n|=1$ in $x_1=x_2=\dots=x_{n-1}=0$. Velja naslednja posledica.
 
 \begin{posledica}
-Naj bo $H\in \C^{n\times n}$ hermitska matrika in $\mu$ njena najmanjša ali največja lastna vrednost. Potem množica $\LH_{H}(\mu)=\{x\in \C^n:\quad x^\ast x=1,\quad x^\ast Hx=\mu \}$ vsebuje vse enotske vektorje matrike $H$, ki pripadajo $\mu$.
+Naj bo $H\in \C^{n\times n}$ hermitska matrika in $\mu$ njena najmanjša ali največja lastna vrednost. Potem množica $\LH_{H}(\mu)=\{x\in \C^n:\quad x^\ast x=1,\quad x^\ast Hx=\mu \}$ vsebuje vse enotske lastne vektorje matrike $H$, ki pripadajo $\mu$.
 \end{posledica}
 
 \begin{izrek}[\emph{Toeplitz-Hausdorfferjev izrek}]
@@ -318,9 +319,10 @@ Za enačbo \eqref{eq:en2} vemo, da je $\norm{b}_2=1$. Če normo zapišemo s $c$,
 % &\ddots& \\
 % & &$\lambda_n$
 %\end{bmatrix}
-Opomba: Enačbi veljata samo za realna števila. Zaradi  izreka \ref{izrek2} mora biti 0 konveksna kombinacija lastnih vrednosti $\lambda_i$. Kot smo že videli, to pomeni, da če je $A$ definitna matrika (pozitivno ali negativno), potem \eqref{eq:realna}
+\begin{opomba}
+Enačbi veljata samo za realna števila. Zaradi  izreka \ref{izrek2} mora biti 0 konveksna kombinacija lastnih vrednosti $\lambda_i$. Kot smo že videli, to pomeni, da če je $A$ definitna matrika (pozitivno ali negativno), potem \eqref{eq:realna}
 nima netrivialne rešitve. Drugače je $0 \in W(A)$ in lahko vedno najdemo realno rešitev. V bistvu, kadar je $n>2$, lahko najdemo neskončno izotropnih vektorjev.
-
+\end{opomba}
 \subsection{Iskanje izotropnih vektorjev}
 Najprej bomo pokazali kako izračunamo izotropne vektorje, če uporabimo dva lastna vektorja, kasneje pa, če uporabimo tri lastne vektorje.\\
 
@@ -354,6 +356,31 @@ s pogoji: $t_i \ge 0, i=1,2$ in $t_1 +t_2\le1$. Torej velja zveza $$t_2=\frac{\l
 S tem je definirana premica v $(t_1,t_2)$ ravnini in preveriti moramo, če ta premica seka trikotnik, definiran s pogoji za $t_1,t_2$. Premica seka $t_1$-os pri $\lambda_3 /(\lambda_3 -\lambda_1)$, kar je več kot 1, saj je $\lambda_1 <0$, $t_2$-os pa pri $\lambda_3 /(\lambda_3 - \lambda_2)$, kar je tudi več kot 1. Ta premica ima negativen naklon. Vse dopustne vrednosti za $t_1$ in $t_2$ so dane z daljico v trikotniku. Zato obstaja neskončno število možnih pozitivnih parov $(t_1,t_2)$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%PRIIIIIIIIIIIIIMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRR%%%%%%%%%%%%%%%%%%%%%%
+\begin{primer}
+Poglejmo si enostaven zgled za matriko $3x3$ z lastnimi vrednostmi $\lambda_1=-1, \lambda_2=1$ in $\lambda_3=2$.
+Matrika lastnih vektorjev $X$ je enaka identiteti $I$.\\
+Enačba premice je $t_2=2-3t_1$ s pogoji $t_1, t_2 \ge 0$ in $t_1+t_2\le 1$.\\
+Dopustne rešitve za $t_1$ in $t_2$ so dane z daljico v trikotniku, %Slika \ref{fig:daljica}.\\
+%\begin{figure}
+%\centering
+%\includegraphics[width=7cm]{graf3.jpg}
+%\caption{Dopustne rešitve so na daljici, pobarvani rdeče, v trikotniku omejitev.}
+%\label{fig:daljica}
+%\end{figure}
+
+Iz daljice lahko izberemo katerikoli par točk $(t_1, t_2)$, npr. $(0.5, 0.5)$. Potem vemo kako izgleda vektor 
+$c=\begin{bmatrix}
+\sqrt{0.5}\\
+\sqrt{0.5}\\
+0
+\end{bmatrix}$. Iz enačbe $c=X^T b$ dobimo 
+$$b=Xc=c =\begin{bmatrix}
+\sqrt{0.5}\\
+\sqrt{0.5}\\
+0
+\end{bmatrix}.$$
+Seveda je rešitev tudi $b=-c$. Tako lahko izračunamo neskončno izotropnih vektorjev $b$.
+\end{primer}
 Primer $\lambda_1 <\lambda_2<0<\lambda_3$ je podoben zgornjemu, le da premica seka $t_2$-os pod 1. Potem dobimo rešitve $b$ s kombiniranjem pripadajočih treh lastnih vektorjev. %Ta problem za iskanje koeficientov je v treh dimenzijah in možne rešitve $t$-ja so v eni dimenziji. 
 Takšna konstrukcija pripelje do naslednjega izreka:
 \begin{izrek}
@@ -382,7 +409,9 @@ Z uporabo treh lastnih vektorjev $H$, obstaja neskončno rešitev dobljenih na d
 Ko poljubno točko iz daljice nenehno sprehajamo po tej daljici, se tudi imaginarni del rešitve nenehno spreminja. 
 Če sta imaginarna dela, ki ustrezata robnima točkama daljice, različnih predznakov, potem iz izreka o povprečni vrednosti sledi, da obstaja točka na daljici, ki ima ničeln imaginarni del. \\
 %??T%WTFo se lahko izračuna z dihotomijo??. 
-Opomba: to vsebuje samo izračun kvadratne forme $x^\ast Ax$. Ne potrebujemo nobenih izračunov lastnih vrednosti in vektorjev. Vendar, se sprememba predznaka v vrednostih $x^\ast Ax$ ne zgodi za katerkoli tri lastne vrednosti.
+\begin{opomba}
+To vsebuje samo izračun kvadratne forme $x^\ast Ax$. Ne potrebujemo nobenih izračunov lastnih vrednosti in vektorjev. Vendar, se sprememba predznaka v vrednostih $x^\ast Ax$ ne zgodi za katerkoli tri lastne vrednosti.
+\end{opomba}
 \subsubsection{Meurant 2.}
 Druga konstrukcija algoritma v \cite{meurant} uporabi lastne vrednosti in lastne vektorje matrike $K=(A-A^\ast)/(2i)$, ki je hermitska. 
 S konstrukcijo iz 2. razdelka lahko poiščemo tak vektor $b$, da je $\Im(b^\ast Ab)=0$. 
@@ -437,9 +466,14 @@ $$\beta t^2 +\gamma t +\alpha =0.$$
 \item Če tudi ta konstrukcija ne deluje, uporabimo algoritem iz \cite{trije}, opisan čez dva razdelka.
 \end{enumerate}
 
-Opomba 1: Ko je $A$ realna in imamo $b_1=x_1, b_2=x_2$ za lastne vektorje $H$, potem je $\theta=0$ in lema \ref{komp} pove, kako se izračuna en izotropni vektor. Vendar v kompleksnem primeru ne moremo vedno najti primernih vektorjev $b_1$ in $b_2$. Konstrukcija ne deluje, če imajo vrednosti $\Re(y_i^\ast Hy_j)$ enak predznak, kjer so $y_i$ lastni vektorji $K.$ Ekstremen primer je Jordanski blok s kompleksno vrednostjo $\alpha$ na diagonali in elementi 1 na naddiagonali. Potem je $\Re(y_i^\ast Hy_j)=0$, ko $i\not=j$, in $y_i^\ast Hy_i=-\Re(\alpha)$. Zato so realni deli $b^\ast Ab$ za vse vektorje $b$, ki se lahko konstruirajo, enaki.\\
+\begin{opomba}
+Ko je $A$ realna in imamo $b_1=x_1, b_2=x_2$ za lastne vektorje $H$, potem je $\theta=0$ in lema \ref{komp} pove, kako se izračuna en izotropni vektor. Vendar v kompleksnem primeru ne moremo vedno najti primernih vektorjev $b_1$ in $b_2$. Konstrukcija ne deluje, če imajo vrednosti $\Re(y_i^\ast Hy_j)$ enak predznak, kjer so $y_i$ lastni vektorji $K.$ Ekstremen primer je Jordanski blok s kompleksno vrednostjo $\alpha$ na diagonali in elementi 1 na naddiagonali. Potem je $\Re(y_i^\ast Hy_j)=0$, ko $i\not=j$, in $y_i^\ast Hy_i=-\Re(\alpha)$. Zato so realni deli $b^\ast Ab$ za vse vektorje $b$, ki se lahko konstruirajo, enaki.
+\end{opomba}
 
-Opomba 2: Ko je velikost problema velika, ne uporabimo zadnje konstrukcije za vse pare lastnih vektorjev, saj nas to lahko preveč stane. Uporabimo samo lastne vektorje, ki pripadajo par najmanjšim in največjim lastnim vrednostim.\\
+
+\begin{opomba}
+Ko je velikost problema velika, ne uporabimo zadnje konstrukcije za vse pare lastnih vektorjev, saj nas to lahko preveč stane. Uporabimo samo lastne vektorje, ki pripadajo par najmanjšim in največjim lastnim vrednostim.
+\end{opomba}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%CARDEN
 \subsubsection{Carden.}
 V tem razdelku opišemo idejo za Cardenov algoritem \cite{carden} za dano matriko $A \in \C^{n\times n}$ in $\mu \in \C$. Kot smo omenili v prvem poglavju, je vseeno, če rešujemo problem \eqref{eq:splosno} ali problem \eqref{eq:zac} za matriko $A-\mu I$. Preden se lotimo algoritma, je potrebno opisati postopek iskanja izotropnega vektorja, ki ga bomo uporabili v algoritmu. Predpostavimo, da je $\mu$ v konveksni ogrinjači treh točk $\theta_i \in W(A)$, za katere smo lahko izračunali izotropne vektorje $b_i$. Konveksna ogrinjača teh treh točk $\theta_i$ je trikotnik (lahko je izrojen). Radi bi, da je $\mu$ na daljici, ki ima take robne točke, da za njih vemo ali lahko izračuamo izotropne vektorje. Zato lahko brez škode za splošnost predpostavimo, da je $\theta_1$ ena od robnih točk te daljice. Za drugo robno točko vzamemo $w$, ki je presečišče daljice med $\theta_2$ in $\theta_3$ s premico, ki teče skozi $\theta_1$ in $\mu$. Ker je $w$ konveksna kombinacija $\theta_2$ in $\theta_3$, mu lahko določimo pripadajoč izotropni vektor. 
@@ -463,7 +497,9 @@ Naj bo $\varepsilon >0$ toleranca (npr. $\varepsilon=10^{-16}\norm{A}$ za dvojno
 \item Posodobimo notranjo in zunanjo aproksimacijo z izračunom največje lastne vrednosti in pripadajočega lastnega vektorja $H_{\theta}$, kjer je smer $\theta$ pravokotna na stranico notranje aproksimacije, ki je najbližja $\mu$. Če ne dobimo nove robne točke, ki se ni dotikala notranje aproksimacije, potem $\mu \not \in W(A)$. 
 \item Ponovno preverimo, če je $\mu$  v novi zunanji aproksimaciji. Če je, se vrnemo na 4. korak, drugače $\mu \not \in W(A)$. 
 \end{enumerate}
-Opomba: Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ blizu $\mu$ ali dokler zunanja aproksimacija ne vsebuje $\mu$. Carden trdi, da se v večini primerov postopek konča v koraku 4. po le nekaj ponavljanjih.\\
+\begin{opomba}
+Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ blizu $\mu$ ali dokler zunanja aproksimacija ne vsebuje $\mu$. Carden trdi, da se v večini primerov postopek konča v koraku 4. po le nekaj ponavljanjih.
+\end{opomba}}
 %Zunanja aproksimacija numeričnega zaklada, ki seka $\partial W(A)$ v robnih točkah, bo pravokotnik, katerega stranice so vzporedne z realno in imaginarno osjo,  notranja aproksimacija pa štirikotnik z oglišči v robnih točkah $\partial W(A)$.
 %VKLJUČIM POPRAVEK?
 %Ta algoritem ne izkoristi dejstva, da je numerični zaklad $2\times2$ matrike elipsa. Ta lastnost nakazuje, da z točkami in pripadajočimi izotropnimi vektorji za notranjo aproksimacijo, lahko natančno določimo izotropne vektorje za točke zunaj notranje aproksimacije. Tako lahko korak 5. popravimo:
@@ -474,13 +510,13 @@ Opomba: Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Chorianopoulos, Psarrakos in Uhlig.}
 V tem razdelku opišemo algoritem Chorianopoulosa, Psarrakosa in Uhliga (označimo s CPU) za inverzen problem numeričnega zaklada.
-Algoritem je hitrejši in daje natančne numerične rezultate tam, kjer se zgornja algoritma mnogokrat ustavita. Tak primer je ko $\mu$, $\mu \in W(A)$ ali $\mu \not\in W(A)$, leži zelo blizu roba numeričnega zaklada $\partial W(A)$. Ta algoritem uporabi za iskanje izotropnih vektorjev le nekaj najbolj osnovnih lastnosti numeričnega zaklada poleg konveksnosti, kot sta (4) in (5).\\
+Algoritem je hitrejši in daje natančne numerične rezultate tam, kjer se zgornja algoritma mnogokrat ustavita. Tak primer je ko $\mu$ ($\in W(A)$ ali $\not\in W(A)$) leži zelo blizu roba numeričnega zaklada $\partial W(A)$. Ta algoritem uporabi za iskanje izotropnih vektorjev le nekaj najbolj osnovnih lastnosti numeričnega zaklada poleg konveksnosti, kot sta (4) in (5).\\
 \paragraph{Algoritem:}
 \begin{enumerate}[1.]
 \item Izračunamo do 4 robne točke numeričnega zaklada $p_i$ in njihove izotropne vektorje $b_i$, za $i=1,2,3,4$, tako da izračunamo ekstremne lastne vrednosti, ki pripadajo enotskim lastnim vektorjem $x_i$ %a je to isti x oz. b?
 matrike $H$ in $K$.
 \item Nastavimo $p_i =b^\ast _i Ab_i$. Dobimo 4 točke $p_i$, ki označujejo ekstremne vrednosti $W(A)$, tj. najmanjši in največji horizontalni in vetikalni razteg. Označimo jih z $rM$ in $rm$ za maksimalen in minimalen horizontalni razteg $W(A)$ in z $iM$ in $im$ za maksimalen in minimalen vertikalen razteg $W(A)$.  Če je $|p_i|<10^{-13}$,  za $i=1,2,3,4$, potem je naš izotropni vektor kar pripadajoč enotski vektor.
-\item Če med računanjem lastnih vektorjev in lastnih vrednosti ugotovimo, da je ena od matrik $H$ in $iK$ definitna, tj. da imajo njene lastne vrednosti vse enak predznak, potem vemo da $\mu \not\in W(A)$ in algoritem ustavimo.
+\item Če med računanjem lastnih vektorjev in lastnih vrednosti ugotovimo, da je ena od matrik $H$ in $K$ definitna, tj. da imajo njene lastne vrednosti vse enak predznak, potem vemo da $\mu \not\in W(A)$ in algoritem ustavimo.
 \item Narišemo elipse, ki so preslikave velikega kroga kompleksne sfere $\C^n$, ki gredo skozi vse možne pare točk $rm, rM, im$ in $iM$, ki imajo nasprotno predznačene imaginarne dele. Nato izračunamo presečišča vsake dobljene elipse z realno osjo.%Poiščemo presečišča realne osi z elipsami, ki so preslikave velikega kroga kompleksne sfere $\C^n$, %ko $x\mapsto x^\ast Ax$, ki grejo skozi vse možne pare izračunanih točk $p_i=x^\ast Ax$, $p_j=y^\ast  Ay$, tj. pari, ki imajo nasprotno predznačene imaginarne dele.
 \item Če so izračunana presečišča na obeh straneh 0, potem izračunamo izotropni vektor z lemo \ref{komp}.
 \item Če presečišča niso na obeh straneh 0, potem moramo rešiti kvadratno enačbo 
@@ -498,7 +534,7 @@ t^2+gt+\frac{p}{f}=0 \label{eq:en4}
 za $q=\Im(x^\ast Ax)$, $p=\Im(y^\ast Ay)$ in $r=\Im(x^\ast  Ay + y^\ast Ax)$. Označimo $f=p+q-r$ in $g=(r-2p)/f$.
 \item  Enačba \eqref{eq:en4} ima realni rešitvi $t_i$, $i=1,2$, ki vrneta generirajoča vektorja $b_i=t_ix+(1-t_i)y$ ($i=1,2$) za realni točki. Z normalizacijo dobimo izotropne vektorje. %SLIKA
 \item Če nobena od možnih elips ne seka realno os na vsaki strani 0, potem preverimo, če to stori njihova skupna množica in ponovimo isti postopek.
-\item Če niti skupna množica ne gre, potem izračunamo še več lastnih vrednosti in lastnih vektorjev za $A(\theta)=\cos(\theta)H+\sin(\theta)iK$ za kote $\theta \not =0,\pi/2$ in delamo bisekcijo med točkami $rm$, $rM$, $im$, $iM$.
+\item Če niti skupna množica ne gre, potem izračunamo še več lastnih vrednosti in lastnih vektorjev za $A(\theta)=\cos(\theta)H+\sin(\theta)K$ za kote $\theta \not =0,\pi/2$ in delamo bisekcijo med točkami $rm$, $rM$, $im$, $iM$.
 \item Končamo, ko najdemo definitno matriko $A(\theta)$ ali elipso, ki seka realno os na obeh straneh 0, nakar lahko uporabimo lemo \ref{komp}.
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -614,13 +650,13 @@ Za drugi primer vzamemo realno naključno generirano $20\times 20$ matriko A in 
 \hfill
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{RC2e1.jpg}
-\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$\footnotemark. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
 \label{fig:p42}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{RC2e2.jpg}
-\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$. Rišemo elipse za matriko $\imath A$.}
+\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$\footnotemark[\value{footnote}]. Rišemo elipse za matriko $\imath A$.}
 \label{fig:p43}
 \end{subfigure}
 \caption{Numerični zaklad premaknjene matrike $A$ in kako grafično najdemo rešitev v 2 korakih.}
@@ -653,18 +689,18 @@ Za tretji primer vzamemo realno naključno generirano $20\times 20$ matriko A in
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC3e1.jpg}
-\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$\footnotemark[\value{footnote}]. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
 \label{fig:p52}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC3e2.jpg}
-\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$. Rišemo elipse za matriko $\imath A$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$\footnotemark[\value{footnote}]. Rišemo elipse za matriko $\imath A$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
 \label{fig:p53}
 \end{subfigure}%
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC3e3.jpg}
-\caption{Gledamo vse kombinacije lastnih vektorjev $K$ in $H$ na matriki $A$.}
+\caption{Gledamo vse kombinacije lastnih vektorjev $K$ in $H$ na matriki $A$\footnotemark[\value{footnote}].}
 \label{fig:p53}
 \end{subfigure}
 \caption{Numerični zaklad premaknjene matrike $A$ in kako grafično najdemo rešitev v 3 korakih.}
@@ -697,18 +733,18 @@ Poglejmo še en primer, kjer algoritem ne deluje za realno naključno generirano
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC4e1.jpg}
-\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike $K$\footnotemark[\value{footnote}]. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
 \label{fig:p62}
 \end{subfigure}
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC4e2.jpg}
-\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$. Rišemo elipse za matriko $\imath A$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
+\caption{Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$\footnotemark[\value{footnote}]. Rišemo elipse za matriko $\imath A$. Z nobeno kombinacijo ne dobimo dovolj velike elipse, ki bi vsebovala izhodišče.}
 \label{fig:p63}
 \end{subfigure}%
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC4e3.jpg}
-\caption{Gledamo vse kombinacije lastnih vektorjev $K$ in $H$ na matriki $A$. Narisane so le tiste, ki imajo možnost vsebovat izhodišče.}
+\caption{Gledamo vse kombinacije lastnih vektorjev $K$ in $H$ na matriki $A$\footnotemark[\value{footnote}]. Narisane so le tiste elipse, ki imajo možnost vsebovat izhodišče.}
 \label{fig:p63}
 \end{subfigure}
 \caption{Numerični zaklad premaknjene matrike $A$ in kako grafično ne najdemo rešitve.}
@@ -827,12 +863,13 @@ Rdeča $\ast = 6000+16000\imath$\\}
 \hfill
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{CCC.jpg}
-\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike K. Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$.}
+\caption{Rdeči \verb~+~ so največji lastni vektorji, zeleni pa najmanjši lastni vektorji matrike K. Modri $\diamond$ so največji lastni vektorji, roza pa najmanjši lastni vektorji matrike $H$.\footnotemark[\value{footnote}]}
 \end{subfigure}
-\caption{Numerični zaklad matrike A z dodanimi lastnimi vektorji iz katere lahko za vsak primer hitro ugotovimo koliko korakov potrebujemo, da najdemo elipso, ki bo ali ne bo vsebovala $\mu$. }
+\caption{Numerični zaklad matrike A z dodanimi lastnimi vektorji\footnotemark[\value{footnote}] iz katere lahko za vsak primer hitro ugotovimo koliko korakov potrebujemo, da najdemo elipso, ki bo ali ne bo vsebovala $\mu$. }
 \label{fig:p7}
 \end{figure}
 
+\footnotetext{Tukaj ne mislimo, da so v numeričnem zakladu narisani lastni vektorji, ampak točke, ki so izračunane s tem lastnim vektorjem. Npr. če je x naš lastni vektor, smo točko v numeričnem zakladu izračunali kot $x^\ast Ax$.}
 %\subsection{Pričakovanjana}
 %Za \verb+AlgM+ vemo, da če algoritem potrebuje le 1. korak, deluje hitrejše od ostalih dve algoritmov, saj porabi le eno računanje lastnih vektorjev in vrednosti. Če pa 1. korak ali 2. korak ne delujeta, je to potrata časa in druga dva algoritma delujeta hitreje.
 
