@@ -48,6 +48,11 @@
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 % vstavi svoje definicije ...
 
+% ukaz za slovarsko geslo
+\newlength{\odstavek}
+\setlength{\odstavek}{\parindent}
+\newcommand{\geslo}[2]{\noindent\textbf{#1}\hspace*{3mm}\hangindent=\parindent\hangafter=1 #2}
+
 
 %\renewcommand\thesubfigure{\arabic{subfigure}}
 
@@ -71,7 +76,7 @@ Mentor: prof. dr. Bor Plestenjak}
 \vfill
 
 \noindent{\large
-Ljubljana, 2016} %letnica diplome
+Ljubljana, 2017} %letnica diplome
 \pagebreak
 
 \thispagestyle{empty}
@@ -83,31 +88,62 @@ Ljubljana, 2016} %letnica diplome
 {\bf Računanje izotropnih vektorjev}\\[3mm]
 {\sc Povzetek}
 \end{center}
-% tekst povzetka v slovenscini
+Delo diplomskega seminarja se ukvarja z izračunom izotropnih vektorjev $b\in\R^{n} (\C^{n})$, ki so rešitev enačbe $b^\ast Ab=0,$ za dano matriko $A\in\R^{n\times n} (\C^{n\times n}), det(A)\ne 0$.
+Pomemben pojem pri iskanju teh vektorjev je numerični zaklad, definiran kot $W(A)=\{x^\ast Ax: x \in \C^n,\quad x^\ast x=1\}.$ Predstavljene in dokazane so njegove uporabne lastnosti, kot je npr. konveksnost.
+%Na kratko opišemo s katerimi problemi je računanje teh vektorjev povezano.
+Računanje izotropnih vektorjev ločimo na 2 dela, in sicer, ko je $A$ realna in ko je kompleksna matrika.
+Ko imamo realno matriko, nas v resnici zanima problem $b\ast Hb=0$, za hermitsko matriko $H=(A+A\ast)/2$. 
+Pokažemo kako izračunamo 2 izotropna vektorja, če je $A$ nedefinitna, in še več, če ima $H$ vsaj 3 različne lastne vrednosti,ki ne smejo biti istega predznaka, pokažemo, da obstaja neskončno izotropnih vektorjev.
+Ko imamo kompleksno matriko, je problem težji in postopkov, kako pridemo do rešitve, več. Predstavimo 3 teoretične postopke Meuranta, Cardna in Chorianopoulos, Psarrakos, Uhliga.
+%Za vsak postopek predstavimo potrebne izreke in dodatne konstrukcije, ki se uporabijo, in podrobno opišemo vsak korak v algoritmu.
+Meurantov algoritem najprej uporabi lastne vrednosti in vektorje hermitske matrike $K=(A-A\ast)/2\imath$, če to ne deluje uporabi hermitsko matriko $H$, če pa še to ne deluje pa uporabi kombinacijo lastnih vektorjev od $K$ in $H$.
+Po tem postopku tudi sprogramiramo kodo v Matlabu.
+%V poglavju Numerična analiza najprej opišemo naš algoritem, ki smo ga povzeli po članku Meuranta, in razložimo zakaj se v nekaterih korakih naš algoritem razlikuje od algoritma iz članka.
+Nadalje naš algoritem primerjamo z drugima algoritmoma na vseh možnih primerih in ugotovimo \vdots
+%Poleg vsakega primera je tudi slika numeričnega zaklada z dodano grafično predstavitvijo iskanja rešitve.
+%Na koncu še opišemo naša opazovanja in zaključke.
 
 \vfill
 \begin{center}
 {\bf The computation of isotropic vectors}\\[3mm]
 {\sc Abstract}
 \end{center}
-% tekst povzetka v anglescini
+The graduation thesis deals with the computation of isotropic vectors $b\in\R^{n} (\C^{n})$, that are solutions of the equation $b^\ast Ab=0,$ for a given matrix $A\in\R^{n\times n} (\C^{n\times n}), det(A)\ne 0$.
+An important concept when searching for these vectors is the field of values (or numerical range), defined as $W(A)=\{x^\ast Ax: x \in \C^n,\quad x^\ast x=1\}.$ Some of its useful properties are presented and proved, such as convexity.
+%We briefly describe with which problems, the computation of these vectors, are related.
+We divide the computation of isotropic vectors into 2 parts, that is when $A$ is a real or a complex matrix.
+When we have a real matrix, we are in fact interested in problem $b\ast Hb=0$, for a hermitian matrix $H=(A+A\ast)/2$. 
+We show how to compute 2 isotropic vectors, if $A$ is non-definitive, and furthermore, if $H$ has at least 3 distinct eigenvalues of different signs, there exists an infinite number of isotropic vectors.
+When we are dealing with a complex matrix the problem is more difficult and more methods of how to find a solution exist. We present 3 theoretical procedures by Meurant, Carden and Chorianopoulos, Psarrakos, Uhlig.
+%For every procedure we show needed theorems and extra constructions, that are used, and we describe each step of the algorithm in detail.
+Meurant's algorithm first uses eigenvalues and eigenvectors of the hermitian matrix $K=(A-A\ast)/2\imath$, if this does not work it uses hermitian matrix $H$, and if this also does not work it uses a combination of eigenvectors from $K$ and $H$.
+We write a code in Matlab after this algorithm.
+%In the chapter Numerical analysis we firstly describe our algorithm, which was based of Meurant's paper, and we explain why in some steps in differs from the algorithm in the paper.
+Further, we compare our algorithm with the algorithms from the other two papers on every possible example \vdots
+%Next to each example we include a picture of the field of values with added graphical illustrations of how we find a solution.
+%Lastly we show our observations and conclusions.
+
 
 \vfill\noindent
-{\bf Math. Subj. Class. (2010):}   \\[1mm]
-{\bf Ključne besede:}   \\[1mm]
-{\bf Keywords:}
+{\bf Math. Subj. Class. (2010):15A60, 47A12}   \\[1mm]
+{\bf Ključne besede: izotropni vektor, numerični zaklad}   \\[1mm]
+{\bf Keywords: isotropic vector, field of values, numerical range}
 \pagebreak
 
 %1. poglavje
 
 \section{Uvod}
+V uvodnem poglavju bomo predstavili naš problem iskanja izotropnih vektorjev ter vse pojme, ki nam bodo v nadaljnem pomagali pri računanju, kot je numerični zaklad. 
+V ostalih poglavjih bomo problem razdelili na realne in kompleksne matrike, ter pojasnili kako izračunamo izotropne vektorje v vsakem primeru.
+Na koncu bomo en algoritem implementirali v Matlabu in ga primerjali s še dvema algoritmoma.\\
+Sedaj pa opišimo glavni problem tega dela.
 \subsection{Problem}
 
-Za dano nesingularno, kvadratno $n \times n$ matriko $A$ z realnimi ali kompleksnimi elementi, nas zanima izračun enotskega vektorja $b$ z realnimi ali kompleksnimi elementi, tako da velja:
+Naj bo $A\in\R^{n\times n} (\C^{n\times n}), det(A)\ne 0$. Iščemo enotski vektor $b\in\R^{n} (\C^{n})$, da je
 \begin{equation}\label{eq:zac}
-b^\ast Ab=0.
+b^\ast Ab=0,
 \end{equation}
-Vektor $b$, za katerega velja \eqref{eq:zac} in $b^\ast b=1$  imenujemo \emph{izotropni vektor}. \\
+pravimo mu \emph{izotropni vektor}. \\
 %V tem problemu, je neničeln vektor skaliran in rotiran v ortogonalni smeri. %\cite{lipkin}
 Bolj splošen je problem \emph{inverznega numeričnega zaklada}, kjer iščemo enotski vektor $b$, za katerega velja:
 \begin{equation}\label{eq:splosno}
@@ -116,7 +152,7 @@ b^\ast Ab=\mu,
 kjer je $\mu$ dano kompleksno število.\\
 Očitno je, da je problem \eqref{eq:splosno} možno prevesti na problem \eqref{eq:zac} za drugo matriko, saj je \eqref{eq:splosno} ekvivalentno
 $$b^\ast (A-\mu I)b=0.$$
-Zato bomo od sedaj naprej vse vrednosti enačili z $0$.\\
+Zato bomo od sedaj naprej vse vrednosti $\mu$ enačili z $0$.\\
 Če je $\mu$ lastna vrednost matrike $A$, torej velja $Av=\mu v$, kjer je $v$ lastni vektor, ki pripada $\mu$, potem je rešitev problema inverznega numeričnega zaklada vektor $v$. 
 Če pa $\mu$ ni lastna vrednost matrike $A$, je $A-\mu I$ nesingularna in moramo izotropni vektor izračunati.
 Tudi če matrika $A$ ni realna imamo opravka s kompleksno matriko, ko je $\mu$ kompleksno število. 
@@ -137,7 +173,7 @@ b^\ast Ab=0.
 
 Če velja le $b^\ast (A+A^\ast)b=0$, ugotovimo da je $\Re(b^\ast Ab)=0$. Podobno, če velja samo $b^\ast(A-A^\ast)b=0$, potem je $\Im(b^\ast Ab)=0$. Ta dejstva bomo uporabili pri računanju rešitev za kompleksne matrike. 
 Ko sta $b$ in $A$ realna, je problem mnogo enostavnejši, saj moramo upoštevati le simetričen del matrike $A$.\\
-Hermitski in poševno-hermitski del matrike $A$ bomo označili s $$H=\frac{A+A^\ast}{2}$$ in $$K=\frac{A-A^\ast}{2\imath}.$$
+Hermitski in poševno-hermitski del matrike $A$ bomo označili s $$H=\frac{A+A^\ast}{2}\quad \text{in} \quad K=\frac{A-A^\ast}{2\imath}.$$
 
 \subsection{Numerični zaklad}
 %NUMERIČNI ZAKLAD
@@ -149,7 +185,7 @@ Očitno je numerični zaklad $W(A)$ množica vseh Rayleighovih kvocientov matrik
 %Numerični zaklad vsebuje bistvene informacije o matriki $A$ kot transformaciji, zlasti o lastnih vrednostih in lastnih prostorih (eigenspace) matrike $A$.
 Lastne vrednosti hermitskih in normalnih matrik imajo uporabne lastnosti, s katerimi si pomagamo pri izračunu numeričnega zaklada.
 Če vzamemo hermitski del matrike se numerični zaklad preslika na realno os in ostane le daljica, kar je podobno kot če bi vzeli realni del kompleksnega števila. Poleg tega ima ta daljica za robova najmanjšo in največjo lastno vrednost matrike.
-To prikazuje Slika \ref{fig:zaklad}.\\
+To prikazuje Slika \ref{fig:zaklad}. (\cite{zaloga})\\
 \begin{figure} [h]
 \begin{tabular}{lll}
 \includegraphics[width=.225\textwidth]{real.jpg}
@@ -165,7 +201,7 @@ To prikazuje Slika \ref{fig:zaklad}.\\
 
 Če hočemo, da ima \eqref{eq:zac} vsaj eno rešitev, mora biti izhodišče vsebovano v $W(A)$. \\
 
-Nekatere lastnosti numeričnega zaklada:% (\cite{num}):
+Nekatere lastnosti numeričnega zaklada (\cite{num}, \cite{zaloga}):
 \begin{enumerate}{(i)}
 \item $W(A)$ je konveksna in kompaktna podmnožica $\C$.
 \item $\sigma(A)\subseteq W(A)$, kjer $\sigma(A)$ označuje spekter.
@@ -284,9 +320,9 @@ Zanimanje za izračun izotropnih vektorjev je povezano s pre\-u\-če\-va\-njem d
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %2. poglavje
 
-\section{Realne matrike}
-V tem razdelku bomo opisali kako izračunamo željeno število izotropnih vektorjev za realno matriko. To storimo z uporabo lastnih vektorjev matrike $$H=\frac{A+A^\ast}{2}.$$\\
-Ko je $A$ realna matrika, nas zanima kako izračunati rešitev naslednje enačbe:
+\section{Realne matrike}\label{Realne matrike}
+V tem razdelku bomo opisali kako izračunamo željeno število izotropnih vektorjev za realno matriko, kot je predstavjeno v članku \cite{meurant}. To storimo z uporabo lastnih vektorjev matrike $$H=\frac{A+A^\ast}{2}.$$\\
+Ko je $A$ realna matrika, nas zanima, kako izračunati rešitev naslednje enačbe:
 \begin{equation}\label{eq:realna}
 b^\ast Hb=0,
 \end{equation}
@@ -299,7 +335,7 @@ To sledi iz $b^T Ab=b^T A_{sim} b +b^T A_{psim} b=b^T A_{sim} b,$ kjer je z $A_{
 \end{proof}
 Velja enakost:
 $$b^T Ab=0 \Leftrightarrow b^T (A+A^T)b=0.$$  
-Vemo, da  je $W(A)$ simetrična glede na realno os in, da je $0 \in W(A)$, če in samo če $\lambda_n\le0\le\lambda_1$, kjer sta $\lambda_n$ najmanjša in $\lambda_1$ največja lastna vrednost matrike $H$. Naj bosta $x_1$ in $x_n$ realna lastna vektorja, pripadajoča $\lambda_1$ in $\lambda_n$.  Potem sta $x_1^T Ax_1=x_1^T Hx_1=\lambda_1$ in $x_n^T Ax_n=x_n^T Hx_n=\lambda_n$ realni točki na skrajni levi in skrajni desni zaloge vrednosti $W(A)$ na realni osi.\\
+Vemo, da je $W(A)$ simetrična glede na realno os in, da je $0 \in W(A)$, če in samo če $\lambda_n\le0\le\lambda_1$, kjer sta $\lambda_n$ najmanjša in $\lambda_1$ največja lastna vrednost matrike $H$. Naj bosta $x_1$ in $x_n$ realna lastna vektorja, pripadajoča $\lambda_1$ in $\lambda_n$.  Potem sta $x_1^T Ax_1=x_1^T Hx_1=\lambda_1$ in $x_n^T Ax_n=x_n^T Hx_n=\lambda_n$ realni točki na skrajni levi in skrajni desni zaloge vrednosti $W(A)$ na realni osi.\\
 
 Realne rešitve \eqref{eq:realna} izračunamo z uporabo lastnih vektorjev matrike $H$. Predpostavimo, da iščemo vektorje $b$ z normo 1. Matriko $H$ lahko zapišemo kot $$H=X\Lambda X^T,$$ kjer je $\Lambda$ matrika, ki ima na diagonali lastne vrednosti $\lambda_i$, ki so realna števila. $X$ je ortogonalna matrika lastnih vektorjev, tako da $X^T X=I$. Potem uporabimo ta spektralni razcep v \eqref{eq:realna}: $$b^\ast Hb=b^\ast X\Lambda X^T b=0.$$ Označimo s $c=X^Tb$ vektor projekcije $b$ na lastne vektorje matrike $H$. Dobimo naslednji izrek.
 \begin{izrek} \label{izrek2}
@@ -324,14 +360,14 @@ Enačbi veljata samo za realna števila. Zaradi  izreka \ref{izrek2} mora biti 0
 nima netrivialne rešitve. Drugače je $0 \in W(A)$ in lahko vedno najdemo realno rešitev. V bistvu, kadar je $n>2$, lahko najdemo neskončno izotropnih vektorjev.
 \end{opomba}
 \subsection{Iskanje izotropnih vektorjev}
-Najprej bomo pokazali kako izračunamo izotropne vektorje, če uporabimo dva lastna vektorja, kasneje pa, če uporabimo tri lastne vektorje.\\
+Najprej bomo pokazali kako izračunamo izotropne vektorje, če imamo dve lastni vrednosti, kasneje pa če imamo tri lastne vrednosti.\\
 
- Če predpostavimo, da nimajo vse lastne vrednosti $H$ enakega predznaka, potem mora za najmanjšo lastno vrednost $\lambda_n$ veljati $\lambda_n <0$. 
- Naj bo $k<n$ tak, da je $\lambda_k >0$ in naj bo $t$ pozitivno realno število manjše od 1.  Izberemo taka $c_n$ in $c_k$, da velja  $\abs{c_n}^2 =t$, $\abs{c_k}^2=1-t$ in $c_i =0, i\not=n,k$, ker velja enačba \eqref{eq:en2}, $t+ (1-t)=1$. Iz \eqref{eq:en1} mora veljati enačba: $$\lambda_n t +\lambda_k (1-t)=0,$$ katere rešitev je:
+Če niso vse lastne vrednosti $H$ enako predznačene, potem mora za najmanjšo lastno vrednost $\lambda_n$ veljati $\lambda_n <0$. 
+Naj bo $k<n$ tak, da je $\lambda_k >0$ in naj bo $t$ pozitivno realno število manjše od 1.  Izberemo taka $c_n$ in $c_k$, da velja  $\abs{c_n}^2 =t$, $\abs{c_k}^2=1-t$ in $c_i =0, i\not=n,k$, ker velja enačba \eqref{eq:en2}, $t+ (1-t)=1$. Iz \eqref{eq:en1} mora veljati enačba: $$\lambda_n t +\lambda_k (1-t)=0,$$ katere rešitev je:
 \begin{equation}
 t_s=\frac{\lambda_k}{\lambda_k -\lambda_n}.
 \end{equation}
-Ker je $\lambda_n <0$, je imenovalec pozitiven in $t_s$ pozitiven ter $t_s <1$. Absolutna vrednost $c_n$ (oz. $c_k$) je kvadratni koren $t_s$ (oz. $1-t_s$). Ker je $b=Xc$, sta dve realni rešitvi: $$b_1=\sqrt{t_s}x_n +\sqrt{1-t_s}x_k,\quad b_2=-\sqrt{t_s}x_n+\sqrt{1-t_s}x_k,$$ kjer sta $x_n$ in $x_k$ lastna vektorja, ki pripadata lastnima vrednostima $\lambda_n$ in $\lambda_k$. Druge možnosti za predznak dajo rešitve, ki so v isti smeri kot ti dve. Ker imata izraza v rešitvah enaka imenovalca, lahko rešitvi zapišemo kot: $$b_1=\sqrt{\lambda_k}x_n+\sqrt{\abs{\lambda_n}}x_k, \quad b_2=-\sqrt{\lambda_k}x_n+\sqrt{\abs{\lambda_n}}x_k$$(sledi iz \cite{lipkin}).  Vektor mora biti normiran, zato
+Ker je $\lambda_n <0$, je imenovalec pozitiven in $t_s$ pozitiven ter $t_s <1$. Absolutna vrednost $c_n$ (oz. $c_k$) je kvadratni koren $t_s$ (oz. $1-t_s$). Ker je $b=Xc$, sta realni rešitvi: $$b_1=\sqrt{t_s}x_n +\sqrt{1-t_s}x_k,\quad b_2=-\sqrt{t_s}x_n+\sqrt{1-t_s}x_k,$$ kjer sta $x_n$ in $x_k$ lastna vektorja, ki pripadata lastnima vrednostima $\lambda_n$ in $\lambda_k$. Druge možnosti za predznak dajo rešitve, ki so v isti smeri kot ti dve. Ker imata izraza v rešitvah enaka imenovalca, lahko rešitvi zapišemo kot: $$b_1=\sqrt{\lambda_k}x_n+\sqrt{\abs{\lambda_n}}x_k, \quad b_2=-\sqrt{\lambda_k}x_n+\sqrt{\abs{\lambda_n}}x_k$$(sledi iz \cite{lipkin}).  Vektor mora biti normiran, zato
 %NORMIRANI
  $$b_1=\sqrt{\frac{\lambda_k}{\lambda_k +\abs{\lambda_n}}}x_n + \sqrt{\frac{\abs{\lambda_n}}{\lambda_k +\abs{\lambda_n}}}x_k,\quad b_2=-\sqrt{\frac{\lambda_k}{\lambda_k +\abs{\lambda_n}}}x_n + \sqrt{\frac{\abs{\lambda_n}}{\lambda_k +\abs{\lambda_n}}}x_k.$$ \\%V principu  lahko te $b$-je pomnožimo s $e^{i\theta}$, ampak nam to vrne rešitev v isti smeri. \\
  Konstruirani rešitvi sta neodvisni in še več, ortogonalni, če $\lambda_k =-\lambda_n$. \\
@@ -353,7 +389,7 @@ Da bi pokazali, da imamo neskončno število realnih rešitev in, da bi jih neka
 \lambda_1 t_1 +\lambda_2 t_2 +\lambda_3 (1- t_1 -t_2)=(\lambda_1 -\lambda_3)t_1 +(\lambda_2 -\lambda_3)t_2 +\lambda_3=0
 \end{equation}
 s pogoji: $t_i \ge 0, i=1,2$ in $t_1 +t_2\le1$. Torej velja zveza $$t_2=\frac{\lambda_3}{\lambda_3 - \lambda_2} -\frac{\lambda_3 -\lambda_1}{\lambda_3 -\lambda_2}t_1.$$
-S tem je definirana premica v $(t_1,t_2)$ ravnini in preveriti moramo, če ta premica seka trikotnik, definiran s pogoji za $t_1,t_2$. Premica seka $t_1$-os pri $\lambda_3 /(\lambda_3 -\lambda_1)$, kar je več kot 1, saj je $\lambda_1 <0$, $t_2$-os pa pri $\lambda_3 /(\lambda_3 - \lambda_2)$, kar je tudi več kot 1. Ta premica ima negativen naklon. Vse dopustne vrednosti za $t_1$ in $t_2$ so dane z daljico v trikotniku. Zato obstaja neskončno število možnih pozitivnih parov $(t_1,t_2)$.
+S tem je definirana premica v $(t_1,t_2)$ ravnini in preveriti moramo, če ta premica seka trikotnik, definiran s pogoji za $t_1,t_2$. Premica seka $t_1$-os pri $\lambda_3 /(\lambda_3 -\lambda_1)$, kar je več kot 1, saj je $\lambda_1 <0$, $t_2$-os pa pri $\lambda_3 /(\lambda_3 - \lambda_2)$, kar je tudi več kot 1. Ta premica ima negativen naklon. Vse dopustne vrednosti za $t_1$ in $t_2$ so dane z daljico v trikotniku. Zato obstaja neskončno število možnih pozitivnih parov $(t_1,t_2)$.(\cite{meurant})
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%PRIIIIIIIIIIIIIMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRR%%%%%%%%%%%%%%%%%%%%%%
 \begin{primer}
@@ -393,7 +429,7 @@ V splošnem, če imamo $k$ različnih lastnih vrednosti z različnimi predznaki,
 \sum_{i=1}^{k-1} (\lambda_i -\lambda_k)t_i +\lambda_k =0, \quad t_i\ge0, i=1, \dots,k-1, \quad \sum_{i=1}^{k-1}t_i \le1.
 \end{equation}
 Prva enačba opisuje hiperravnino v kateri moramo poiskati  presečišča te hiperravnine z volumnom telesa definiranega s pogoji.
-Če je $A$ realna matrika smo končali, saj smo pokazali, da lahko poračunamo toliko realnih rešitev kot hočemo. 
+Če je $A$ realna matrika smo končali, saj smo pokazali, da lahko poračunamo toliko realnih rešitev kot hočemo. (\cite{meurant})
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %3. poglavje
@@ -407,12 +443,12 @@ V nekaterih primerih lahko izračunamo rešitve s samo enim ra\-ču\-na\-njem la
 Najprej opazimo, da lahko v nekaterih primerih uporabimo podobno konstrukcijo kot v prejšnjem razdelku, ki najde množico rešitev za hermitsko matriko $H$ z ničelnim realnim delom ter pozitivnim in negativnim imaginarnim delom. 
 Z uporabo treh lastnih vektorjev $H$, obstaja neskončno rešitev dobljenih na daljici v trikotniku omejitev. 
 Ko poljubno točko iz daljice nenehno sprehajamo po tej daljici, se tudi imaginarni del rešitve nenehno spreminja. 
-Če sta imaginarna dela, ki ustrezata robnima točkama daljice, različnih predznakov, potem iz izreka o povprečni vrednosti sledi, da obstaja točka na daljici, ki ima ničeln imaginarni del. \\
+Če sta imaginarna dela, ki ustrezata robnima točkama daljice, različnih predznakov, potem iz izreka o povprečni vrednosti sledi, da obstaja točka na daljici, ki ima ničeln imaginarni del. (\cite{meurant}) \\
 %??T%WTFo se lahko izračuna z dihotomijo??. 
 \begin{opomba}
 To vsebuje samo izračun kvadratne forme $x^\ast Ax$. Ne potrebujemo nobenih izračunov lastnih vrednosti in vektorjev. Vendar, se sprememba predznaka v vrednostih $x^\ast Ax$ ne zgodi za katerkoli tri lastne vrednosti.
 \end{opomba}
-\subsubsection{Meurant 2.}
+\subsubsection{Meurant 2.}\label{Meurant 2}
 Druga konstrukcija algoritma v \cite{meurant} uporabi lastne vrednosti in lastne vektorje matrike $K=(A-A^\ast)/(2i)$, ki je hermitska. 
 S konstrukcijo iz 2. razdelka lahko poiščemo tak vektor $b$, da je $\Im(b^\ast Ab)=0$. 
 S kombiniranjem lastnih vektorjev matrike $K$ pripadajočim k pozitivnim in negativnim lastnim vrednostim, lahko (v nekaterih primerih) izračunamo taka vektorja $b_1$ in $b_2$, da $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$. 
@@ -424,10 +460,10 @@ $$\alpha(\theta)=e^{i\theta}b_1^\ast Ab_2 +e^{-i\theta}b_2^\ast Ab_1.$$
 Potem je 
 $$b(t,\theta)^\ast Ab(t,\theta)=\alpha_2 t^2 +\alpha(\theta)t+\alpha_1,\quad \alpha(\theta)\in\R,$$ ko 
 $$\theta=\text{arg}(b_2^\ast Ab_1 -b_1^T\bar{A}\bar{b_2}).$$ Za 
-$$t_1 = \frac{-\alpha(\theta) + \sqrt{\alpha(\theta)^2 - 4\alpha_1 \alpha_2}}{2\alpha_2},$$ imamo 
+$$t_1 = \frac{-\alpha(\theta) + \sqrt{\alpha(\theta)^2 - 4\alpha_1 \alpha_2}}{2\alpha_2}$$ imamo 
 $$b(t_1, \theta) \not=0,\quad  \frac{b(t_1,\theta)^\ast}{\norm{b(t_1,\theta)}}A\frac{b(t_1,\theta)}{\norm{b(t_1,\theta)}}=0.$$
 \end{lema}
-Lema \ref{komp} prikazuje kako se izračuna rešitev iz $b_1$ in $b_2$. Če imamo $b_1$ in $b_2$, taka da  $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$, smo končali.
+Lema \ref{komp} prikazuje kako se izračuna rešitev iz $b_1$ in $b_2$. Če imamo $b_1$ in $b_2$, taka da  $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$, smo končali.(\cite{meurant})
 \begin{proof}
 Imamo enotska vektorja $b_1, b_2$ za katera velja $\Im(b_i^\ast Ab_i)=0$, $i=1,2$ in $\alpha_1=\Re(b_1^\ast Ab_1)<0, \alpha_2=\Re(b_2^\ast Ab_2)>0$. Radi bi, da velja
 $$\Re(b(t,\theta)^\ast Ab(t,\theta))=0 \quad t,\theta \in \R.$$
@@ -458,7 +494,7 @@ X_\theta^\ast AX_\theta &= \cos^2(\theta)(x^\ast Hx + ix^\ast Kx)\\
 &+ \sin^2(\theta)(y^\ast Hy + iy^\ast Ky)\\ 
 &+\sin(\theta)\cos(\theta)(x^\ast Hy +y^\ast Hx +i[x^\ast Ky +y^\ast Kx]).
 \end{align*}
-Naj bo $\alpha=\Im(x^\ast Hx + ix^\ast Kx), \beta=\Im(y^\ast hy +iy^\ast Ky)$ in $\gamma=\Im(x^\ast Hy +y^\ast Hx +i[x^\ast Ky +y^\ast Kx]).$ Ko enačimo imaginarni del $X_\theta ^\ast AX\theta$ z 0, dobimo enačbo:
+Naj bo $\alpha=\Im(x^\ast Hx + ix^\ast Kx), \beta=\Im(y^\ast hy +iy^\ast Ky)$ in $\gamma=\Im(x^\ast Hy +y^\ast Hx +i[x^\ast Ky +y^\ast Kx]).$ Ko izenačimo imaginarni del $X_\theta ^\ast AX\theta$ z 0, dobimo enačbo:
 $$\alpha \cos^2(\theta) +\beta \sin^2(\theta) +\gamma \sin(\theta)\cos(\theta)=0.$$
 Predpostavimo, da $\cos(\theta) \not =0$ in delimo, dobimo kvadratno enačbo za $t=\tan(\theta),$
 $$\beta t^2 +\gamma t +\alpha =0.$$
@@ -467,7 +503,7 @@ $$\beta t^2 +\gamma t +\alpha =0.$$
 \end{enumerate}
 
 \begin{opomba}
-Ko je $A$ realna in imamo $b_1=x_1, b_2=x_2$ za lastne vektorje $H$, potem je $\theta=0$ in lema \ref{komp} pove, kako se izračuna en izotropni vektor. Vendar v kompleksnem primeru ne moremo vedno najti primernih vektorjev $b_1$ in $b_2$. Konstrukcija ne deluje, če imajo vrednosti $\Re(y_i^\ast Hy_j)$ enak predznak, kjer so $y_i$ lastni vektorji $K.$ Ekstremen primer je Jordanski blok s kompleksno vrednostjo $\alpha$ na diagonali in elementi 1 na naddiagonali. Potem je $\Re(y_i^\ast Hy_j)=0$, ko $i\not=j$, in $y_i^\ast Hy_i=-\Re(\alpha)$. Zato so realni deli $b^\ast Ab$ za vse vektorje $b$, ki se lahko konstruirajo, enaki.
+Ko je $A$ realna in imamo $b_1=x_1, b_2=x_2$ za lastne vektorje $H$, potem je $\theta=0$ in lema \ref{komp} pove, kako se izračuna en izotropni vektor. Vendar v kompleksnem primeru ne moremo vedno najti primernih vektorjev $b_1$ in $b_2$. Konstrukcija ne deluje, če imajo vrednosti $\Re(y_i^\ast Hy_j)$ enak predznak, kjer so $y_i$ lastni vektorji $K.$ Ekstremen primer je Jordanski blok s kompleksno vrednostjo $\alpha$ na diagonali in elementi 1 na naddiagonali. Potem je $\Re(y_i^\ast Hy_j)=0$, ko $i\not=j$, in $y_i^\ast Hy_i=-\Re(\alpha)$. Zato so realni deli $b^\ast Ab$ za vse vektorje $b$, ki se lahko konstruirajo, enaki.(\cite{meurant})
 \end{opomba}
 
 
@@ -476,8 +512,8 @@ Ko je velikost problema velika, ne uporabimo zadnje konstrukcije za vse pare las
 \end{opomba}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%CARDEN
 \subsubsection{Carden.}
-V tem razdelku opišemo idejo za Cardenov algoritem \cite{carden} za dano matriko $A \in \C^{n\times n}$ in $\mu \in \C$. Kot smo omenili v prvem poglavju, je vseeno, če rešujemo problem \eqref{eq:splosno} ali problem \eqref{eq:zac} za matriko $A-\mu I$. Preden se lotimo algoritma, je potrebno opisati postopek iskanja izotropnega vektorja, ki ga bomo uporabili v algoritmu. Predpostavimo, da je $\mu$ v konveksni ogrinjači treh točk $\theta_i \in W(A)$, za katere smo lahko izračunali izotropne vektorje $b_i$. Konveksna ogrinjača teh treh točk $\theta_i$ je trikotnik (lahko je izrojen). Radi bi, da je $\mu$ na daljici, ki ima take robne točke, da za njih vemo ali lahko izračuamo izotropne vektorje. Zato lahko brez škode za splošnost predpostavimo, da je $\theta_1$ ena od robnih točk te daljice. Za drugo robno točko vzamemo $w$, ki je presečišče daljice med $\theta_2$ in $\theta_3$ s premico, ki teče skozi $\theta_1$ in $\mu$. Ker je $w$ konveksna kombinacija $\theta_2$ in $\theta_3$, mu lahko določimo pripadajoč izotropni vektor. 
-Ker pa je $\mu$ konveksna kombinacija $w$ in $\theta_1$, lahko tudi njemu določimo izotropni vektor, \ref{fig:triangle}.\\
+V tem razdelku opišemo idejo za Cardenov algoritem \cite{carden} za dano matriko $A \in \C^{n\times n}$ in $\mu \in \C$. Kot smo omenili v prvem poglavju, je vseeno, če rešujemo problem \eqref{eq:splosno} ali problem \eqref{eq:zac} za matriko $A-\mu I$. Preden se lotimo algoritma, je potrebno opisati postopek iskanja izotropnega vektorja, ki ga bomo uporabili v algoritmu. Predpostavimo, da je $\mu$ v konveksni ogrinjači treh točk $\theta_i \in W(A)$, za katere smo lahko izračunali izotropne vektorje $b_i$. Konveksna ogrinjača teh treh točk $\theta_i$ je trikotnik (lahko je izrojen). Radi bi, da je $\mu$ na daljici, ki ima take robne točke, da za njih vemo ali lahko izračuamo izotropne vektorje. Zato lahko brez škode za splošnost predpostavimo, da je $\theta_1$ ena od robnih točk te daljice. Za drugo robno točko vzamemo $w$, ki je presečišče daljice med $\theta_2$ in $\theta_3$ s premico, ki teče skozi $\theta_1$ in $\mu$. Ker je $w$ konveksna kombinacija $\theta_2$ in $\theta_3$, mu lahko določimo pripadajoč izotropni vektor. (\cite{meurant})
+Ker pa je $\mu$ konveksna kombinacija $w$ in $\theta_1$, lahko tudi njemu določimo izotropni vektor, \ref{fig:triangle}. (\cite{carden})\\
 \begin{figure} [h]
 \centering
 \includegraphics[scale=0.7]{triangle}
@@ -498,7 +534,7 @@ Naj bo $\varepsilon >0$ toleranca (npr. $\varepsilon=10^{-16}\norm{A}$ za dvojno
 \item Ponovno preverimo, če je $\mu$  v novi zunanji aproksimaciji. Če je, se vrnemo na 4. korak, drugače $\mu \not \in W(A)$. 
 \end{enumerate}
 \begin{opomba}
-Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ blizu $\mu$ ali dokler zunanja aproksimacija ne vsebuje $\mu$. Carden trdi, da se v večini primerov postopek konča v koraku 4. po le nekaj ponavljanjih.
+Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ blizu $\mu$ ali dokler zunanja aproksimacija ne vsebuje $\mu$. Carden trdi, da se v večini primerov postopek konča v koraku 4. po le nekaj ponavljanjih.(\cite{carden})
 \end{opomba}}
 %Zunanja aproksimacija numeričnega zaklada, ki seka $\partial W(A)$ v robnih točkah, bo pravokotnik, katerega stranice so vzporedne z realno in imaginarno osjo,  notranja aproksimacija pa štirikotnik z oglišči v robnih točkah $\partial W(A)$.
 %VKLJUČIM POPRAVEK?
@@ -510,13 +546,13 @@ Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ blizu $\
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Chorianopoulos, Psarrakos in Uhlig.}
 V tem razdelku opišemo algoritem Chorianopoulosa, Psarrakosa in Uhliga (označimo s CPU) za inverzen problem numeričnega zaklada.
-Algoritem je hitrejši in daje natančne numerične rezultate tam, kjer se zgornja algoritma mnogokrat ustavita. Tak primer je ko $\mu$ ($\in W(A)$ ali $\not\in W(A)$) leži zelo blizu roba numeričnega zaklada $\partial W(A)$. Ta algoritem uporabi za iskanje izotropnih vektorjev le nekaj najbolj osnovnih lastnosti numeričnega zaklada poleg konveksnosti, kot sta (4) in (5).\\
+Algoritem je hitrejši in daje natančne numerične rezultate tam, kjer se zgornja algoritma mnogokrat ustavita. Tak primer je ko $\mu$ ($\in W(A)$ ali $\not\in W(A)$) leži zelo blizu roba numeričnega zaklada $\partial W(A)$ (\cite{trije}). Ta algoritem uporabi za iskanje izotropnih vektorjev le nekaj najbolj osnovnih lastnosti numeričnega zaklada poleg konveksnosti, kot sta (4) in (5).\\
 \paragraph{Algoritem:}
 \begin{enumerate}[1.]
-\item Izračunamo do 4 robne točke numeričnega zaklada $p_i$ in njihove izotropne vektorje $b_i$, za $i=1,2,3,4$, tako da izračunamo ekstremne lastne vrednosti, ki pripadajo enotskim lastnim vektorjem $x_i$ %a je to isti x oz. b?
+\item Izračunamo do 4 robne točke numeričnega zaklada $p_i$ in njihove izotropne vektorje $b_i$ za $i=1,2,3,4$, tako da izračunamo ekstremne lastne vrednosti, ki pripadajo enotskim lastnim vektorjem $x_i$ %a je to isti x oz. b?
 matrike $H$ in $K$.
-\item Nastavimo $p_i =b^\ast _i Ab_i$. Dobimo 4 točke $p_i$, ki označujejo ekstremne vrednosti $W(A)$, tj. najmanjši in največji horizontalni in vetikalni razteg. Označimo jih z $rM$ in $rm$ za maksimalen in minimalen horizontalni razteg $W(A)$ in z $iM$ in $im$ za maksimalen in minimalen vertikalen razteg $W(A)$.  Če je $|p_i|<10^{-13}$,  za $i=1,2,3,4$, potem je naš izotropni vektor kar pripadajoč enotski vektor.
-\item Če med računanjem lastnih vektorjev in lastnih vrednosti ugotovimo, da je ena od matrik $H$ in $K$ definitna, tj. da imajo njene lastne vrednosti vse enak predznak, potem vemo da $\mu \not\in W(A)$ in algoritem ustavimo.
+\item Nastavimo $p_i =b^\ast _i Ab_i$. Dobimo 4 točke $p_i$, ki označujejo ekstremne vrednosti $W(A)$, tj. najmanjši in največji horizontalni in vetikalni razteg. Označimo jih z $rM$ in $rm$ za maksimalen in minimalen horizontalni razteg $W(A)$ in z $iM$ in $im$ za maksimalen in minimalen vertikalen razteg $W(A)$. Če je $|p_i|<10^{-13}$ za $i=1,2,3,4$, potem je naš izotropni vektor kar pripadajoč enotski vektor.
+\item Če med računanjem lastnih vektorjev in lastnih vrednosti ugotovimo, da je ena od matrik $H$ in $K$ definitna, t.j. da imajo njene lastne vrednosti vse enak predznak, potem vemo, da $\mu \not\in W(A),$ in algoritem ustavimo.
 \item Narišemo elipse, ki so preslikave velikega kroga kompleksne sfere $\C^n$, ki gredo skozi vse možne pare točk $rm, rM, im$ in $iM$, ki imajo nasprotno predznačene imaginarne dele. Nato izračunamo presečišča vsake dobljene elipse z realno osjo.%Poiščemo presečišča realne osi z elipsami, ki so preslikave velikega kroga kompleksne sfere $\C^n$, %ko $x\mapsto x^\ast Ax$, ki grejo skozi vse možne pare izračunanih točk $p_i=x^\ast Ax$, $p_j=y^\ast  Ay$, tj. pari, ki imajo nasprotno predznačene imaginarne dele.
 \item Če so izračunana presečišča na obeh straneh 0, potem izračunamo izotropni vektor z lemo \ref{komp}.
 \item Če presečišča niso na obeh straneh 0, potem moramo rešiti kvadratno enačbo 
@@ -539,11 +575,11 @@ za $q=\Im(x^\ast Ax)$, $p=\Im(y^\ast Ay)$ in $r=\Im(x^\ast  Ay + y^\ast Ax)$. Oz
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerična analiza}
-V tem poglavju bomo na kratko opisali naš algoritem, ki je povzet po algoritmu Meurant 2 iz \cite{meurant}, vendar pa ni identičen, in ga primerjali z algoritmoma Cardna in CPU na različnih primerih problema iskanja izotropnih vektorjev. 
+V tem poglavju bomo na kratko opisali naš algoritem, ki je povzet po algoritmu \ref{Meurant 2} iz \cite{meurant}, vendar pa ni identičen, in ga primerjali z algoritmoma Cardna iz \cite{carden_alg} in CPU iz \cite{trije_alg} na različnih primerih problema iskanja izotropnih vektorjev. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Opis algoritma}
 Najprej na kratko opišimo kako naš algoritem, najden v poglavju 6, deluje. \\
-Prva stvar, ki jo algoritem naredi, je da problem \eqref{eq:splosno} preobrne v začetni problem \eqref{eq:zac}. Nato preveri, če je matrika $A$ realna in če je, pokliče funkcijo \verb+izotropniMeurantR+, ki vrne 2 izotropna vektorja, izračunana kot v poglavju 2. Nadalje algoritem uporabi isti postopek kot je opisan v Meurant 2, tako da poskusi rešiti problem z lastnimi vektorji matrike $K$, če to ne deluje poskusi z lastnimi vektorji matrike $H$ in na koncu še s kombinacijo lastnih vektorjev matrike $K$ in $H$. V članku \cite{meurant} ni napisano koliko lastnih vektorjev je potrebno oz. se jih splača izračunati, zato smo to določili sami in sicer naš algoritem računa z lastnimi vektorji, ki pripadajo 3 največjim in 3 najmanjšim lastnim vrednostim. Edina razlika med našim algoritmom in algoritmom iz Meurant 2. nastane zaradi premalo informacij iz članka \cite{meurant} o tem kako najti vektorja $b_1$ in $b_2$, da lahko uporabimo lemo \ref{komp}. Naš algoritem najde $b_1$ in $b_2$ tako kot je opisano v koraku 4. in 5. algoritma, ko kombiniramo lastne vektorje matrike $K$ in $H$, kar naredi funckija \verb+xtheta+. Torej upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y$, $0\le\theta\le\pi$, kjer $X_\theta ^\ast AX_\theta$ opiše elipso znotraj numeričnega zaklada. Za dan par $(x,y)$ iščemo presečišča elipse $X_\theta ^\ast AX_\theta$ z realno osjo, kjer sta $x$ in $y$ lastna vektorja matrike $K$ ali matrike $H$ in ti presečišči vzamemo kot kandidata za $b_1$ in $b_2$. Vendar naš algoritem ta korak še izboljša, saj maksimizira elipso $X_\theta ^\ast AX_\theta$, tako da $X_\theta$ definiramo kot $$X_\theta (\varphi) =\cos(\theta)x e^{\varphi \imath}+\sin(\theta)y,$$ kjer je $$\varphi = \frac{1}{2\imath} \text{ln}(x^\ast Ay (y^\ast Ax)^{-1}).$$ Če maksimiziramo elipso je večja verjetnost, da bo vsebovala izhodišče in s tem je večja verjetnost, da najdemo rešitev v manj korakih. Če najdemo primerna $b_1$ in $b_2$ da lahko uporabimo lemo \ref{komp}, ki je definirana s funkcijo \verb+lema31+, smo končali.
+Prva stvar, ki jo algoritem naredi, je da problem \eqref{eq:splosno} preobrne v začetni problem \eqref{eq:zac}. Nato preveri, če je matrika $A$ realna in če je, pokliče funkcijo \verb+izotropniMeurantR+, ki vrne 2 izotropna vektorja, izračunana kot v poglavju \ref{Realne matrike}. Nadalje algoritem uporabi isti postopek kot je opisan v \ref{Meurant 2}, tako da poskusi rešiti problem z lastnimi vektorji matrike $K$, če to ne deluje poskusi z lastnimi vektorji matrike $H$ in na koncu še s kombinacijo lastnih vektorjev matrike $K$ in $H$. V članku \cite{meurant} ni napisano koliko lastnih vektorjev je potrebno oz. se jih splača izračunati, zato smo to določili sami in sicer naš algoritem računa z lastnimi vektorji, ki pripadajo 3 največjim in 3 najmanjšim lastnim vrednostim. Edina razlika med našim algoritmom in algoritmom iz \ref{Meurant 2} nastane zaradi premalo informacij iz članka \cite{meurant} o tem kako najti vektorja $b_1$ in $b_2$, da lahko uporabimo lemo \ref{komp}. Naš algoritem najde $b_1$ in $b_2$ tako kot je opisano v koraku 4. in 5. algoritma, ko kombiniramo lastne vektorje matrike $K$ in $H$, kar naredi funckija \verb+xtheta+. Torej upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y$, $0\le\theta\le\pi$, kjer $X_\theta ^\ast AX_\theta$ opiše elipso znotraj numeričnega zaklada. Za dan par $(x,y)$ iščemo presečišča elipse $X_\theta ^\ast AX_\theta$ z realno osjo, kjer sta $x$ in $y$ lastna vektorja matrike $K$ ali matrike $H$ in ti presečišči vzamemo kot kandidata za $b_1$ in $b_2$. Vendar naš algoritem ta korak še izboljša, saj maksimizira elipso $X_\theta ^\ast AX_\theta$, tako da $X_\theta$ definiramo kot $$X_\theta (\varphi) =\cos(\theta)x e^{\varphi \imath}+\sin(\theta)y,$$ kjer je $$\varphi = \frac{1}{2\imath} \text{ln}(x^\ast Ay (y^\ast Ax)^{-1}).$$ Če maksimiziramo elipso je večja verjetnost, da bo vsebovala izhodišče in s tem je večja verjetnost, da najdemo rešitev v manj korakih. Če najdemo primerna $b_1$ in $b_2$ da lahko uporabimo lemo \ref{komp}, ki je definirana s funkcijo \verb+lema31+, smo končali.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Primerjava}
 O\-zna\-či\-mo algoritme z \verb+AlgM+, \verb+AlgC+ in \verb+AlgCPU+. Numerične zaklade bomo narisali s funkcijo iz \cite{fovals}, ki nariše tudi lastne vrednosti matrike $A$ s križci.
@@ -1127,15 +1163,29 @@ end
 
 \vfill
 
+% slovar
+\section*{Slovar strokovnih izrazov}
+
+\geslo{isotropic vector}{izotropni vektor}
+\geslo{isotropic vector}{zrcalni zdrs ali zrcalni pomik -- tip ravninske evklidske izometrije, ki je kompozitum zrcaljenja in translacije vzdol"z iste premice}
+
+\geslo{field of values/numerical range}{numerični zaklad}
+
+\geslo{convex hull}{konveksna ogrinjača}
+
+\geslo{partition}{\textbf{$\sim$ of a set} razdelitev mno"zice; \textbf{$\sim$ of a number} raz"clenitev "stevila}
+
 % seznam uporabljene literature
 % \cite{meurant} za referenco
 \begin{thebibliography}{99}
 
-\bibitem{meurant}
-G. Meurant, \emph{The computation of isotropic vectors}, Numer. Alg. {\bf 60} (2012) 193--204.
+
 
 \bibitem{carden}
 R. Carden, \emph{A simple algorithm for the inverse field of values problem}, Inverse Probl. {\bf 25} (2009) 1--9
+
+\bibitem{carden_alg}
+R. Carden, \emph{\texttt{inversefov.m}}, verzija 6.~2.~2011, [ogled 5.~5.~2016], dostopno na \url{http://www.caam.rice.edu/tech_reports/2009/}.
 
 \bibitem{trije}
 C. Chorianopoulos, P. Psarrakos in F. Uhlig, \emph{A method for the inverse numerical range problem}, Electron. J. Linear Algebra {\bf 20} (2010) 198--206
@@ -1143,17 +1193,23 @@ C. Chorianopoulos, P. Psarrakos in F. Uhlig, \emph{A method for the inverse nume
 \bibitem{lipkin}
 N. Ciblak, H. Lipkin, \emph{Orthonormal isotropic vector bases}, In: Proceedings of DETC'98, 1998 ASME Design Engineering Technical Conferences (1998).
 
+\bibitem{fovals}
+W. Henao, \emph{\texttt{fovals.m}}, [ogled 29.~6.~2017], dostopno na \url{https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/4679/versions/1/previews/fovals.m/index.html?access_key=}.
+
 \bibitem{num}
-Johnson, C. R., \emph{Numerical determination of the field of values of a general complex matrix}, SIAM J. Numer. Anal. {\bf15} (1978) 595--602.
+Johnson, C. R., \emph{Numerical determination of the field of values of a general complex matrix}, SIAM J. Numer. Anal. {\bf 15} (1978) 595--602.
+
+\bibitem{meurant}
+G. Meurant, \emph{The computation of isotropic vectors}, Numer. Alg. {\bf 60} (2012) 193--204.
 
 \bibitem{zaloga}
 P. Psarrakos, M. Tsatsomeros, \emph{Numerical range: (in) a matrix nutshell} Math. Notes from Washington State University,  Vol 45, No. 2 (2002)
 
 \bibitem{nr}
-P. Psarrakos, dostopno na: \url{http://www.math.wsu.edu/faculty/tsat/files/matlab/nr.m}
+P. Psarrakos, \emph{\texttt{nr.m}}, [ogled 29.~6.~2017], dostopno na \url{http://www.math.wsu.edu/faculty/tsat/files/matlab/nr.m}.
 
-\bibitem{fovals}
-Wilmer Henao. Dostopno na: \url{https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/4679/versions/1/previews/fovals.m/index.html?access_key=}
+\bibitem{trije_alg}
+F. Uhlig, \emph{\texttt{invfovCPU.m}}, verzija 22.~3.~2011, [ogled 5.~5.~2016], dostopno na \url{http://www.auburn.edu/~uhligfd/m_files/invfovCPU.m}.
 
 \end{thebibliography}
 
