@@ -156,7 +156,7 @@ Zato bomo od sedaj naprej vse vrednosti $\mu$ enačili z $0$.\\
 Če je $\mu$ lastna vrednost matrike $A$, torej velja $Av=\mu v$, kjer je $v$ lastni vektor, ki pripada $\mu$, potem je rešitev problema inverznega numeričnega zaklada vektor $v$. 
 Če pa $\mu$ ni lastna vrednost matrike $A$, je $A-\mu I$ nesingularna in moramo izotropni vektor izračunati.
 Tudi če matrika $A$ ni realna imamo opravka s kompleksno matriko, ko je $\mu$ kompleksno število. 
-\begin{izrek}
+\begin{izrek}\cite{meurant}
 Naj imata $A$ in $b$ realne ali kompleksne elemente. Potem veljajo enakosti:
 $$b^\ast Ab=0\Leftrightarrow b^\ast (A+A^\ast)b=0\quad \textrm{in} \quad b^\ast(A-A^\ast)b=0.$$
 \end{izrek}
@@ -272,7 +272,7 @@ Konveksna ogrinjača $\sigma(H)$ je množica vseh daljic med lastnimi vrednostmi
 \subsubsection{Konveksnost}
 V tem poglavju bomo dokazali, da je numerični zaklad konveksen, kar je znano tudi kot Toeplitz-Hausdorfferjev izrek. 
 Načinov kako dokazati konveksnost je več, npr. \cite{num}, vendar bomo mi izrek dokazali tako kot je dokazan v \cite{zaloga}, za to pa potrebujemo dodatno lemo. 
-\begin{lema}
+\begin{lema}\cite{zaloga}
 Naj bo $H\in \C^{n\times n}$ hermitska matrika in $\mu \in W(H)$. Potem je množica $\LH _{H}(\mu)=\{x\in \C^n \! : x^\ast x=1,\ x^\ast Hx=\mu\}$ povezana s potmi (t.j. obstaja pot med poljubnima dvema točkama iz te množice)% oz. poljubni dve točki iz te množice lahko povežemo z zvezno krivulju, ki je v celoti vsebovana v množici)
 \end{lema}
 
@@ -297,11 +297,11 @@ Seveda, zgornja lema drži za vsako skalarno množenje hermitske matrike.
 Še več, za realno diagonalno matriko $H=\text{diag}\{d_1,d_2,\dots,d_n\}$, $d_1\geq d_2\geq \dots \geq d_n$, vrednost $\sum_{j=1}^{n} d_j|x_j|^2$ 
 (kjer je $x_1,x_2,\dots, x_n \in \C,\ \sum_{j=1}^{n}|x_j|^2 =1$) doseže maksimum $d_1$, pri $|x_1|=1$ in $x_2=x_3=\dots=x_n=0$ in doseže minimum $d_n$, pri $|x_n|=1$ in $x_1=x_2=\dots=x_{n-1}=0$. Velja naslednja posledica.
 
-\begin{posledica}
+\begin{posledica}\cite{zaloga}
 Naj bo $H\in \C^{n\times n}$ hermitska matrika in $\mu$ njena najmanjša ali največja lastna vrednost. Potem množica $\LH_{H}(\mu)=\{x\in \C^n\! : x^\ast x=1,\ x^\ast Hx=\mu \}$ vsebuje vse enotske lastne vektorje matrike $H$, ki pripadajo $\mu$.
 \end{posledica}
 
-\begin{izrek}[\emph{Toeplitz-Hausdorfferjev izrek}]
+\begin{izrek}[\emph{Toeplitz-Hausdorfferjev izrek}]\cite{zaloga}
 Za $\forall A\in \C^{n\times n}$ je $W(A)$ konveksna.
 \end{izrek}
 
@@ -338,7 +338,7 @@ $$b^T Ab=0 \Leftrightarrow b^T (A+A^T)b=0.$$
 Vemo, da je $W(A)$ simetrična glede na realno os in, da je $0 \in W(A)$, če in samo če $\lambda_n\le0\le\lambda_1$, kjer sta $\lambda_n$ najmanjša in $\lambda_1$ največja lastna vrednost matrike $H$. Naj bosta $x_1$ in $x_n$ realna lastna vektorja, pripadajoča $\lambda_1$ in $\lambda_n$.  Potem sta $x_1^T Ax_1=x_1^T Hx_1=\lambda_1$ in $x_n^T Ax_n=x_n^T Hx_n=\lambda_n$ realni točki na skrajni levi in skrajni desni zaloge vrednosti $W(A)$ na realni osi.\\
 
 Realne rešitve \eqref{eq:realna} izračunamo z uporabo lastnih vektorjev matrike $H$. Predpostavimo, da iščemo vektorje $b$ z normo 1. Matriko $H$ lahko zapišemo kot $$H=X\Lambda X^T,$$ kjer je $\Lambda$ matrika, ki ima na diagonali lastne vrednosti $\lambda_i$, ki so realna števila. $X$ je ortogonalna matrika lastnih vektorjev, tako da $X^T X=I$. Potem uporabimo ta spektralni razcep v \eqref{eq:realna}: $$b^\ast Hb=b^\ast X\Lambda X^T b=0.$$ Označimo s $c=X^Tb$ vektor projekcije $b$ na lastne vektorje matrike $H$. Dobimo naslednji izrek.
-\begin{izrek} \label{izrek2}
+\begin{izrek} \label{izrek2}\cite{meurant}
 Naj bo $b$ rešitev problema \eqref{eq:realna}. Potem vektor $c=X^T b$ s komponentami $c_i$ zadošča naslednjima enačbama:
 \begin{align}
 \sum_{i=1}^{n} \lambda_i \abs{c_i}^2=0 \label{eq:en1},\\
@@ -381,35 +381,34 @@ $$b_1 ^T b_2=(\sqrt{\lambda_k}x_n+\sqrt{\abs{\lambda_n}}x_k)^T (-\sqrt{\lambda_k
 \end{proof}
 Za ta postopek lahko uporabimo vsak par pozitivnih in negativnih lastnih vrednosti, uporaba najmanjše lastne vrednosti $\lambda_n$ torej ni nujna. Tako lahko postopek vrne toliko rešitev kot je dvakratno število parov lastnih vrednosti matrike $H$ z nasprotnimi predznaki, če so vse lastne vrednosti različne.\\
 Ko sta $A$ in $b$ realna smo dokazali naslednji izrek:
-\begin{izrek}
-Če je $A$ realna in nedefinitna (t.j. ni pozitivno in negativno definitna), potem obstajata najmanj dva neodvisna realna izotropna vektorja.
+\begin{izrek}\cite{meurant}
+Če je $A$ realna in nedefinitna (t.j. ni pozitivno in negativno definitna), potem obstajata najmanj dva neodvisna realna izotropna vektorja. 
 \end{izrek}
 Da bi pokazali, da imamo neskončno število realnih rešitev in, da bi jih nekaj izračunali, moramo vzeti vsaj tri različne lastne vrednosti, ki ne smejo biti istega predznaka (ko obstajajo). Predpostavimo, da imamo $\lambda_1 <0<\lambda_2<\lambda_3$ in naj bo $t_1=\abs{c_1}^2$, $t_2=\abs{c_2}^2$. Veljati mora enačba \eqref{eq:en2}
 \begin{equation}\label{trije}
 \lambda_1 t_1 +\lambda_2 t_2 +\lambda_3 (1- t_1 -t_2)=(\lambda_1 -\lambda_3)t_1 +(\lambda_2 -\lambda_3)t_2 +\lambda_3=0
 \end{equation}
 s pogoji: $t_i \ge 0, i=1,2$ in $t_1 +t_2\le1$. Torej velja zveza $$t_2=\frac{\lambda_3}{\lambda_3 - \lambda_2} -\frac{\lambda_3 -\lambda_1}{\lambda_3 -\lambda_2}t_1.$$
-S tem je definirana premica v $(t_1,t_2)$ ravnini in preveriti moramo, če ta premica seka trikotnik, definiran s pogoji za $t_1,t_2$. Premica seka $t_1$-os pri $\lambda_3 /(\lambda_3 -\lambda_1)$, kar je več kot 1, saj je $\lambda_1 <0$, $t_2$-os pa pri $\lambda_3 /(\lambda_3 - \lambda_2)$, kar je tudi več kot 1. Ta premica ima negativen naklon. Vse dopustne vrednosti za $t_1$ in $t_2$ so dane z daljico v trikotniku. Zato obstaja neskončno število možnih pozitivnih parov $(t_1,t_2)$.(\cite{meurant})
+S tem je definirana premica v $(t_1,t_2)$ ravnini in preveriti moramo, če ta premica seka trikotnik, definiran s pogoji za $t_1,t_2$. Premica seka $t_1$-os pri $\lambda_3 /(\lambda_3 -\lambda_1)$, kar je več kot 1, saj je $\lambda_1 <0$, $t_2$-os pa pri $\lambda_3 /(\lambda_3 - \lambda_2)$, kar je tudi več kot 1. Ta premica ima negativen naklon. Vse dopustne vrednosti za $t_1$ in $t_2$ so dane z daljico v trikotniku. Zato obstaja neskončno število možnih pozitivnih parov $(t_1,t_2)$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%PRIIIIIIIIIIIIIMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRR%%%%%%%%%%%%%%%%%%%%%%
 \begin{primer}
-Poglejmo si enostaven zgled za matriko $3x3$ z lastnimi vrednostmi $\lambda_1=-1, \lambda_2=1$ in $\lambda_3=2$.
-Matrika lastnih vektorjev $X$ je enaka identiteti $I$.\\
-Enačba premice je $t_2=2-3t_1$ s pogoji $t_1, t_2 \ge 0$ in $t_1+t_2\le 1$.\\
-Dopustne rešitve za $t_1$ in $t_2$ so dane z daljico v trikotniku, %Slika \ref{fig:daljica}.\\
-%\begin{figure}
-%\centering
-%\includegraphics[width=7cm]{graf3.jpg}
-%\caption{Dopustne rešitve so na daljici, pobarvani rdeče, v trikotniku omejitev.}
-%\label{fig:daljica}
-%\end{figure}
+Poglejmo si enostaven zgled za matriko $3\times 3$ z lastnimi vrednostmi $\lambda_1=-1, \lambda_2=1$ in $\lambda_3=2$. Matrika lastnih vektorjev $X$ je enaka identiteti $I$.\\
+Enačba premice je $t_2=2-3t_1$ s pogoji $t_1, t_2 \ge 0$ in $t_1+t_2\le 1$. Dopustne rešitve za $t_1$ in $t_2$ so dane z daljico v trikotniku, Slika \ref{fig:daljica}.\\
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]]{graf3.jpg}
+\caption{Dopustne rešitve so na daljici, pobarvani rdeče, v trikotniku omejitev.}
+\label{fig:daljica}
+\end{figure}
 
-Iz daljice lahko izberemo katerikoli par točk $(t_1, t_2)$, npr. $(0.5, 0.5)$. Potem vemo kako izgleda vektor 
-$c=\begin{bmatrix}
+Iz daljice lahko izberemo katerikoli par točk $(t_1, t_2)$, npr. $(0.5, 0.5),$ saj potem vemo kako izgleda vektor 
+$$c=\begin{bmatrix}
 \sqrt{0.5}\\
 \sqrt{0.5}\\
 0
-\end{bmatrix}$. Iz enačbe $c=X^T b$ dobimo 
+\end{bmatrix}.$$ 
+Iz enačbe $c=X^T b$ pa dobimo rešitev
 $$b=Xc=c =\begin{bmatrix}
 \sqrt{0.5}\\
 \sqrt{0.5}\\
@@ -419,8 +418,8 @@ Seveda je rešitev tudi $b=-c$. Tako lahko izračunamo neskončno izotropnih vek
 \end{primer}
 Primer $\lambda_1 <\lambda_2<0<\lambda_3$ je podoben zgornjemu, le da premica seka $t_2$-os pod 1. Potem dobimo rešitve $b$ s kombiniranjem pripadajočih treh lastnih vektorjev. %Ta problem za iskanje koeficientov je v treh dimenzijah in možne rešitve $t$-ja so v eni dimenziji. 
 Takšna konstrukcija pripelje do naslednjega izreka:
-\begin{izrek}
-Če je $n>2$ in je $A$ realna in nedefinitna, potem ima matrika $H$ vsaj tri različne lastne vrednosti z različnimi predznaki. Potem obstaja neskončno število realnih izotropnih vektorjev.
+\begin{izrek} \cite{meurant}
+Če je $n>2$ in je $A$ realna in nedefinitna, potem ima matrika $H$ vsaj tri različne lastne vrednosti z različnimi predznaki. Potem obstaja neskončno število realnih izotropnih vektorjev. 
 \end{izrek}
 %dokaz v citat
 Seveda lahko nadaljujemo z večanjem števila lastnih vrednosti. Če uporabimo štiri različne lastne vrednosti z različnimi predznaki, potem moramo na problem gledati v treh dimenzijah. Prostor, kjer je omejitvam zadoščeno, je tetraeder, torej moramo poiskati presek dane ravnine s tem tetraedrom. 
@@ -429,7 +428,7 @@ V splošnem, če imamo $k$ različnih lastnih vrednosti z različnimi predznaki,
 \sum_{i=1}^{k-1} (\lambda_i -\lambda_k)t_i +\lambda_k =0, \quad t_i\ge0, i=1, \dots,k-1, \quad \sum_{i=1}^{k-1}t_i \le1.
 \end{equation}
 Prva enačba opisuje hiperravnino v kateri moramo poiskati  presečišča te hiperravnine z volumnom telesa definiranega s pogoji.
-Če je $A$ realna matrika smo končali, saj smo pokazali, da lahko poračunamo toliko realnih rešitev kot hočemo. (\cite{meurant})
+Če je $A$ realna matrika smo končali, saj smo pokazali, da lahko poračunamo toliko realnih rešitev kot hočemo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %3. poglavje
@@ -453,7 +452,7 @@ Druga konstrukcija algoritma v \cite{meurant} uporabi lastne vrednosti in lastne
 S konstrukcijo iz 2. razdelka lahko poiščemo tak vektor $b$, da je $\Im(b^\ast Ab)=0$. 
 S kombiniranjem lastnih vektorjev matrike $K$ pripadajočim k pozitivnim in negativnim lastnim vrednostim, lahko (v nekaterih primerih) izračunamo taka vektorja $b_1$ in $b_2$, da $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$. 
 %POMEMBNA LEMA
-\begin{lema}\label{komp}
+\begin{lema}\label{komp}\cite{meurant},\cite{meurant}
 Naj bosta $b_1$ in $b_2$ enotska vektorja z $\Im(b_i^\ast Ab_i)=0$, $i=1,2$, in $\alpha_1=\Re(b_1^\ast Ab_1)<0, \alpha_2=\Re(b_2^\ast Ab_2)>0$. Naj bo 
 $$b(t,\theta)=e^{-i\theta}b_1 + tb_2, \quad t,\theta \in \R,$$ 
 $$\alpha(\theta)=e^{i\theta}b_1^\ast Ab_2 +e^{-i\theta}b_2^\ast Ab_1.$$
@@ -462,6 +461,7 @@ $$b(t,\theta)^\ast Ab(t,\theta)=\alpha_2 t^2 +\alpha(\theta)t+\alpha_1,\quad \al
 $$\theta=\text{arg}(b_2^\ast Ab_1 -b_1^T\bar{A}\bar{b_2}).$$ Za 
 $$t_1 = \frac{-\alpha(\theta) + \sqrt{\alpha(\theta)^2 - 4\alpha_1 \alpha_2}}{2\alpha_2}$$ imamo 
 $$b(t_1, \theta) \not=0,\quad  \frac{b(t_1,\theta)^\ast}{\norm{b(t_1,\theta)}}A\frac{b(t_1,\theta)}{\norm{b(t_1,\theta)}}=0.$$
+
 \end{lema}
 Lema \ref{komp} prikazuje kako se izračuna rešitev iz $b_1$ in $b_2$. Če imamo $b_1$ in $b_2$, taka da  $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$, smo končali.(\cite{meurant})
 \begin{proof}
@@ -575,14 +575,24 @@ za $q=\Im(x^\ast Ax)$, $p=\Im(y^\ast Ay)$ in $r=\Im(x^\ast  Ay + y^\ast Ax)$. Oz
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerična analiza}
-V tem poglavju bomo na kratko opisali naš algoritem, ki je povzet po algoritmu \ref{Meurant 2} iz \cite{meurant}, vendar pa ni identičen, in ga primerjali z algoritmoma Cardna iz \cite{carden_alg} in CPU iz \cite{trije_alg} na različnih primerih problema iskanja izotropnih vektorjev. 
+V tem poglavju bomo na kratko opisali naš algoritem, ki je povzet po algoritmu poglavja \ref{Meurant 2} iz \cite{meurant}, vendar pa ni identičen, in ga primerjali z algoritmoma Cardna iz \cite{carden_alg} in CPU iz \cite{trije_alg} na različnih primerih problema iskanja izotropnih vektorjev. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Opis algoritma}
 Najprej na kratko opišimo kako naš algoritem, najden v poglavju 6, deluje. \\
-Prva stvar, ki jo algoritem naredi, je da problem \eqref{eq:splosno} preobrne v začetni problem \eqref{eq:zac}. Nato preveri, če je matrika $A$ realna in če je, pokliče funkcijo \verb+izotropniMeurantR+, ki vrne 2 izotropna vektorja, izračunana kot v poglavju \ref{Realne matrike}. Nadalje algoritem uporabi isti postopek kot je opisan v \ref{Meurant 2}, tako da poskusi rešiti problem z lastnimi vektorji matrike $K$, če to ne deluje poskusi z lastnimi vektorji matrike $H$ in na koncu še s kombinacijo lastnih vektorjev matrike $K$ in $H$. V članku \cite{meurant} ni napisano koliko lastnih vektorjev je potrebno oz. se jih splača izračunati, zato smo to določili sami in sicer naš algoritem računa z lastnimi vektorji, ki pripadajo 3 največjim in 3 najmanjšim lastnim vrednostim. Edina razlika med našim algoritmom in algoritmom iz \ref{Meurant 2} nastane zaradi premalo informacij iz članka \cite{meurant} o tem kako najti vektorja $b_1$ in $b_2$, da lahko uporabimo lemo \ref{komp}. Naš algoritem najde $b_1$ in $b_2$ tako kot je opisano v koraku 4. in 5. algoritma, ko kombiniramo lastne vektorje matrike $K$ in $H$, kar naredi funckija \verb+xtheta+. Torej upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y$, $0\le\theta\le\pi$, kjer $X_\theta ^\ast AX_\theta$ opiše elipso znotraj numeričnega zaklada. Za dan par $(x,y)$ iščemo presečišča elipse $X_\theta ^\ast AX_\theta$ z realno osjo, kjer sta $x$ in $y$ lastna vektorja matrike $K$ ali matrike $H$ in ti presečišči vzamemo kot kandidata za $b_1$ in $b_2$. Vendar naš algoritem ta korak še izboljša, saj maksimizira elipso $X_\theta ^\ast AX_\theta$, tako da $X_\theta$ definiramo kot $$X_\theta (\varphi) =\cos(\theta)x e^{\varphi \imath}+\sin(\theta)y,$$ kjer je $$\varphi = \frac{1}{2\imath} \text{ln}(x^\ast Ay (y^\ast Ax)^{-1}).$$ Če maksimiziramo elipso je večja verjetnost, da bo vsebovala izhodišče in s tem je večja verjetnost, da najdemo rešitev v manj korakih. Če najdemo primerna $b_1$ in $b_2$ da lahko uporabimo lemo \ref{komp}, ki je definirana s funkcijo \verb+lema31+, smo končali.
+Prva stvar, ki jo algoritem naredi, je da problem \eqref{eq:splosno} preobrne v začetni problem \eqref{eq:zac}. Nato preveri, če je matrika $A$ realna in če je, pokliče funkcijo \verb+izotropniMeurantR+, ki vrne 2 izotropna vektorja, izračunana kot v poglavju \ref{Realne matrike}. Nadalje algoritem uporabi isti postopek kot je opisan v poglavju \ref{Meurant 2}, tako da poskusi rešiti problem z lastnimi vektorji matrike $K$, če to ne deluje poskusi z lastnimi vektorji matrike $H$ in na koncu še s kombinacijo lastnih vektorjev matrike $K$ in $H$. V članku \cite{meurant} ni napisano koliko lastnih vektorjev je potrebno oz. se jih splača izračunati, zato smo to določili sami in sicer naš algoritem računa z lastnimi vektorji, ki pripadajo 3 največjim in 3 najmanjšim lastnim vrednostim. Edina razlika med našim algoritmom in algoritmom iz \ref{Meurant 2} nastane zaradi premalo informacij iz članka \cite{meurant} o tem kako najti vektorja $b_1$ in $b_2$, da lahko uporabimo lemo \ref{komp}. Naš algoritem najde $b_1$ in $b_2$ tako kot je opisano v koraku 4. in 5. algoritma, ko kombiniramo lastne vektorje matrike $K$ in $H$, kar naredi funckija \verb+xtheta+. Torej upoštevamo vektorje $X_\theta =\cos(\theta)x+\sin(\theta)y$, $0\le\theta\le\pi$, kjer $X_\theta ^\ast AX_\theta$ opiše elipso znotraj numeričnega zaklada. Za dan par $(x,y)$ iščemo presečišča elipse $X_\theta ^\ast AX_\theta$ z realno osjo, kjer sta $x$ in $y$ lastna vektorja matrike $K$ ali matrike $H$ in ti presečišči vzamemo kot kandidata za $b_1$ in $b_2$. Vendar naš algoritem ta korak še izboljša, saj maksimizira elipso $X_\theta ^\ast AX_\theta$, tako da $X_\theta$ definiramo kot $$X_\theta (\varphi) =\cos(\theta)x e^{\varphi \imath}+\sin(\theta)y,$$ kjer je $$\varphi = \frac{1}{2\imath} \text{ln}(x^\ast Ay (y^\ast Ax)^{-1}).$$ Če maksimiziramo elipso je večja verjetnost, da bo vsebovala izhodišče in s tem je večja verjetnost, da najdemo rešitev v manj korakih. Če najdemo primerna $b_1$ in $b_2$ da lahko uporabimo lemo \ref{komp}, ki je definirana s funkcijo \verb+lema31+, smo končali.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Primerjava}
-O\-zna\-či\-mo algoritme z \verb+AlgM+, \verb+AlgC+ in \verb+AlgCPU+. Numerične zaklade bomo narisali s funkcijo iz \cite{fovals}, ki nariše tudi lastne vrednosti matrike $A$ s križci.
+O\-zna\-či\-mo algoritme z \verb+AlgM+, \verb+AlgC+ in \verb+AlgCPU+. Numerične zaklade bomo narisali s funkcijo iz \cite{fovals}, ki nariše tudi lastne vrednosti matrike $A$ s križci. 
+Za vsak algoritem bomo preverili v kolikšnem času je našel (ali ni našel) rešitev, koliko korakov je potreboval:
+\begin{align*}
+Št. korakov & \\
+0 & algoritem, ni uporabil nobenih lastnih vrednosti in vektorjev\\
+1 & algoritem je uporabil lastne vrednosti in vektorje matrike $K$\\
+2 & algoritem je uporabil lastne vrednosti in vektorje matrike $K$ in $H$\\
+3 & algoritem je uporabil kombinacijo lastnih vektorjev matrike $K$ in $H$\\
+\end{align*}
+
+ter kako velika je napaka $|b^\ast Ab|.$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A in $\mu$ realna}
 
@@ -590,6 +600,7 @@ Za prvi primer vzamimo naključno generirano $10\times 10$ realno matriko $A$ in
 $$\verb+A = randn(10)+$$
 
 \begin{figure}[!h]
+\renewcommand*\thesubfigure{\alph{subfigure}}
 \centering
 \includegraphics[scale=0.4]{RR1.jpg}
 \caption{Numerični zaklad premaknjene matrike A in z rdečo $\ast$ označeno izhodišče.}
@@ -645,6 +656,7 @@ Algoritem & Čas & Koraki & Napaka\\
 Naj bo $A$ naključno generirana realna $10\times 10$ matrika in $\mu = -1,4575 + 0,1514 \imath$ kompleksno število iz numeričnega zaklada, Slika \ref{fig:p31}.
 
 \begin{figure}[H]
+\renewcommand*\thesubfigure{\alph{subfigure}}
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{RC1.jpg}
 \caption{Z rdečo $\ast$ označimo izhodišče.}
@@ -678,6 +690,7 @@ Algoritem & Čas & Koraki & Napaka\\
 
 Za drugi primer vzamemo realno naključno generirano $20\times 20$ matriko A in $\mu = 1 + \imath$, Slika \ref{fig:p41}.
 \begin{figure}[H]
+\renewcommand*\thesubfigure{\alph{subfigure}}
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{RC2.jpg}
 \caption{Z rdečo $\ast$ označimo izhodišče.}
@@ -717,6 +730,7 @@ Algoritem & Čas & Koraki & Napaka\\
 
 Za tretji primer vzamemo realno naključno generirano $20\times 20$ matriko A in $\mu = 2 + 2\imath$, Slika \ref{fig:p51}.
 \begin{figure}[H]
+\renewcommand*\thesubfigure{\alph{subfigure}}
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC3.jpg}
 \caption{Z rdečo $\ast$ označimo izhodišče.}
@@ -761,6 +775,7 @@ Algoritem & Čas & Koraki & Napaka\\
 
 Poglejmo še en primer, kjer algoritem ne deluje za realno naključno generirano $50\times 50$ matriko A in $\mu = -8+4\imath$, ki je na robu numeričnega zaklada, Slika \ref{fig:p61}.
 \begin{figure}[H]
+\renewcommand*\thesubfigure{\alph{subfigure}}
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC4.jpg}
 \caption{Z rdečo $\ast$ označimo izhodišče.}
@@ -843,7 +858,7 @@ Algoritem & Čas & Koraki & Napaka\\
 \verb+AlgCPU+ & & & \\
 \hline
 \end{tabular}
-\caption{A kompleksna,$\mu = 5000+10000\imath$ in algoritem najde rešiev v 2 korakih.}
+\caption{A kompleksna, $\mu = 5000+10000\imath$ in algoritem najde rešiev v 2 korakih.}
 \label{t8}
 \end{table}
 
@@ -888,6 +903,7 @@ Algoritem & Čas & Koraki & Napaka\\
 \end{table}
 
 \begin{figure}[H]
+\renewcommand*\thesubfigure{\alph{subfigure}}
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{CC.jpg}
 \caption{Zelena $\ast = 5000+10000\imath$\\
