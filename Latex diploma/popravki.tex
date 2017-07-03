@@ -88,11 +88,11 @@ Ljubljana, 2017} %letnica diplome
 {\bf Računanje izotropnih vektorjev}\\[3mm]
 {\sc Povzetek}
 \end{center}
-Delo diplomskega seminarja se ukvarja z izračunom izotropnih vektorjev $b\in\R^{n} (\C^{n})$, ki so rešitev enačbe $b^\ast Ab=0,$ za dano matriko $A\in\R^{n\times n} (\C^{n\times n}), det(A)\ne 0$.
+Delo diplomskega seminarja se ukvarja z izračunom izotropnih vektorjev $b\in\R^{n} (\C^{n})$, ki so rešitev enačbe $b^\ast Ab=0,$ za dano matriko $A\in\R^{n\times n} (\C^{n\times n}),$ $det(A)\ne 0$.
 Pomemben pojem pri iskanju teh vektorjev je numerični zaklad, definiran kot $W(A)=\{x^\ast Ax: x \in \C^n,\quad x^\ast x=1\}.$ Predstavljene in dokazane so njegove uporabne lastnosti, kot je npr. konveksnost.
 %Na kratko opišemo s katerimi problemi je računanje teh vektorjev povezano.
 Računanje izotropnih vektorjev ločimo na 2 dela, in sicer, ko je $A$ realna in ko je kompleksna matrika.
-Ko imamo realno matriko, nas v resnici zanima problem $b\ast Hb=0$, za hermitsko matriko $H=(A+A\ast)/2$. 
+Ko imamo realno matriko, nas v resnici zanima problem $b^\ast Hb=0$, za hermitsko matriko $H=(A+A^\ast)/2$. 
 Pokažemo kako izračunamo 2 izotropna vektorja, če je $A$ nedefinitna, in še več, če ima $H$ vsaj 3 različne lastne vrednosti,ki ne smejo biti istega predznaka, pokažemo, da obstaja neskončno izotropnih vektorjev.
 Ko imamo kompleksno matriko, je problem težji in postopkov, kako pridemo do rešitve, več. Predstavimo 3 teoretične postopke Meuranta, Cardna in Chorianopoulos, Psarrakos, Uhliga.
 %Za vsak postopek predstavimo potrebne izreke in dodatne konstrukcije, ki se uporabijo, in podrobno opišemo vsak korak v algoritmu.
@@ -108,15 +108,15 @@ Nadalje naš algoritem primerjamo z drugima algoritmoma na vseh možnih primerih
 {\bf The computation of isotropic vectors}\\[3mm]
 {\sc Abstract}
 \end{center}
-The graduation thesis deals with the computation of isotropic vectors $b\in\R^{n} (\C^{n})$, that are solutions of the equation $b^\ast Ab=0,$ for a given matrix $A\in\R^{n\times n} (\C^{n\times n}), det(A)\ne 0$.
+The graduation thesis deals with the computation of isotropic vectors $b\in\R^{n} (\C^{n})$, that are solutions of the equation $b^\ast Ab=0,$ for a given matrix $A\in\R^{n\times n} (\C^{n\times n}),$ $det(A)\ne 0$.
 An important concept when searching for these vectors is the field of values (or numerical range), defined as $W(A)=\{x^\ast Ax: x \in \C^n,\quad x^\ast x=1\}.$ Some of its useful properties are presented and proved, such as convexity.
 %We briefly describe with which problems, the computation of these vectors, are related.
 We divide the computation of isotropic vectors into 2 parts, that is when $A$ is a real or a complex matrix.
-When we have a real matrix, we are in fact interested in problem $b\ast Hb=0$, for a hermitian matrix $H=(A+A\ast)/2$. 
+When we have a real matrix, we are in fact interested in problem $b^\ast Hb=0$, for a hermitian matrix $H=(A+A^\ast)/2$. 
 We show how to compute 2 isotropic vectors, if $A$ is non-definitive, and furthermore, if $H$ has at least 3 distinct eigenvalues of different signs, there exists an infinite number of isotropic vectors.
 When we are dealing with a complex matrix the problem is more difficult and more methods of how to find a solution exist. We present 3 theoretical procedures by Meurant, Carden and Chorianopoulos, Psarrakos, Uhlig.
 %For every procedure we show needed theorems and extra constructions, that are used, and we describe each step of the algorithm in detail.
-Meurant's algorithm first uses eigenvalues and eigenvectors of the hermitian matrix $K=(A-A\ast)/2\imath$, if this does not work it uses hermitian matrix $H$, and if this also does not work it uses a combination of eigenvectors from $K$ and $H$.
+Meurant's algorithm first uses eigenvalues and eigenvectors of the hermitian matrix $K=(A-A^\ast)/2\imath$, if this does not work it uses hermitian matrix $H$, and if this also does not work it uses a combination of eigenvectors from $K$ and $H$.
 We write a code in Matlab after this algorithm.
 %In the chapter Numerical analysis we firstly describe our algorithm, which was based of Meurant's paper, and we explain why in some steps in differs from the algorithm in the paper.
 Further, we compare our algorithm with the algorithms from the other two papers on every possible example \vdots
@@ -125,7 +125,7 @@ Further, we compare our algorithm with the algorithms from the other two papers 
 
 
 \vfill\noindent
-{\bf Math. Subj. Class. (2010):15A60, 47A12}   \\[1mm]
+{\bf Math. Subj. Class. (2010): 15A60, 47A12}   \\[1mm]
 {\bf Ključne besede: izotropni vektor, numerični zaklad}   \\[1mm]
 {\bf Keywords: isotropic vector, field of values, numerical range}
 \pagebreak
@@ -139,7 +139,7 @@ Na koncu bomo en algoritem implementirali v Matlabu in ga primerjali s še dvema
 Sedaj pa opišimo glavni problem tega dela.
 \subsection{Problem}
 
-Naj bo $A\in\R^{n\times n} (\C^{n\times n}), det(A)\ne 0$. Iščemo enotski vektor $b\in\R^{n} (\C^{n})$, da je
+Naj bo $A\in\R^{n\times n} (\C^{n\times n}),$ $det(A)\ne 0$. Iščemo enotski vektor $b\in\R^{n} (\C^{n})$, da je
 \begin{equation}\label{eq:zac}
 b^\ast Ab=0,
 \end{equation}
@@ -360,7 +360,7 @@ Enačbi veljata samo za realna števila. Zaradi  izreka \ref{izrek2} mora biti 0
 nima netrivialne rešitve. Drugače je $0 \in W(A)$ in lahko vedno najdemo realno rešitev. V bistvu, kadar je $n>2$, lahko najdemo neskončno izotropnih vektorjev.
 \end{opomba}
 \subsection{Iskanje izotropnih vektorjev}
-Najprej bomo pokazali kako izračunamo izotropne vektorje, če imamo dve lastni vrednosti, kasneje pa če imamo tri lastne vrednosti.\\
+Najprej bomo pokazali kako izračunamo i\-zo\-trop\-ne vektorje, če imamo dve lastni vrednosti, kasneje pa če imamo tri lastne vrednosti.\\
 
 Če niso vse lastne vrednosti $H$ enako predznačene, potem mora za najmanjšo lastno vrednost $\lambda_n$ veljati $\lambda_n <0$. 
 Naj bo $k<n$ tak, da je $\lambda_k >0$ in naj bo $t$ pozitivno realno število manjše od 1.  Izberemo taka $c_n$ in $c_k$, da velja  $\abs{c_n}^2 =t$, $\abs{c_k}^2=1-t$ in $c_i =0, i\not=n,k$, ker velja enačba \eqref{eq:en2}, $t+ (1-t)=1$. Iz \eqref{eq:en1} mora veljati enačba: $$\lambda_n t +\lambda_k (1-t)=0,$$ katere rešitev je:
@@ -445,9 +445,9 @@ Z uporabo treh lastnih vektorjev $H$, obstaja neskončno rešitev dobljenih na d
 Ko poljubno točko iz daljice nenehno sprehajamo po tej daljici, se tudi imaginarni del rešitve nenehno spreminja. 
 Če sta imaginarna dela, ki ustrezata robnima točkama daljice, različnih predznakov, potem iz izreka o povprečni vrednosti sledi, da obstaja točka na daljici, ki ima ničeln imaginarni del. (\cite{meurant}) \\
 %??T%WTFo se lahko izračuna z dihotomijo??. 
-\begin{opomba}
-To vsebuje samo izračun kvadratne forme $x^\ast Ax$. Ne potrebujemo nobenih izračunov lastnih vrednosti in vektorjev. Vendar, se sprememba predznaka v vrednostih $x^\ast Ax$ ne zgodi za katerkoli tri lastne vrednosti.
-\end{opomba}
+%\begin{opomba}
+%To vsebuje samo izračun kvadratne forme $x^\ast Ax$. Ne potrebujemo nobenih izračunov lastnih vrednosti in vektorjev. Vendar, se sprememba predznaka v vrednostih $x^\ast Ax$ ne zgodi za katerkoli tri lastne vrednosti.
+%\end{opomba}
 \subsubsection{Meurant 2.}\label{Meurant 2}
 Druga konstrukcija algoritma v \cite{meurant} uporabi lastne vrednosti in lastne vektorje matrike $K=(A-A^\ast)/(2i)$, ki je hermitska. 
 S konstrukcijo iz 2. razdelka lahko poiščemo tak vektor $b$, da je $\Im(b^\ast Ab)=0$. 
