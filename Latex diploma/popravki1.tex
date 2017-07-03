@@ -11,6 +11,7 @@
 \usepackage[export]{adjustbox}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{breqn}
 %\usepackage[normalem]{ulem}
 \usepackage[dvipsnames,usenames]{color}
 \textwidth 15cm
@@ -53,7 +54,6 @@
 \setlength{\odstavek}{\parindent}
 \newcommand{\geslo}[2]{\noindent\textbf{#1}\hspace*{3mm}\hangindent=\parindent\hangafter=1 #2}
 
-
 %\renewcommand\thesubfigure{\arabic{subfigure}}
 
 \begin{document}
@@ -81,6 +81,8 @@ Ljubljana, 2017} %letnica diplome
 
 \thispagestyle{empty}
 \tableofcontents
+%\listoffigures
+% \listoftables
 \pagebreak
 
 \thispagestyle{empty}
@@ -89,7 +91,7 @@ Ljubljana, 2017} %letnica diplome
 {\sc Povzetek}
 \end{center}
 Delo diplomskega seminarja se ukvarja z izračunom izotropnih vektorjev $b\in\R^{n} (\C^{n})$, ki so rešitev enačbe $b^\ast Ab=0,$ za dano matriko $A\in\R^{n\times n} (\C^{n\times n}),$ $det(A)\ne 0$.
-Pomemben pojem pri iskanju teh vektorjev je numerični zaklad, definiran kot $W(A)=\{x^\ast Ax\! : x \in \C^n,\ x^\ast x=1\}.$ Predstavljene in dokazane so njegove uporabne lastnosti, kot je npr. konveksnost.
+Pomemben pojem pri iskanju teh vektorjev je numerični zaklad, definiran kot\\ $W(A)=\{x^\ast Ax\! : x \in \C^n,\ x^\ast x=1\}.$ Predstavljene in dokazane so njegove uporabne lastnosti, kot je npr. konveksnost.
 %Na kratko opišemo s katerimi problemi je računanje teh vektorjev povezano.
 Računanje izotropnih vektorjev ločimo na 2 dela, in sicer, ko je $A$ realna in ko je kompleksna matrika.
 Ko imamo realno matriko, nas v resnici zanima problem $b^\ast Hb=0$, za hermitsko matriko $H=(A+A^\ast)/2$. 
@@ -99,7 +101,7 @@ Ko imamo kompleksno matriko, je problem težji in postopkov, kako pridemo do re�
 Meurantov algoritem najprej uporabi lastne vrednosti in vektorje hermitske matrike $K=(A-A\ast)/2\imath$, če to ne deluje uporabi hermitsko matriko $H$, če pa še to ne deluje pa uporabi kombinacijo lastnih vektorjev od $K$ in $H$.
 Po tem postopku tudi sprogramiramo kodo v Matlabu.
 %V poglavju Numerična analiza najprej opišemo naš algoritem, ki smo ga povzeli po članku Meuranta, in razložimo zakaj se v nekaterih korakih naš algoritem razlikuje od algoritma iz članka.
-Nadalje naš algoritem primerjamo z drugima algoritmoma na vseh možnih primerih in ugotovimo \vdots
+Nadalje naš algoritem primerjamo z drugima algoritmoma na vseh možnih primerih in ugotovimo $\dots$
 %Poleg vsakega primera je tudi slika numeričnega zaklada z dodano grafično predstavitvijo iskanja rešitve.
 %Na koncu še opišemo naša opazovanja in zaključke.
 
@@ -119,7 +121,7 @@ When we are dealing with a complex matrix the problem is more difficult and more
 Meurant's algorithm first uses eigenvalues and eigenvectors of the hermitian matrix $K=(A-A^\ast)/2\imath$, if this does not work it uses hermitian matrix $H$, and if this also does not work it uses a combination of eigenvectors from $K$ and $H$.
 We write a code in Matlab after this algorithm.
 %In the chapter Numerical analysis we firstly describe our algorithm, which was based of Meurant's paper, and we explain why in some steps in differs from the algorithm in the paper.
-Further, we compare our algorithm with the algorithms from the other two papers on every possible example \vdots
+Further, we compare our algorithm with the algorithms from the other two papers on every possible example $\dots$
 %Next to each example we include a picture of the field of values with added graphical illustrations of how we find a solution.
 %Lastly we show our observations and conclusions.
 
@@ -261,7 +263,7 @@ x^\ast Hx &= x^\ast \frac{1}{2}(A+A^\ast)x \\
 
 \item Če je A normalna, potem je $A=U^\ast \Lambda U$, kjer je $\Lambda = \text{diag}\{\lambda_1, \dots, \lambda_n\}$ diagonalna in $U$ unitarna. 
 Po lastnosti (3) je $W(A)=W(\Lambda)$ in ker $$x^\ast \Lambda x = \sum_{i=1}^{n} \bar{x}_i x_i\lambda_i = \sum_{i=1}^{n} |x_i|^2 \lambda_i$$ 
-je $W(\Lambda)$ množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$ ($x^\ast x=1$ implicira $ \sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). 
+je $W(\Lambda)$ množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$\\($x^\ast x=1$ implicira $ \sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). 
 Ker so diagonalni elementi $\Lambda$ lastne vrednosti $A$, to pomeni da je $W(A) =\Co(\sigma(A))$
 
 \item Ker je hermitska matrika tudi normalna velja $$W(H) = \Co(\sigma(H)),$$ zaradi lastnosti (3). 
@@ -395,9 +397,9 @@ S tem je definirana premica v $(t_1,t_2)$ ravnini in preveriti moramo, če ta pr
 \begin{primer}
 Poglejmo si enostaven zgled za matriko $3\times 3$ z lastnimi vrednostmi $\lambda_1=-1, \lambda_2=1$ in $\lambda_3=2$. Matrika lastnih vektorjev $X$ je enaka identiteti $I$.\\
 Enačba premice je $t_2=2-3t_1$ s pogoji $t_1, t_2 \ge 0$ in $t_1+t_2\le 1$. Dopustne rešitve za $t_1$ in $t_2$ so dane z daljico v trikotniku, Slika \ref{fig:daljica}.\\
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[scale=0.4]]{graf3.jpg}
+\includegraphics[scale=0.4]{graf3.jpg}
 \caption{Dopustne rešitve so na daljici, pobarvani rdeče, v trikotniku omejitev.}
 \label{fig:daljica}
 \end{figure}
@@ -442,7 +444,7 @@ V nekaterih primerih lahko izračunamo rešitve s samo enim ra\-ču\-na\-njem la
 Najprej opazimo, da lahko v nekaterih primerih uporabimo podobno konstrukcijo kot v prejšnjem razdelku, ki najde množico rešitev za hermitsko matriko $H$ z ničelnim realnim delom ter pozitivnim in negativnim imaginarnim delom. 
 Z uporabo treh lastnih vektorjev $H$, obstaja neskončno rešitev dobljenih na daljici v trikotniku omejitev. 
 Ko poljubno točko iz daljice nenehno sprehajamo po tej daljici, se tudi imaginarni del rešitve nenehno spreminja. 
-Če sta imaginarna dela, ki ustrezata robnima točkama daljice, različnih predznakov, potem iz izreka o povprečni vrednosti sledi, da obstaja točka na daljici, ki ima ničeln imaginarni del. (\cite{meurant}) \\
+Če sta imaginarna dela, ki ustrezata robnima točkama daljice, različnih predznakov, potem iz izreka o povprečni vrednosti sledi, da obstaja točka na daljici, ki ima ničeln imaginarni del. 
 %??T%WTFo se lahko izračuna z dihotomijo??. 
 %\begin{opomba}
 %To vsebuje samo izračun kvadratne forme $x^\ast Ax$. Ne potrebujemo nobenih izračunov lastnih vrednosti in vektorjev. Vendar, se sprememba predznaka v vrednostih $x^\ast Ax$ ne zgodi za katerkoli tri lastne vrednosti.
@@ -452,7 +454,7 @@ Druga konstrukcija algoritma v \cite{meurant} uporabi lastne vrednosti in lastne
 S konstrukcijo iz 2. razdelka lahko poiščemo tak vektor $b$, da je $\Im(b^\ast Ab)=0$. 
 S kombiniranjem lastnih vektorjev matrike $K$ pripadajočim k pozitivnim in negativnim lastnim vrednostim, lahko (v nekaterih primerih) izračunamo taka vektorja $b_1$ in $b_2$, da $\alpha_1=\Re(b_1^\ast Ab_1)<0$ in $\alpha_2=\Re(b_2^\ast Ab_2)>0$. 
 %POMEMBNA LEMA
-\begin{lema}\label{komp}\cite{meurant},\cite{meurant}
+\begin{lema}\label{komp}\cite{meurant},\cite{num}
 Naj bosta $b_1$ in $b_2$ enotska vektorja z $\Im(b_i^\ast Ab_i)=0$, $i=1,2$, in $\alpha_1=\Re(b_1^\ast Ab_1)<0, \alpha_2=\Re(b_2^\ast Ab_2)>0$. Naj bo 
 $$b(t,\theta)=e^{-i\theta}b_1 + tb_2, \quad t,\theta \in \R,$$ 
 $$\alpha(\theta)=e^{i\theta}b_1^\ast Ab_2 +e^{-i\theta}b_2^\ast Ab_1.$$
@@ -508,7 +510,7 @@ Ko je $A$ realna in imamo $b_1=x_1, b_2=x_2$ za lastne vektorje $H$, potem je $\
 
 
 \begin{opomba}
-Ko je velikost problema velika, ne uporabimo zadnje konstrukcije za vse pare lastnih vektorjev, saj nas to lahko preveč stane. Uporabimo samo lastne vektorje, ki pripadajo par najmanjšim in največjim lastnim vrednostim.
+Ko je velikost problema velika, ne uporabimo zadnje konstrukcije za vse pare lastnih vektorjev, saj nas to lahko preveč stane. Uporabimo samo lastne vektorje, ki pripadajo par najmanjšim in največjim lastnim vrednostim.\\
 \end{opomba}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%CARDEN
 \subsubsection{Carden.}
@@ -534,7 +536,7 @@ Naj bo $\varepsilon >0$ toleranca (npr. $\varepsilon=10^{-16}\norm{A}$ za dvojno
 \item Ponovno preverimo, če je $\mu$  v novi zunanji aproksimaciji. Če je, se vrnemo na 4. korak, drugače $\mu \not \in W(A)$. 
 \end{enumerate}
 \begin{opomba}
-Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ blizu $\mu$ ali dokler zunanja aproksimacija ne vsebuje $\mu$. Carden trdi, da se v večini primerov postopek konča v koraku 4. po le nekaj ponavljanjih.(\cite{carden})
+Korake 4.-7. ponavljamo, dokler ni notranja aproksimacija $\varepsilon$ blizu $\mu$ ali dokler zunanja aproksimacija ne vsebuje $\mu$. Carden trdi, da se v večini primerov postopek konča v koraku 4. po le nekaj ponavljanjih.\\
 \end{opomba}
 %Zunanja aproksimacija numeričnega zaklada, ki seka $\partial W(A)$ v robnih točkah, bo pravokotnik, katerega stranice so vzporedne z realno in imaginarno osjo,  notranja aproksimacija pa štirikotnik z oglišči v robnih točkah $\partial W(A)$.
 %VKLJUČIM POPRAVEK?
@@ -583,15 +585,21 @@ Prva stvar, ki jo algoritem naredi, je da problem \eqref{eq:splosno} preobrne v 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Primerjava}
 O\-zna\-či\-mo algoritme z \verb+AlgM+, \verb+AlgC+ in \verb+AlgCPU+. Numerične zaklade bomo narisali s funkcijo iz \cite{fovals}, ki nariše tudi lastne vrednosti matrike $A$ s križci. 
-Za vsak algoritem bomo preverili v kolikšnem času je našel (ali ni našel) rešitev, koliko korakov je potreboval:
-\begin{align*}
-Št. korakov & \\
-0 & algoritem, ni uporabil nobenih lastnih vrednosti in vektorjev\\
-1 & algoritem je uporabil lastne vrednosti in vektorje matrike $K$\\
-2 & algoritem je uporabil lastne vrednosti in vektorje matrike $K$ in $H$\\
-3 & algoritem je uporabil kombinacijo lastnih vektorjev matrike $K$ in $H$\\
-\end{align*}
-
+Za vsak algoritem bomo preverili v kolikšnem času je našel (ali ni našel) rešitev, koliko izračunov lastnih vrednosti in vektorjev je potreboval (označimo kot "Koraki") %, Tabela \ref{koraki}, 
+%\begin{table}[h]
+%\caption{Definicija števila korakov.}
+%\begin{tabular}{c|l}
+%Št. korakov &  \\
+%\hline
+%0  &  algoritem, ni uporabil nobenih lastnih vrednosti in vektorjev\\
+%1  &  algoritem je uporabil lastne vrednosti in vektorje matrike K\\
+%2  & algoritem je uporabil lastne vrednosti in vektorje matrike  K in  H\\
+%3  &  algoritem je uporabil kombinacijo lastnih vektorjev matrike K in H\\
+%
+%\end{tabular}
+%
+%\label{koraki}
+%\end{table}
 ter kako velika je napaka $|b^\ast Ab|.$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A in $\mu$ realna}
@@ -600,7 +608,6 @@ Za prvi primer vzamimo naključno generirano $10\times 10$ realno matriko $A$ in
 $$\verb+A = randn(10)+$$
 
 \begin{figure}[!h]
-\renewcommand*\thesubfigure{\alph{subfigure}}
 \centering
 \includegraphics[scale=0.4]{RR1.jpg}
 \caption{Numerični zaklad premaknjene matrike A in z rdečo $\ast$ označeno izhodišče.}
@@ -608,19 +615,19 @@ $$\verb+A = randn(10)+$$
 \end{figure}
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A realna, $\mu = 1,0419$ in obstaja rešitev}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.024636&1&1.4988e-15\\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ & 0.059675& 4&5.2369e-16 \\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.242559&2&7.0217e-16 \\
 \hline
 \end{tabular}
-\caption{A realna, $\mu = 1,0419$ in obstaja rešitev}
 \label{t1}
 \end{table}
 Za drugi primer vzamimo $\mu =0$ in matriko
@@ -634,19 +641,20 @@ A=\begin{bmatrix}
 Matrika $A$ je definitna, zato algoritem ne najde rešitve.
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A realna in ne obstaja rešitev.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.017245&1&Inf \\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ & 0.378286&4 & Inf \\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.009840 &1& Inf\\
 \hline
 \end{tabular}
-\caption{A realna in ne obstaja rešitev.}
+
 \label{t2}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -656,7 +664,7 @@ Algoritem & Čas & Koraki & Napaka\\
 Naj bo $A$ naključno generirana realna $10\times 10$ matrika in $\mu = -1,4575 + 0,1514 \imath$ kompleksno število iz numeričnega zaklada, Slika \ref{fig:p31}.
 
 \begin{figure}[H]
-\renewcommand*\thesubfigure{\alph{subfigure}}
+\renewcommand*\thesubfigure{\Alph{subfigure}}
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{RC1.jpg}
 \caption{Z rdečo $\ast$ označimo izhodišče.}
@@ -672,25 +680,26 @@ Naj bo $A$ naključno generirana realna $10\times 10$ matrika in $\mu = -1,4575 
 \end{figure}
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A realen, $\mu = -1,4575 + 0,1514 \imath$ in rešitev najdemo v 1 koraku.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.217679&1&3.8912e-16\\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ &0.059066 & 4& 1.1322e-15\\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.032536&2&3.1525e-16\\
 \hline
 \end{tabular}
-\caption{A realen, $\mu = -1,4575 + 0,1514 \imath$ in rešitev najdemo v 1 koraku.}
+
 \label{t3}
 \end{table}
 
 Za drugi primer vzamemo realno naključno generirano $20\times 20$ matriko A in $\mu = 1 + \imath$, Slika \ref{fig:p41}.
 \begin{figure}[H]
-\renewcommand*\thesubfigure{\alph{subfigure}}
+\renewcommand*\thesubfigure{\Alph{subfigure}}
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{RC2.jpg}
 \caption{Z rdečo $\ast$ označimo izhodišče.}
@@ -712,25 +721,26 @@ Za drugi primer vzamemo realno naključno generirano $20\times 20$ matriko A in 
 \end{figure}
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A realen, $\mu = 1 + \imath$ in rešitev najdemo v 2 korakih.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.123142&2&6.2804e-16\\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ &0.017274 &4 &1.1102e-15 \\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.215924&2&5.5511e-17\\
 \hline
 \end{tabular}
-\caption{A realen, $\mu = 1 + \imath$ in rešitev najdemo v 2 korakih.}
+
 \label{t4}
 \end{table}
 
 Za tretji primer vzamemo realno naključno generirano $20\times 20$ matriko A in $\mu = 2 + 2\imath$, Slika \ref{fig:p51}.
 \begin{figure}[H]
-\renewcommand*\thesubfigure{\alph{subfigure}}
+\renewcommand*\thesubfigure{\Alph{subfigure}}
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC3.jpg}
 \caption{Z rdečo $\ast$ označimo izhodišče.}
@@ -757,25 +767,26 @@ Za tretji primer vzamemo realno naključno generirano $20\times 20$ matriko A in
 \end{figure}
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A realen, $\mu = 2 + 2\imath$ in rešitev najdemo v 3 korakih.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.033775&2&3.7752e-16\\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ &0.020296 &4 & 9.9301e-16\\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.012049&2&4.9651e-16 \\
 \hline
 \end{tabular}
-\caption{A realen, $\mu = 2 + 2\imath$ in rešitev najdemo v 3 korakih.}
+
 \label{t5}
 \end{table}
 
 Poglejmo še en primer, kjer algoritem ne deluje za realno naključno generirano $50\times 50$ matriko A in $\mu = -8+4\imath$, ki je na robu numeričnega zaklada, Slika \ref{fig:p61}.
 \begin{figure}[H]
-\renewcommand*\thesubfigure{\alph{subfigure}}
+\renewcommand*\thesubfigure{\Alph{subfigure}}
 \begin{subfigure}[t]{0.45\textwidth}
 \includegraphics[width=0.9\linewidth,height=5cm]{RC4.jpg}
 \caption{Z rdečo $\ast$ označimo izhodišče.}
@@ -802,19 +813,20 @@ Poglejmo še en primer, kjer algoritem ne deluje za realno naključno generirano
 \end{figure}
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A realen, $\mu = -8+4\imath$ in naš algoritem ne najde rešitve.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.068600&2&Inf\\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ &0.066789 &4& Inf\\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.164600&1&Inf \\
 \hline
 \end{tabular}
-\caption{A realen, $\mu = -8+4\imath$ in naš algoritem ne najde rešitve.}
+
 \label{t6}
 \end{table}
 
@@ -827,38 +839,40 @@ Za prvi primer vzamimo $\mu = 5000+10000\imath$, Slika \ref{fig:p7}.
 
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A in $\mu = 5000+10000\imath$ kompleksna in algoritem najde rešitev v 1 koraku.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.023934&1&1.0168e-12\\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ &0.680576&5& 1.0914e-11\\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.03086&4&1.3903e-12\\
 \hline
 \end{tabular}
-\caption{A in $\mu$ kompleksna in algoritem najde rešitev v 1 koraku.}
+
 \label{t7}
 \end{table}
 
 Za drugi primer vzamemo $\mu = 12000+10000\imath$, ki je bližje robu, Slika \ref{fig:p7}.
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A kompleksna, $\mu = 12000+10000\imath$ in algoritem najde rešiev v 2 korakih.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+& 0.433484&2 &1.7053e-13 \\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ &0.656863&7&9.0949e-12\\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.03295&4&1.8190e-12\\
 \hline
 \end{tabular}
-\caption{A kompleksna, $\mu = 5000+10000\imath$ in algoritem najde rešiev v 2 korakih.}
+
 \label{t8}
 \end{table}
 
@@ -866,19 +880,20 @@ Za tretji primer vzamemo $\mu = 12500+10000\imath$, ki je še bližje robu kot v
 
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A kompleksna, $\mu = 12500+10000\imath$ in algoritem najde rešitev v 3 korakih.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.586810&2&1.3074e-12\\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ &0.481654 &8 & 1.4665e-11\\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ & 0.038650& 5&6.5169e-13 \\
 \hline
 \end{tabular}
-\caption{A kompleksna, $\mu = 12500+10000\imath$ in algoritem najde rešitev v 3 korakih.}
+
 \label{t9}
 \end{table}
 
@@ -886,24 +901,25 @@ Za zadnji primer vzamimo $\mu = 6000+16000\imath$, ki je blizu roba, ampak vseen
 
 
 \begin{table}[H]
-\begin{tabular}{|l|l|c|r|}
+\caption{A kompleksna, $\mu = 6000+16000\imath$ in algoritem ne najde rešitve.}
+\begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ & & & \\
+\verb+AlgM+ &0.456248 &2&Inf\\
 \hline
-\verb+AlgC+ & & & \\
+\verb+AlgC+ &0.485319&11&Inf \\
 \hline
-\verb+AlgCPU+ & & & \\
+\verb+AlgCPU+ &0.045177&10&Inf  \\
 \hline
 \end{tabular}
-\caption{A kompleksna, $\mu = 6000+16000\imath$ in algoritem ne najde rešitve.}
+
 \label{t10}
 \end{table}
 
 \begin{figure}[H]
-\renewcommand*\thesubfigure{\alph{subfigure}}
+\renewcommand*\thesubfigure{\Alph{subfigure}}
 \begin{subfigure}[t]{0.5\textwidth}
 \includegraphics[width=0.9\linewidth]{CC.jpg}
 \caption{Zelena $\ast = 5000+10000\imath$\\
@@ -1184,7 +1200,7 @@ end
 
 \geslo{convex hull}{konveksna ogrinjača}
 
-\geslo{eigenanalysis}{izračuna lastnih vrednosti in vektorjev}
+\geslo{eigenanalysis}{izračun lastnih vrednosti in vektorjev}
 
 \geslo{field of values/numerical range}{numerični zaklad}
 
@@ -1194,7 +1210,7 @@ end
 
 \geslo{origin}{izhodišče, točka $(0,0)$}
 
-\geslo{skew-Hermitian}{poševno hermitska}
+\geslo{skew-Hermitian matrix}{poševno-hermitska matrika}
 
 \geslo{tetrahedron}{tetraeder}
 
@@ -1222,7 +1238,7 @@ C. Chorianopoulos, P. Psarrakos in F. Uhlig, \emph{A method for the inverse nume
 N. Ciblak, H. Lipkin, \emph{Orthonormal isotropic vector bases}, In: Proceedings of DETC'98, 1998 ASME Design Engineering Technical Conferences (1998).
 
 \bibitem{fovals}
-W. Henao, \emph{\texttt{fovals.m}}, [ogled 29.~6.~2017], dostopno na \url{https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/4679/versions/1/previews/fovals.m/index.html?access_key=}.
+W. Henao, \emph{\texttt{fovals.m}}, [ogled 27.~7.~2016], dostopno na \url{https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/4679/versions/1/previews/fovals.m/index.html?access_key=}.
 
 \bibitem{num}
 Johnson, C. R., \emph{Numerical determination of the field of values of a general complex matrix}, SIAM J. Numer. Anal. {\bf 15} (1978) 595--602.
@@ -1234,7 +1250,7 @@ G. Meurant, \emph{The computation of isotropic vectors}, Numer. Alg. {\bf 60} (2
 P. Psarrakos, M. Tsatsomeros, \emph{Numerical range: (in) a matrix nutshell} Math. Notes from Washington State University,  Vol 45, No. 2 (2002)
 
 \bibitem{nr}
-P. Psarrakos, \emph{\texttt{nr.m}}, [ogled 29.~6.~2017], dostopno na \url{http://www.math.wsu.edu/faculty/tsat/files/matlab/nr.m}.
+P. Psarrakos, \emph{\texttt{nr.m}}, [ogled 12.~6.~2017], dostopno na \url{http://www.math.wsu.edu/faculty/tsat/files/matlab/nr.m}.
 
 \bibitem{trije_alg}
 F. Uhlig, \emph{\texttt{invfovCPU.m}}, verzija 22.~3.~2011, [ogled 5.~5.~2016], dostopno na \url{http://www.auburn.edu/~uhligfd/m_files/invfovCPU.m}.
