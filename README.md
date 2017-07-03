@@ -8,5 +8,5 @@ Repozitorij za mojo diplomo Računanje izotropnih vektorjev.
 - [ ] zaključek
 - [ ] še kje navedem vire?
 - [ ] unitarna transformacija
-- [ ] slika trikotnika
+- [x] slika trikotnika
 
