@@ -7,4 +7,6 @@ Repozitorij za mojo diplomo Računanje izotropnih vektorjev.
 - [x] ključne besede
 - [ ] zaključek
 - [ ] še kje navedem vire?
+- [ ] unitarna transformacija
+- [ ] slika trikotnika
 
