@@ -3,10 +3,10 @@
 Repozitorij za mojo diplomo Računanje izotropnih vektorjev.
 
 # To do:
-- [ ] povzetek
-- [x] ključne besede
+- [ ] numerični zaklad sklicevanje
+- [ ] povzetek dokončaj
 - [ ] zaključek
 - [ ] še kje navedem vire?
 - [ ] unitarna transformacija
-- [x] slika trikotnika
+
 
