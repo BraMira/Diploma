@@ -224,7 +224,7 @@ Nekatere lastnosti numeričnega zaklada (\cite{num}, \cite{zaloga}):
 \item Kompaktnost: Množica $W(A)$ je zaloga vrednosti zvezne funkcije $x \rightarrow x^\ast Ax$ na definicijskem območju $\{x\! :x\in \C^n ,\ x^\ast x=1\}$ (površina Euklidske enotske krogle), ki je kompaktna množica. Ker je $W(A)$ slika kompaktne množice, pod zvezno funkcijo, sledi da je $W(A)$ kompaktna.
 \end{itemize}
 \item Predpostavimo, da imamo $\lambda \in \sigma(A)$. Potem obstaja neničeln vektor $x\in \C ^n$ (za katerega lahko predpostavimo, da je enotski), za katerega velja $Ax=\lambda x$ in zato je
-$$\lambda = \lambda x^\ast x=x^\ast (\lambda x) = x^\ast Ax \in W(A)$$.
+$$\lambda = \lambda x^\ast x=x^\ast (\lambda x) = x^\ast Ax \in W(A).$$
 \item Zaradi unitarne transformacije postane površina enotske Euklidske krogle invariantna in so kompleksna števila, ki sestavljajo množici $W(U^\ast AU)$ in $W(A)$ enaka. 
 % Ker unitarna transformacija naredi površino Euklidske enotske krogle invariantno, so kompleksna števila, ki sestavljajo množici $W(U^\ast AU)$ in $W(A)$ enaka. 
 Če je $x\in \C^n$ in $x^\ast x=1$ imamo $$x^\ast (U^\ast AU)x=y^\ast Ay \in W(A),$$ kjer je $y = Ux$, torej $$y^\ast y=x^\ast U^\ast Ux=x^\ast x=1.$$ Torej je $W(U^\ast AU)\subseteq W(A)$. 
@@ -275,13 +275,13 @@ Konveksna ogrinjača $\sigma(H)$ je množica vseh daljic med lastnimi vrednostmi
 V tem poglavju bomo dokazali, da je numerični zaklad konveksen, kar je znano tudi kot Toeplitz-Hausdorfferjev izrek. 
 Načinov kako dokazati konveksnost je več, npr. v \cite{num}, vendar bomo mi izrek dokazali tako kot je dokazan v \cite{zaloga}, za to pa potrebujemo dodatno lemo. 
 \begin{lema}\cite{zaloga}
-Naj bo $H\in \C^{n\times n}$ hermitska matrika in $\mu \in W(H)$. Potem je množica $\LH _{H}(\mu)=\{x\in \C^n \! : x^\ast x=1,\ x^\ast Hx=\mu\}$ povezana s potmi (t.j. obstaja pot med poljubnima dvema točkama iz te množice)% oz. poljubni dve točki iz te množice lahko povežemo z zvezno krivulju, ki je v celoti vsebovana v množici).
+Naj bo $H\in \C^{n\times n}$ hermitska matrika in $\mu \in W(H)$. Potem je množica $\LH _{H}(\mu)=\{x\in \C^n \! : x^\ast x=1,\ x^\ast Hx=\mu\}$ povezana s potmi (t.j. obstaja pot med poljubnima dvema točkama iz te množice).% oz. poljubni dve točki iz te množice lahko povežemo z zvezno krivulju, ki je v celoti vsebovana v množici).
 \end{lema}
 
 \begin{proof}
 Zaradi lastnosti \ref{l3} in \ref{l4} lahko brez škode za splošnost predpostavimo, da je $\mu=0$ in $H=\text{diag}\{d_1,d_2,\dots,d_n\}$ realna diagonalna matrika.
 Potem je 
-$$W(H)=\Big\{ \sum_{j=1}^{n} d_j|x_j|^2\! : x_1,x_2,\dots,x_n \in \C,\ \sum_{j=1}^{n} |x_j|^2=1\Big \}.$$
+$$W(H)=\Big\{ \sum_{j=1}^{n} d_j|x_j|^2: x_1,x_2,\dots,x_n \in \C,\ \sum_{j=1}^{n} |x_j|^2=1\Big \}.$$
 Naj bosta $x=(x_j), y=(y_j)\in \LH_{H}(0)$ t.j. $x,y$ sta enotska vektorja za katera velja 
 $$\sum_{j=1}^{n} d_j|x_j|^2=\sum_{j=1}^{n} d_j|y_j|^2=0.$$
  Pokazati želimo, da v $\LH_{H}(0)$ obstaja zvezna pot, ki povezuje $x$ in $y$. Ker je vsak vektor 
