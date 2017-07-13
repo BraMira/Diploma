@@ -9,7 +9,7 @@ Repozitorij za mojo diplomo Računanje izotropnih vektorjev.
 - [ ] Kompaktnost: pustim tako kot je?
 - [ ] zgornja lema drži za vsako skalarno množenje hermitske matrike? verjetno da velja tudi če matriko skalarno množimo preveri
 - [ ] definicija funckije z(t)? nisem ziher kaj je tu mislil s tem kje je tu funkcija
-- [ ] v lemi 3.1 poglej če zdaj pravilno arg napiše
+- [x] v lemi 3.1 poglej če zdaj pravilno arg napiše
 - [ ] preveri če keri algoritem vrne da točka mi ni v zalogi vrednosti ali pa samo da ni rešitve
-- [ ] footnote probaj dati na prvo stran in če ne gre vključi v tekst
+- [x] footnote probaj dati na prvo stran in če ne gre vključi v tekst
 - [x] vse številke napiši z besedo
