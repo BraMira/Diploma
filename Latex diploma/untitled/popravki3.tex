@@ -597,8 +597,7 @@ Za vsak algoritem bomo preverili v kolikšnem času je našel (ali ni našel) re
 %
 %\label{koraki}
 %\end{table}
-ter kako velika je napaka $|b^\ast Ab|.$
-Če algoritem ne najde rešitve, rečemo, da je napaka neskončna. A algoritma \verb+AlgC+ in \verb+AlgCPU+ v takem primeru povesta še, da $\mu \not\in W(A)$ oz. \verb+AlgCPU+ pove tudi, da je ena od matrik $H$ ali $K$ definitna. Naš algoritem tega ne pove, razen v primeru, ko sta $A$ in $\mu$ realna.
+ter kako velika je napaka $|b^\ast Ab|.$ Če algoritem ne najde rešitve, rečemo, da je napaka neskončna. A algoritma \verb+AlgC+ in \verb+AlgCPU+ v takem primeru povesta še, da $\mu \not\in W(A)$ oz. \verb+AlgCPU+ pove tudi, da je ena od matrik $H$ ali $K$ definitna. Naš algoritem tega ne pove, razen v primeru, ko sta $A$ in $\mu$ realna.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A in $\mu$ realna}
 
@@ -786,8 +785,8 @@ Algoritem & Čas & Koraki & Napaka\\
 
 \label{t5}
 \end{table}
+Poglejmo si grafično kako deluje naš algoritem, ko je $\mu$ zunaj numeričnega zaklada, za realno naključno generirano $50\times 50$ matriko A in $\mu = -8+4\imath$, slika \ref{fig:p6}. V takem primeru naš algoritem ne ugotavlja ali je $\mu$ v numeričnem zakladu ali ne, saj do zadnjega trenutka išče možne kombinacije elips. To bi bila ena od možnih izboljšav algroritma.
 
-Poglejmo še en primer, kjer algoritem ne deluje za realno naključno generirano $50\times 50$ matriko A in $\mu = -8+4\imath$, ki je na robu numeričnega zaklada, slika \ref{fig:p61}.
 \begin{figure}[H]
 \renewcommand*\thesubfigure{\Alph{subfigure}}
 \begin{subfigure}[t]{0.45\textwidth}
@@ -813,26 +812,37 @@ Poglejmo še en primer, kjer algoritem ne deluje za realno naključno generirano
 \label{fig:p63}
 \end{subfigure}
 \caption{Numerični zaklad premaknjene matrike $A$ in kako grafično ne najdemo rešitve.}
+\label{fig:p6}
 \end{figure}
 
+
+Poglejmo primer iz članka \cite{trije}, kjer naš algoritem ne najde rešitve, čeprav je izhodišče znotraj numeričnega zaklada, slika \ref{fig:p64}, druga algoritma pa jo najdeta. Kako bi se izognili takšnim primerom opišemo v naslednjem razdelku.
+
+
+
 \begin{table}[H]
-\caption{A realen, $\mu = -8+4\imath$ in naš algoritem ne najde rešitve.}
+\caption{A realen, $\mu = 23.2 +20\imath$ in naš algoritem ne najde rešitve.}
 \begin{tabular}{|l|c|c|c|}
 \hline
 Algoritem & Čas & Koraki & Napaka\\
 \hline
 \hline
-\verb+AlgM+ &0.045873&2&Inf\\
+\verb+AlgM+ &0.013259&2&Inf\\
 \hline
-\verb+AlgC+ &0.037658 &4& Inf\\
+\verb+AlgC+ &0.022176 &6&1.1235e-14\\
 \hline
-\verb+AlgCPU+ &0.010971&1&Inf \\
+\verb+AlgCPU+ &0.001088&3&1.7764e-15\\
 \hline
 \end{tabular}
 
 \label{t6}
 \end{table}
 
+\begin{figure}[H]
+\includegraphics[scale=0.4]{RCnires-NOV.jpg}
+\caption{Numerični zaklad matrike in izhodišče, kjer naš algoritem ne deluje, čeprav bi moral.}
+\label{fig:p64}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A in $\mu$ kompleksna}
 V tem poglavju bomo za matriko $A$ vzeli matriko,  ki je uporabljena tudi v \cite{meurant} in \cite{trije}, velikosti $200\times 200$, ki se konstruira iz Fiedlerjeve $F$ in Molerjeve $M$ matrike. Potem je $B=F + \imath M$ in A (v Matlab kodi):
@@ -951,23 +961,55 @@ Odvisno od položaja izhodišča glede na numerični zaklad lahko ločimo štiri
 \begin{itemize}
 \item Če so vsa presečišča elipse z realno osjo pozitivna in je $\Im (rm) <0$, potem naredimo bisekcijo kota $\pi /2$ in $\pi$ in izračunamo največjo lastno vrednost $A(3/4 \pi)$ ter pripadajoč lastni vektor $x_{nov}$. 
 $p = x_{nov}^\ast A x_{nov}$ je točka na robu numeričnega zaklada med točkama $rm$ in $iM$. 
-Če je $\Im (p) <0$, potem iščemo presečišča $p-iM$ elipse z realno osjo, če pa je $\Im (p) >0$, potem iščemo presečišča $rm-p$ elipse z realno osjo.
+Če je $\Im (p) <0$, potem iščemo presečišča $p$-$iM$ elipse z realno osjo, če pa je $\Im (p) >0$, potem iščemo presečišča $rm$-$p$ elipse z realno osjo.
 
 \item Če so vsa presečišča elipse z realno osjo pozitivna in je $\Im (rm) >0$, potem naredimo bisekcijo kota $3/2 \pi$ in $\pi$ in izračunamo največjo lastno vrednost $A(5/4 \pi)$ ter pripadajoč lastni vektor $x_{nov}$. 
 $p = x_{nov}^\ast A x_{nov}$ je točka na robu numeričnega zaklada med točkama $im$ in $rm$. 
-Če je $\Im (p) <0$, potem iščemo presečišča $p-rm$ elipse z realno osjo, če pa je $\Im (p) >0$, potem iščemo presečišča $im-p$ elipse z realno osjo.
+Če je $\Im (p) <0$, potem iščemo presečišča $p$-$rm$ elipse z realno osjo, če pa je $\Im (p) >0$, potem iščemo presečišča $im$-$p$ elipse z realno osjo.
 
 \item Če so vsa presečišča elipse z realno osjo negativna in je $\Im (rM) <0$, potem naredimo bisekcijo kota $0$ in $\pi /2$ in izračunamo največjo lastno vrednost $A(1/4 \pi)$ ter pripadajoč lastni vektor $x_{nov}$. 
 $p = x_{nov}^\ast A x_{nov}$ je točka na robu numeričnega zaklada med točkama $rM$ in $iM$. 
-Če je $\Im (p) <0$, potem iščemo presečišča $p-iM$ elipse z realno osjo, če pa je $\Im (p) >0$, potem iščemo presečišča $rM-p$ elipse z realno osjo.
+Če je $\Im (p) <0$, potem iščemo presečišča $p$-$iM$ elipse z realno osjo, če pa je $\Im (p) >0$, potem iščemo presečišča $rM$-$p$ elipse z realno osjo.
 
-\item Če so vsa presečišča elipse z realno osjo negativna in je $\Im (rM) <0$, potem naredimo bisekcijo kota $3/2 \pi$ in $2\pi$ in izračunamo največjo lastno vrednost $A(7/4 \pi)$ ter pripadajoč lastni vektor $x_{nov}$. 
+\item Če so vsa presečišča elipse z realno osjo negativna in je $\Im (rM) >0$, potem naredimo bisekcijo kota $3/2 \pi$ in $2\pi$ in izračunamo največjo lastno vrednost $A(7/4 \pi)$ ter pripadajoč lastni vektor $x_{nov}$. 
 $p = x_{nov}^\ast A x_{nov}$ je točka na robu numeričnega zaklada med točkama $im$ in $rM$. 
-Če je $\Im (p) <0$, potem iščemo presečišča $p-rM$ elipse z realno osjo, če pa je $\Im (p) >0$, potem iščemo presečišča $im-p$ elipse z realno osjo.
+Če je $\Im (p) <0$, potem iščemo presečišča $p$-$rM$ elipse z realno osjo, če pa je $\Im (p) >0$, potem iščemo presečišča $im$-$p$ elipse z realno osjo.
 
 \end{itemize}
 
-Bisekcijo izvajamo poljubno dolgo, dokler ne najdemo presečišči elipse z realno osjo na obeh straneh 0, ali dokler $A(\theta)$ ne postane definitna.
+Bisekcijo izvajamo poljubno dolgo, dokler ne najdemo presečišči elipse z realno osjo na obeh straneh 0, ali dokler $A(\theta)$ ne postane definitna.\\
+
+Vrnimo se k primeru iz tabele \ref{fig:p6} in poglejmo kako bi uporabili bisekcijo kota v tem primeru. Očitno bomo uporabili zadnjo točko iz bisekcije, saj so vsa presečišča negativna in $\Im (rM) >0$. Kako smo našli rešitev je grafično predstavljeno na sliki \ref{fig:p8}.
+
+\begin{figure}[h]
+\renewcommand*\thesubfigure{\Alph{subfigure}}
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{prva.jpg}
+\caption{Prva točka $p$, ki jo dobimo iz bisekcije, je označena z modrim $\diamond$. Očitno moramo iskati presečišči $p$-$rM$ elipse z realno osjo.}
+\label{fig:p81}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{prva-zoom.jpg}
+\caption{Vidimo, da izhodišče ni vsebovano v elipsi, kar pomeni, da ne najdemo presečišči z realno osjo na vsaki strani ničle.}
+\label{fig:p82}
+\end{subfigure}
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{druga-zoom.jpg}
+\caption{Drugo točko $p$ dobimo iz bisekcije kota $7/4 \pi$ in $2\pi$, označeno z zelenim $\diamond$.}
+\label{fig:p83}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+\includegraphics[width=0.9\linewidth,height=5cm]{druga-konec.jpg}
+\caption{Očitno moramo iskati presečišči $p$-$p_{star}$ elipse z realno osjo. Tokrat je izhodišče vsebovano v elipsi in končamo.}
+\label{fig:p83}
+\end{subfigure}
+\caption{Kako najdemo rešitev z uporabo bisekcije kota v dveh korakih.}
+\label{fig:p8}
+\end{figure}
+
+\clearpage
 
 %%%%%%%%%%%%%%%%%%SLIKEEEEEE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -975,7 +1017,7 @@ Bisekcijo izvajamo poljubno dolgo, dokler ne najdemo presečišči elipse z real
 %Za \verb+AlgM+ vemo, da če algoritem potrebuje le 1. korak, deluje hitrejše od ostalih dve algoritmov, saj porabi le eno računanje lastnih vektorjev in vrednosti. Če pa 1. korak ali drugi korak ne delujeta, je to potrata časa in druga dva algoritma delujeta hitreje.
 
 \section{Zaključek}
-V delu diplomskega seminarja smo pokazali kako najdemo izotropne vektorje, če imamo realno ali kompleksno začetno matriko. Za realne matrike smo opisali enostaven algoritem, ki nam vrne poljubno število izotropnih vektorjev, pod pogojem, da imamo tri različne lastne vrednosti, ki ne smejo biti istega predznaka. Za kompleksne matrike smo opisali tri različne algoritme treh različnih avtorjev. Algoritem Meuranta išče izotropne vektorje s pomočjo lastnih vektorjev in lastnih vrednosti matrike $K$, če to ne deluje poskusi z matriko $H$, če pa še to ne deluje pa kombinira lastne vektorje matrik $K$ in $H$. Algoritem najde izotropne vektorje tako, da poišče presečišči realne osi z elipso, ki gre skozi pare točke, ki smo jih izračunali z lastnimi vektorji, nato uporabi lemo \ref{komp}. Algoritem Cardna deluje tako, da najde tri take točke, da je 0 v njihovi konveksni ogrinjači in da za njih pozna pripadajoče izotropne vektorje, potem je iskan izotropni vektor konveksna kombinacija drugih izotropnih vektorjev. Algoritem CPU najprej izračuna ekstremne vrednosti numeričnega zaklada, potem pa išče presečišči elipse, ki gre skozi vsak par teh točk, z realno osjo. Če najde taki točki izračuna rešitev z uporabo leme \ref{komp}, če ne pa uporabi bisekcijo kota in ponovi postopek. Algoritem Meuranta smo tudi sprogramirali v Matlabu in preizkusili na različnih primerih. Opazili smo, da deluje najhitreje, če najde rešitev samo z lastnimi vektorji in lastnimi vrednostmi matrike $K$, drugače sta ostala algoritma hitrejša. Opisali smo tudi postopek bisekcije kota, ki bi izboljšal naš algoritem, da bi deloval še v več primerih.
+V delu diplomskega seminarja smo pokazali kako najdemo izotropne vektorje, če imamo realno ali kompleksno začetno matriko. Za realne matrike smo opisali enostaven algoritem, ki nam vrne poljubno število izotropnih vektorjev, pod pogojem, da imamo tri različne lastne vrednosti, ki ne smejo biti istega predznaka. Za kompleksne matrike smo opisali tri različne algoritme treh različnih avtorjev. Algoritem Meuranta išče izotropne vektorje s pomočjo lastnih vektorjev in lastnih vrednosti matrike $K$, če to ne deluje poskusi z matriko $H$, če pa še to ne deluje pa kombinira lastne vektorje matrik $K$ in $H$. Algoritem najde izotropne vektorje tako, da poišče presečišči realne osi z elipso, ki gre skozi pare točke, ki smo jih izračunali z lastnimi vektorji, nato uporabi lemo \ref{komp}. Algoritem Cardna deluje tako, da najde tri take točke, da je 0 v njihovi konveksni ogrinjači in da za njih pozna pripadajoče izotropne vektorje, potem je iskan izotropni vektor konveksna kombinacija drugih izotropnih vektorjev. Algoritem CPU najprej izračuna ekstremne vrednosti numeričnega zaklada, potem pa išče presečišči elipse, ki gre skozi vsak par teh točk, z realno osjo. Če najde taki točki izračuna rešitev z uporabo leme \ref{komp}, če ne pa uporabi bisekcijo kota in ponovi postopek. Algoritem Meuranta smo tudi sprogramirali v Matlabu in preizkusili na primerih, ko sta $A$ in $\mu$ realna, ko je $A$ realen in $\mu$ kompleksen ter ko sta $A$ in $\mu$ kompleksna. Opazili smo, da naš algoritem deluje najhitreje, če najde rešitev samo z lastnimi vektorji in lastnimi vrednostmi matrike $K$, drugače sta ostala algoritma hitrejša. Vključili smo tudi primere, ko algoritem ne deluje. To je, ko je $A$ definitna ali ko je $\mu$ zunaj numeričnega zaklada ali zelo blizu robu. V primerih, ko je $\mu$ znotraj numeričnega zaklada, a naš algoritem ne najde rešitve, smo opisali možno izboljšavo. Ta postopek je bisekcija kota, ki glede na položaj izhodišča, poišče novo  točko na robu numeričnega zaklada. Potem iščemo presečišči realne osi z elipso nove točke in primerne ekstremne točke numeričnega zaklada. Če sta novi presečišči na vsaki strani izhodišča uporabimo lemo \ref{komp} in končamo, če ne ponovimo bisekcijo. Tako lahko v večini primerov  najdemo izotropni vektor.
 \newpage
 \section{Priloge}
 \begin{verbatim}
