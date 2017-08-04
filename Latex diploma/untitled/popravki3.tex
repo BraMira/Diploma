@@ -96,12 +96,13 @@ Pomemben pojem pri iskanju teh vektorjev je numerični zaklad, definiran kot\\ $
 Računanje izotropnih vektorjev ločimo na dva dela, in sicer, ko je $A$ realna in ko je kompleksna matrika.
 Ko imamo realno matriko, nas v resnici zanima problem $b^\ast Hb=0$ za hermitsko matriko $H=(A+A^\ast)/2$. 
 Pokažemo kako izračunamo dva izotropna vektorja iz dveh lastnih vektorjev, če je $A$ nedefinitna, in še več, če ima $H$ vsaj tri različne lastne vrednosti, ki ne smejo biti istega predznaka, pokažemo, da obstaja neskončno izotropnih vektorjev.
-Ko imamo kompleksno matriko, je problem težji in postopkov, kako pridemo do rešitve, več. Predstavimo tri teoretične postopke Meuranta, Cardna ter Chorianopoulosa, Psarrakosa in Uhliga.
+Ko imamo kompleksno matriko, je problem težji in postopkov, kako pridemo do rešitve, več. Predstavimo tri teoretične postopke Meuranta, Cardna ter Chorianopoulosa, Psarrakosa in Uhliga (CPU).
 %Za vsak postopek predstavimo potrebne izreke in dodatne konstrukcije, ki se uporabijo, in podrobno opišemo vsak korak v algoritmu.
 Meurantov algoritem najprej uporabi lastne vrednosti in vektorje poševno-hermitske matrike $K=(A-A^\ast)/2\imath$, če to ne deluje uporabi lastne vektorje hermitske matrike $H$, če pa še to ne deluje pa uporabi kombinacijo lastnih vektorjev $K$ in $H$.
 Po tem postopku tudi sprogramiramo kodo v Matlabu.
 %V poglavju Numerična analiza najprej opišemo naš algoritem, ki smo ga povzeli po članku Meuranta, in razložimo zakaj se v nekaterih korakih naš algoritem razlikuje od algoritma iz članka.
-Nadalje naš algoritem primerjamo z drugima algoritmoma na vseh možnih primerih in ugotovimo, da deluje najhitreje, če najde rešitev samo z lastnimi vektorji matrike $K$, drugače sta druga algoritma hitrejša.
+Nadalje naš algoritem primerjamo z drugima algoritmoma na vseh možnih primerih in ugotovimo, da deluje najhitreje, če najde rešitev samo z lastnimi vektorji matrike $K$, drugače je algoritem CPU hitrejši, algoritem Cardna pa je hitrejši samo za manjše matrike.
+Na koncu opišemo še postopek bisekcije kota, ki bi izboljšal naš algoritem.
 %Poleg vsakega primera je tudi slika numeričnega zaklada z dodano grafično predstavitvijo iskanja rešitve.
 %Na koncu še opišemo naša opazovanja in zaključke.
 
@@ -116,12 +117,12 @@ An important concept when searching for these vectors is the field of values (or
 We divide the computation of isotropic vectors into two parts, that is when $A$ is a real or a complex matrix.
 When we have a real matrix, we are in fact interested in problem $b^\ast Hb=0$ for a hermitian matrix $H=(A+A^\ast)/2$.
 We show how to compute two isotropic vectors from two eigevectors if $A$ is non-definitive, and furthermore, if $H$ has at least three distinct eigenvalues of different signs, then there exists an infinite number of isotropic vectors.
-When we are dealing with a complex matrix the problem is more difficult and more methods to find a solution exist. We present three theoretical procedures by Meurant, Carden, and Chorianopoulos, Psarrakos, Uhlig.
+When we are dealing with a complex matrix the problem is more difficult and more methods to find a solution exist. We present three theoretical procedures by Meurant, Carden, and Chorianopoulos, Psarrakos, Uhlig (CPU).
 %For every procedure we show needed theorems and extra constructions, that are used, and we describe each step of the algorithm in detail.
 Meurant's algorithm first uses eigenvalues and eigenvectors of the skew-Hermitian matrix $K=(A-A^\ast)/2\imath$, if this does not work it uses eigenvectors of the Hermitian matrix $H$, and if this also does not work it uses a combination of eigenvectors from $K$ and $H$.
 We write a code in Matlab after this algorithm.
 %In the chapter Numerical analysis we firstly describe our algorithm, which was based of Meurant's paper, and we explain why in some steps in differs from the algorithm in the paper.
-Further, we compare our algorithm with the algorithms from the other two papers on every possible example and we conclude that our algorithm is faster if we can find a solution with only one eigenanalysis of matrix $K$, otherwise the other two algorithms are faster.
+Further, we compare our algorithm with the algorithms from the other two papers on every possible example and we conclude that our algorithm is faster if we can find a solution with only one eigenanalysis of matrix $K$, otherwise CPU's algorithm is faster and Carden's algorithm is faster only for smaller matrices. Lastly we describe the procedure of angle bisection, which is a possible improvement of our algorithm.
 %Next to each example we include a picture of the field of values with added graphical illustrations of how we find a solution.
 %Lastly we show our observations and conclusions.
 
@@ -135,9 +136,9 @@ Further, we compare our algorithm with the algorithms from the other two papers 
 %1. poglavje
 
 \section{Uvod}
-V uvodnem poglavju bomo predstavili problem iskanja izotropnih vektorjev ter vse pojme, ki nam bodo v nadaljnem pomagali pri računanju, kot je numerični zaklad. 
+V uvodnem poglavju bomo predstavili problem iskanja izotropnih vektorjev ter vse pojme, ki nam bodo v nadaljevanju pomagali pri računanju, kot je numerični zaklad. 
 V ostalih poglavjih bomo problem razdelili na realne in kompleksne matrike, ter pojasnili kako izračunamo izotropne vektorje v vsakem primeru.
-Na koncu bomo en algoritem implementirali v Matlabu in ga primerjali s še dvema algoritmoma.\\
+Na koncu bomo en algoritem implementirali v Matlabu in ga primerjali s še dvema algoritmoma ter opisali kaki bi ga izboljšali.\\
 Sedaj pa opišimo glavni problem tega dela.
 \subsection{Problem}
 
@@ -221,7 +222,7 @@ Nekatere lastnosti numeričnega zaklada (\cite{num}, \cite{zaloga}) so:
 \item Konveksnost bomo dokazali v naslednjem poglavju. Kompaktnost: Množica $W(A)$ je zaloga vrednosti zvezne funkcije $x \rightarrow x^\ast Ax$ na definicijskem območju $\{x\! :x\in \C^n ,\ x^\ast x=1\}$ (površina enotske sfere), ki je kompaktna množica. Ker je $W(A)$ slika kompaktne množice pod zvezno funkcijo, sledi, da je $W(A)$ kompaktna.
 \item Predpostavimo, da imamo $\lambda \in \sigma(A)$. Potem obstaja neničeln vektor $x\in \C ^n$ (za katerega lahko predpostavimo, da je enotski), za katerega velja $Ax=\lambda x$ in zato je
 $$\lambda = \lambda x^\ast x=x^\ast (\lambda x) = x^\ast Ax \in W(A).$$
-\item Ker unitarna transformacija preslika enotsko sfero nazaj v enotsko sfero so kompleksna števila, ki sestavljajo množici $W(U^\ast AU)$ in $W(A)$, enaka. 
+\item Naj bo $U$ unitarna matrika. Ker unitarna transformacija preslika enotsko sfero nazaj v enotsko sfero so kompleksna števila, ki sestavljajo množici $W(U^\ast AU)$ in $W(A)$, enaka. 
 % Ker unitarna transformacija naredi površino Euklidske enotske krogle invariantno, so kompleksna števila, ki sestavljajo množici $W(U^\ast AU)$ in $W(A)$ enaka. 
 Če je $x\in \C^n$ in $x^\ast x=1$, imamo $$x^\ast (U^\ast AU)x=y^\ast Ay \in W(A),$$ kjer je $y = Ux$, torej $$y^\ast y=x^\ast U^\ast Ux=x^\ast x=1.$$ Torej je $W(U^\ast AU)\subseteq W(A)$. 
 
@@ -262,7 +263,7 @@ Po lastnosti \ref{l3} je $W(A)=W(\Lambda)$ in ker je $$x^\ast \Lambda x = \sum_{
 je $W(\Lambda)$ množica vseh konveksnih kombinacij diagonalnih elementov $\Lambda$\\($x^\ast x=1$ implicira $ \sum_{i} |x_i|^2 =1$ in $|x_i|^2 \geq 0$). 
 Ker so diagonalni elementi $\Lambda$ lastne vrednosti $A$, to pomeni da je $W(A) =\Co(\sigma(A))$
 
-\item Ker je hermitska matrika tudi normalna, velja $$W(H) = \Co(\sigma(H))$$ zaradi lastnosti \ref{l3}.
+\item Ker je hermitska matrika tudi normalna, velja $$W(H) = \Co(\sigma(H))$$ zaradi lastnosti \ref{l8}.
 Vemo, da se numerični zaklad hermitske matrike projecira na realno os ter da je $\sigma(H)$ množica vseh realnih lastnih vrednosti matrike $H$. 
 Konveksna ogrinjača $\sigma(H)$ je množica vseh daljic med lastnimi vrednostmi matrike $H$ in, ker je numerični zaklad hermitske matrike daljica na realni osi, je to daljica, ki ima za krajišči najmanjšo in največjo realno lastno vrednostjo $H$.
 \end{enumerate}
@@ -597,7 +598,7 @@ Za vsak algoritem bomo preverili v kolikšnem času je našel (ali ni našel) re
 %
 %\label{koraki}
 %\end{table}
-ter kako velika je napaka $|b^\ast Ab|.$ Če algoritem ne najde rešitve, rečemo, da je napaka neskončna. A algoritma \verb+AlgC+ in \verb+AlgCPU+ v takem primeru povesta še, da $\mu \not\in W(A)$ oz. \verb+AlgCPU+ pove tudi, da je ena od matrik $H$ ali $K$ definitna. Naš algoritem tega ne pove, razen v primeru, ko sta $A$ in $\mu$ realna.
+ter kako velika je napaka $|b^\ast Ab|.$ Če algoritem ne najde rešitve, rečemo, da je napaka neskončna. A algoritma \verb+AlgC+ in \verb+AlgCPU+ v takem primeru povesta še, da $\mu \not\in W(A)$. Naš algoritem tega ne pove, razen v primeru, ko sta $A$ in $\mu$ realna.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A in $\mu$ realna}
 
@@ -767,7 +768,7 @@ Za tretji primer vzamemo realno naključno generirano $20\times 20$ matriko A in
 \end{subfigure}
 \caption{Numerični zaklad premaknjene matrike $A$ in kako grafično najdemo rešitev v treh korakih.}
 \end{figure}
-V tabeli \ref{t5} vidimo, da naš algoritem potrebuje dva izračuna lastnih vektorjev in lastnih vrednosti, vendar je v tem primeru uporabil kombinacijo le-teh matrik $K$ in $H$. Tudi \verb+AlgCPU+ porabi dva izračuna in je hitrejši od našega, \verb+AlgC+ pa porabi štiri izračune in je hitrejši od našega algoritma.
+V tabeli \ref{t5} vidimo, da naš algoritem potrebuje dva izračuna lastnih vektorjev in lastnih vrednosti, vendar je v tem primeru uporabil kombinacijo lastnih vektorjev matrik $K$ in $H$. Tudi \verb+AlgCPU+ porabi dva izračuna in je hitrejši od našega, \verb+AlgC+ pa porabi štiri izračune in je tudi hitrejši od našega algoritma.
 \begin{table}[H]
 \caption{A realen, $\mu = 2 + 2\imath$.}
 \begin{tabular}{|l|c|c|c|}
@@ -840,7 +841,7 @@ Algoritem & Čas & Koraki & Napaka\\
 
 \begin{figure}[H]
 \includegraphics[scale=0.4]{RCnires-NOV.jpg}
-\caption{Numerični zaklad matrike in izhodišče, kjer naš algoritem ne deluje, čeprav bi moral.}
+\caption{Numerični zaklad premaknjene matrike in izhodišče, označeno z rdečo $\ast$, kjer naš algoritem ne najde rešitve, čeprav bi jo moral.}
 \label{fig:p64}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -869,7 +870,7 @@ Algoritem & Čas & Koraki & Napaka\\
 \label{t7}
 \end{table}
 
-Za drugi primer vzamemo $\mu = 12000+10000\imath$, ki je bližje robu, slika \ref{fig:p7}. V tabeli \ref{t8} lahko vidimo, da ker naš algoritem najde rešitev v dveh korakih, ni več najhitrejši, ampak ima pa še vedno najmanjšo napako.
+Za drugi primer vzamemo $\mu = 12000+10000\imath$, ki je bližje robu, slika \ref{fig:p7}. V tabeli \ref{t8} lahko vidimo, da naš algoritem najde rešitev v dveh korakih, zato je počasnejši od \verb+AlgCPU+, ampak hitrejši od \verb+AlgC+. V originalnem članku Meuranta iz \cite{meurant} je za isti primer Meurant našel rešitev s kombinacijo lastnih vektorjev matrik $K$ in $H$, medtem ko naš algoritem najde rešitev brez kombiniranja. Kot smo omenili v opisu algoritma je to posledica tega, da maksimiziramo elipso, tako je večja verjetnost, da je izhodišče vsebovano v njej.
 
 \begin{table}[H]
 \caption{A kompleksna, $\mu = 12000+10000\imath$.}
@@ -889,7 +890,7 @@ Algoritem & Čas & Koraki & Napaka\\
 \label{t8}
 \end{table}
 
-Za tretji primer vzamemo $\mu = 12500+10000\imath$, ki je še bližje robu kot v prejšnjem primeru, slika \ref{fig:p7}. V tabeli \ref{t9} vidimo, da ko naš algoritem uporabi kombinacijo lastnih vektorjev in lastnih vrednosti matrik $K$ in $H$, sta druga algoritma hitrejša.
+Za tretji primer vzamemo $\mu = 12500+10000\imath$, ki je še bližje robu kot v prejšnjem primeru, slika \ref{fig:p7}. V tabeli \ref{t9} vidimo, da ko naš algoritem uporabi kombinacijo lastnih vektorjev in lastnih vrednosti matrik $K$ in $H$, je \verb+AlgCPU+ mnogo hitrejši, medtem ko je \verb+AlgC+ malo počasnejši od našega algoritma.
 
 
 \begin{table}[H]
@@ -910,7 +911,7 @@ Algoritem & Čas & Koraki & Napaka\\
 \label{t9}
 \end{table}
 
-Za zadnji primer vzamimo $\mu = 6000+16000\imath$, ki je blizu roba, ampak vseeno ni v numeričnem zakladu, slika \ref{fig:p7}.
+Za zadnji primer vzamimo $\mu = 6000+16000\imath$, ki je blizu roba, ampak vseeno ni v numeričnem zakladu, slika \ref{fig:p7}. Vidimo, da noben algoritem ne najde rešitve, kar je pravilno. Spet to najhitreje naredi \verb+AlgCPU+, potem naš algoritem in na koncu \verb+AlgC+.
 
 
 \begin{table}[H]
@@ -1017,7 +1018,7 @@ Vrnimo se k primeru iz tabele \ref{fig:p6} in poglejmo kako bi uporabili bisekci
 %Za \verb+AlgM+ vemo, da če algoritem potrebuje le 1. korak, deluje hitrejše od ostalih dve algoritmov, saj porabi le eno računanje lastnih vektorjev in vrednosti. Če pa 1. korak ali drugi korak ne delujeta, je to potrata časa in druga dva algoritma delujeta hitreje.
 
 \section{Zaključek}
-V delu diplomskega seminarja smo pokazali kako najdemo izotropne vektorje, če imamo realno ali kompleksno začetno matriko. Za realne matrike smo opisali enostaven algoritem, ki nam vrne poljubno število izotropnih vektorjev, pod pogojem, da imamo tri različne lastne vrednosti, ki ne smejo biti istega predznaka. Za kompleksne matrike smo opisali tri različne algoritme treh različnih avtorjev. Algoritem Meuranta išče izotropne vektorje s pomočjo lastnih vektorjev in lastnih vrednosti matrike $K$, če to ne deluje poskusi z matriko $H$, če pa še to ne deluje pa kombinira lastne vektorje matrik $K$ in $H$. Algoritem najde izotropne vektorje tako, da poišče presečišči realne osi z elipso, ki gre skozi pare točke, ki smo jih izračunali z lastnimi vektorji, nato uporabi lemo \ref{komp}. Algoritem Cardna deluje tako, da najde tri take točke, da je 0 v njihovi konveksni ogrinjači in da za njih pozna pripadajoče izotropne vektorje, potem je iskan izotropni vektor konveksna kombinacija drugih izotropnih vektorjev. Algoritem CPU najprej izračuna ekstremne vrednosti numeričnega zaklada, potem pa išče presečišči elipse, ki gre skozi vsak par teh točk, z realno osjo. Če najde taki točki izračuna rešitev z uporabo leme \ref{komp}, če ne pa uporabi bisekcijo kota in ponovi postopek. Algoritem Meuranta smo tudi sprogramirali v Matlabu in preizkusili na primerih, ko sta $A$ in $\mu$ realna, ko je $A$ realen in $\mu$ kompleksen ter ko sta $A$ in $\mu$ kompleksna. Opazili smo, da naš algoritem deluje najhitreje, če najde rešitev samo z lastnimi vektorji in lastnimi vrednostmi matrike $K$, drugače sta ostala algoritma hitrejša. Vključili smo tudi primere, ko algoritem ne deluje. To je, ko je $A$ definitna ali ko je $\mu$ zunaj numeričnega zaklada ali zelo blizu robu. V primerih, ko je $\mu$ znotraj numeričnega zaklada, a naš algoritem ne najde rešitve, smo opisali možno izboljšavo. Ta postopek je bisekcija kota, ki glede na položaj izhodišča, poišče novo  točko na robu numeričnega zaklada. Potem iščemo presečišči realne osi z elipso nove točke in primerne ekstremne točke numeričnega zaklada. Če sta novi presečišči na vsaki strani izhodišča uporabimo lemo \ref{komp} in končamo, če ne ponovimo bisekcijo. Tako lahko v večini primerov  najdemo izotropni vektor.
+V delu diplomskega seminarja smo pokazali kako najdemo izotropne vektorje, če imamo realno ali kompleksno začetno matriko. Za realne matrike smo ugotovili, da je dovolj gledati le simetričen del matrike začetne matrike in opisali enostaven algoritem, ki nam vrne poljubno število izotropnih vektorjev, pod pogojem, da imamo tri različne lastne vrednosti, ki ne smejo biti istega predznaka. Za kompleksne matrike smo opisali tri različne algoritme treh različnih avtorjev. Algoritem Meuranta išče izotropne vektorje s pomočjo lastnih vektorjev in lastnih vrednosti matrike $K$, če to ne deluje poskusi z matriko $H$, če pa še to ne deluje pa kombinira lastne vektorje matrik $K$ in $H$. Algoritem najde izotropne vektorje tako, da poišče presečišči realne osi z elipso, ki gre skozi pare točke, ki smo jih izračunali z lastnimi vektorji, nato uporabi lemo \ref{komp}. Algoritem Cardna deluje tako, da najde tri take točke, da je 0 v njihovi konveksni ogrinjači in da za njih pozna pripadajoče izotropne vektorje, potem je iskan izotropni vektor konveksna kombinacija drugih izotropnih vektorjev. Algoritem CPU najprej izračuna ekstremne vrednosti numeričnega zaklada, potem pa išče presečišči elipse, ki gre skozi vsak par teh točk, z realno osjo. Če najde taki točki, izračuna rešitev z uporabo leme \ref{komp}, če ne pa uporabi bisekcijo kota in ponovi postopek. Algoritem Meuranta smo tudi sprogramirali v Matlabu in preizkusili na primerih, ko sta $A$ in $\mu$ realna, ko je $A$ realen in $\mu$ kompleksen ter ko sta $A$ in $\mu$ kompleksna. Opazili smo, da naš algoritem deluje najhitreje, če najde rešitev samo z lastnimi vektorji in lastnimi vrednostmi matrike $K$, drugače je algoritem CPU hitrejši v vseh primerih, a Cardnov algoritem samo pri majhnih matrikah. Napake so povsod primerljive in sprejemljive, glede na našo toleranco $10^{-10}$. Vključili smo tudi primere, ko algoritem ne deluje. To je, ko je $A$ definitna, $\mu$ zunaj numeričnega zaklada ali zelo blizu roba. V primerih, ko je $\mu$ znotraj numeričnega zaklada, a naš algoritem ne najde rešitve, smo opisali možno izboljšavo. Ta postopek je bisekcija kota, ki glede na položaj izhodišča, poišče novo  točko na robu numeričnega zaklada. Potem iščemo presečišči realne osi z elipso nove točke in primerne ekstremne točke numeričnega zaklada. Če sta novi presečišči na vsaki strani izhodišča uporabimo lemo \ref{komp} in končamo, če ne ponovimo bisekcijo. Tako lahko v večini primerov  najdemo izotropni vektor.
 \newpage
 \section{Priloge}
 \begin{verbatim}
